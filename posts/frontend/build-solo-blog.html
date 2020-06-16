@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java常见基础知识总结">
+    <meta name="keywords" content="搭建个人博客,solo个人博客">
     <meta name="description" content="龙居雅阁是一个技术,经验分享的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Java基础知识总结 | 龙居雅阁</title>
+    <title>从零搭建solo个人博客网站 | 龙居雅阁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java基础知识总结</h1>
+                    <h1 class="description center-align post-title">从零搭建solo个人博客网站</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
                             </a>
                         
-                            <a href="/tags/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
-                                <span class="chip bg-color">知识总结</span>
+                            <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+                                <span class="chip bg-color">个人博客网站</span>
                             </a>
                         
                     </div>
@@ -447,8 +447,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Java%E5%90%8E%E7%AB%AF/" class="post-category">
-                                Java后端
+                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                前端
                             </a>
                         
                     </div>
@@ -460,28 +460,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-14
+                    2018-07-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-06-15
+                    2020-06-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    8 分
                 </div>
                 
 
@@ -496,125 +496,148 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="1-substring-方法"><a href="#1-substring-方法" class="headerlink" title="1. substring()方法"></a>1. substring()方法</h3><p><code>String</code>类的<code>substring()</code>方法在JDK6与JDK7的区别:</p>
-<ul>
-<li><strong>JDK6</strong>：截取的<code>String</code>对象会共享字符数组 (对于从很长的字符串中截取很小的字符串时，可能会引起内存泄漏，因为内部使用的字符数组不能被回收）</li>
-<li><strong>JDK7</strong>：截取的<code>String</code>对象会创建新的字符数组</li>
-</ul>
-<h3 id="2-Integer缓存机制"><a href="#2-Integer缓存机制" class="headerlink" title="2. Integer缓存机制"></a>2. Integer缓存机制</h3><ul>
-<li>当整数在-128到127范围时，会使用缓存的<code>Integer</code>对象，而不会新建对象。</li>
-<li>缓存机制只有在自动装箱场景下有用。如：<code>Integer i = 10</code></li>
-<li><code>Byte</code>, <code>Short</code>, <code>Long</code>, <code>Character</code>都有类似缓存机制。<code>Character</code>适用范围为<code>0</code>到<code>127</code>.</li>
-</ul>
-<h3 id="3-浮点型"><a href="#3-浮点型" class="headerlink" title="3. 浮点型"></a>3. 浮点型</h3><h3 id="4-SynchronizedList与Vector区别"><a href="#4-SynchronizedList与Vector区别" class="headerlink" title="4. SynchronizedList与Vector区别"></a>4. SynchronizedList与Vector区别</h3><ul>
-<li><code>SynchronizedList</code>可以将所有<code>List</code>的子类转成线程安全类</li>
-<li><code>SynchronizedList</code>遍历时需要手动进行同步，<code>Vector</code>的遍历方法加了同步锁</li>
-<li><code>SynchronizedList</code>可以指定锁定的对象</li>
-</ul>
-<h3 id="5-常见垃圾回收器"><a href="#5-常见垃圾回收器" class="headerlink" title="5. 常见垃圾回收器"></a>5. 常见垃圾回收器</h3><ul>
-<li><p><strong>串行回收器 （-XX:+UseSerialGC）</strong></p>
-<p>Young：</p>
-<ul>
-<li><p>串行</p>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久就想搭建一个自己的专属博客网站，用来记录与分享一些技术相关的文章，算做一个备忘录，以便把自己所学进行系统梳理，整理成文，方便以后回顾与巩固。本文记录了我从零搭建该博客网站，从购买服务器，到配置服务器，再到完成个人博客网站的搭建，总共两小时完成。 </p>
+<p>要成功搭建一个网站，需要完成以下几个主要步骤： </p>
+<ol>
+<li><p>购买服务器 </p>
 </li>
-<li><p>复制算法： 1个<code>Eden</code>区，2个<code>Survivor</code>区</p>
+<li><p>购买域名及备案 </p>
 </li>
-</ul>
-<p>Old：</p>
-<ul>
-<li><p>串行</p>
+<li><p>安装依赖软件 </p>
 </li>
-<li><p>标记压缩算法</p>
+<li><p>安装博客程序 </p>
 </li>
-</ul>
+<li><p>登录博客后台设置网站信息 </p>
 </li>
-<li><p><strong>并行回收器 (-XX:+UseParallelGC)</strong></p>
-<p>Young:</p>
-<ul>
-<li><p>多CPU并行</p>
+</ol>
+<p>本文接下来将依次详细介绍每一个步骤。</p>
+<h3 id="1-购买服务器"><a href="#1-购买服务器" class="headerlink" title="1. 购买服务器"></a>1. 购买服务器</h3><p>我购买的阿里云服务器ECS，操作系统镜像选择的Ubuntu系统。以前也没有使用过其他的服务器，没法比较优劣。想来阿里云不会差，毕竟是大厂的。 </p>
+<p>点击<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=g89o8zwv" target="_blank" rel="noopener">这里</a>去阿里云官网上选择一款合适的服务器吧。购买后，登录阿里云管理控制台，进入<code>云服务器ECS</code>就可以看到你的服务器实例。实例会自动启动，几分钟就运行起来了。当你看到状态是运行中，表明已经启动成功了。你也可以看到这个实例的公网IP，你可以用远程SSH工具登录到这个IP进行服务器管理。 </p>
+<p>另外，很重要很重要的是，你需要添加安全组规则，就是添加外部可以访问的端口。默认只开启了<code>22</code>端口。对于搭建网站，你必须要开通<code>80</code>端口，否则网站将无法访问。你可以开通其他端口，比如<code>MySQL</code>的端口，以便以后远程登录数据库查看数据。</p>
+<h3 id="2-购买域名与备案"><a href="#2-购买域名与备案" class="headerlink" title="2. 购买域名与备案"></a>2. 购买域名与备案</h3><p>服务器购买好后，你需要选择一个域名。这个不用多说，去阿里云旗下<a href="https://wanwang.aliyun.com/?spm=5176.8142029.388261.293.5e1f6d3exjjxUP" target="_blank" rel="noopener">万网</a>购买一个。 </p>
+<p>购买后，你需要进行备案。备案对于中国大陆的服务器是必须的，否则就算你域名解析成功了，也是会被和谐掉的，所以去<a href="https://beian.aliyun.com/?spm=5176.100251.0.0.72014f158KiBjf" target="_blank" rel="noopener">这里</a>备案吧！</p>
+<h3 id="3-安装依赖软件"><a href="#3-安装依赖软件" class="headerlink" title="3. 安装依赖软件"></a>3. 安装依赖软件</h3><p>由于<code>Solo</code>是基于Java的开源博客系统，安装<code>Solo</code>之前，我们需要先安装如下依赖软件： </p>
+<ol>
+<li><p>Java </p>
 </li>
-<li><p>复制算法 （与串行相同）</p>
+<li><p>MySQL </p>
 </li>
-</ul>
-<p>Old：与串行回收器相同</p>
+<li><p>Nginx</p>
 </li>
-<li><p><strong>并行压缩回收器（-XX:+UseParallelOldGC)</strong></p>
-<p>Young: 与并行回收器相同</p>
-<p>Old：并行</p>
-</li>
-<li><p><strong>并发标识清理回收器（CMS）-XX:+UseConcMarkSweepGC</strong></p>
-<p>Young: 与并行回收器相同</p>
-<p>Old：并发</p>
-</li>
-</ul>
-<h3 id="6-类型自动提升"><a href="#6-类型自动提升" class="headerlink" title="6. 类型自动提升"></a>6. 类型自动提升</h3><p>当表达式中包含多个基本类型时，会发生自动提升</p>
-<ul>
-<li><code>byte</code>，<code>short</code>和<code>char</code>会被提升为<code>int</code></li>
-<li>提升到与表达式中最高等级操作数同样的类型：<br><code>byte</code> -&gt; <code>short</code><br><code>char</code> -&gt; <code>int</code> -&gt; <code>long</code> -&gt; <code>float</code> -&gt; <code>double</code></li>
-</ul>
-<h3 id="7-隐式类型转换"><a href="#7-隐式类型转换" class="headerlink" title="7. 隐式类型转换"></a>7. 隐式类型转换</h3><p>复合赋值运算符（如<code>+=</code>， <code>-=</code>， <code>*=</code>）会进行隐式类型转换。</p>
-<ul>
-<li><p>会自动将计算结果值强制类型转换为左侧变量的类型</p>
-<p>  e.g,:</p>
-<pre class=" language-java"><code class="language-java">  <span class="token keyword">short</span> i <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-  i <span class="token operator">+=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//不等于 i = i + 2, 会报编译错误</span></code></pre>
-</li>
-</ul>
-<h3 id="8-类型擦除"><a href="#8-类型擦除" class="headerlink" title="8. 类型擦除"></a>8. 类型擦除</h3><p>当把有泛型类型的对象赋值给一个没有泛型类型的变量（原始类型），泛型类型信息将被擦除。</p>
-<h3 id="9-switch语句"><a href="#9-switch语句" class="headerlink" title="9. switch语句"></a>9. switch语句</h3><ul>
-<li><p><code>switch</code>语句只支持：<code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, <code>Character</code>, <code>Byte</code>, <code>Short</code>, <code>Integer</code>, <code>String</code>, <code>enum</code></p>
-</li>
-<li><p>在<code>switch</code>语句中使用枚举类时，<code>case</code>分支中访问枚举值时不能使用枚举类名作为限定，而要直接使用枚举值。</p>
-</li>
-</ul>
-<h3 id="11-if-else语句"><a href="#11-if-else语句" class="headerlink" title="11. if/else语句"></a>11. if/else语句</h3><p><code>if/else</code>语句使用的基本规则：总是优先把包含范围小的条件放在前面</p>
-<h3 id="12-循环语句"><a href="#12-循环语句" class="headerlink" title="12. 循环语句"></a>12. 循环语句</h3><p>如果在for, while或do循环中不使用花括号时，第一个语句不能是局部变量声明语句</p>
-<h3 id="13-instanceof"><a href="#13-instanceof" class="headerlink" title="13. instanceof"></a>13. instanceof</h3><ul>
-<li><p>如果引用变量为<code>null</code>，则永远返回<code>false</code></p>
-<pre class=" language-java"><code class="language-java">String s <span class="token operator">=</span> null<span class="token punctuation">;</span>
-<span class="token keyword">boolean</span> result <span class="token operator">=</span> s <span class="token keyword">instanceof</span> <span class="token class-name">String</span>  <span class="token comment" spellcheck="true">// 返回false</span></code></pre>
-</li>
-<li><p>编译时判断编译类型，运行时才判断引用变量引用的对象实际类型</p>
-</li>
-</ul>
-<h3 id="14-单例模式"><a href="#14-单例模式" class="headerlink" title="14. 单例模式"></a>14. 单例模式</h3><p>单例模式的类一般需要实现一个私有的<code>readResolve()</code>方法，防止反序列化时产生新的对象。</p>
-<h3 id="15-方法重载"><a href="#15-方法重载" class="headerlink" title="15. 方法重载"></a>15. 方法重载</h3><ul>
-<li>调用方法时传入的实际参数会被向上转型为方法的形参类型</li>
-<li>编译时匹配类型更精确的方法进行调用，即传入参数与形参类型更接近</li>
-<li>如果多个参数匹配结果产生冲突，则无法通过编译</li>
-<li>被重载的方法必须改变参数列表，其他修改是optional的</li>
-</ul>
-<h3 id="16-方法重写"><a href="#16-方法重写" class="headerlink" title="16. 方法重写"></a>16. 方法重写</h3><ul>
-<li>参数列表必须完全与被重写方法的相同。</li>
-<li>返回类型必须是被重写方法的相同类型或派生类型（子类，实现类）</li>
-<li>访问权限不能比被重写方法低</li>
-<li>子类必须具有访问父类方法的权限，才能重写父类方法</li>
-<li><code>final</code>方法不能被重写</li>
-</ul>
-<h3 id="17-非静态内部类"><a href="#17-非静态内部类" class="headerlink" title="17. 非静态内部类"></a>17. 非静态内部类</h3><ul>
-<li>编译器会默认为内部类的构造器添加外部类作为第一个参数</li>
-<li>不能有静态成员变量</li>
-</ul>
-<h3 id="18-static"><a href="#18-static" class="headerlink" title="18. static"></a>18. static</h3><ul>
-<li>只能用于修饰类内部成员：Field，方法，内部类，初始化块，内部枚举类</li>
-<li>静态方法由变量的声明类型调用</li>
-<li>静态内部类无法访问外部类的非静态成员</li>
-</ul>
-<h3 id="19-异常"><a href="#19-异常" class="headerlink" title="19. 异常"></a>19. 异常</h3><ul>
-<li><code>catch</code>捕获多个异常时，应先捕获子类异常，再捕获父类异常，否则会报编译错误</li>
-<li>可以在程序任何地方catch 任何运行时异常（<code>RuntimeException</code>及其子类异常），或者异常超类<code>Exception</code></li>
-<li><code>catch</code>只能捕获<code>try</code>块内程序可能抛出的非运行时异常或其父类异常</li>
-<li>子类重写父类方法时，不能声明抛出比父类方法类型更多，范围更大的异常</li>
-</ul>
-<h3 id="20-性能测试工具"><a href="#20-性能测试工具" class="headerlink" title="20. 性能测试工具"></a>20. 性能测试工具</h3><ul>
-<li>LoadRunner</li>
-<li>JMeter</li>
-</ul>
-<h3 id="21-自动化测试工具"><a href="#21-自动化测试工具" class="headerlink" title="21. 自动化测试工具"></a>21. 自动化测试工具</h3><ul>
-<li>WinRunner</li>
-<li>QTP</li>
-<li>Selenium</li>
-</ul>
+</ol>
+<h4 id="3-1-安装Java"><a href="#3-1-安装Java" class="headerlink" title="3.1 安装Java"></a>3.1 安装Java</h4><p>因为<code>Solo</code>是用Java开发的，我们要运行<code>Solo</code>必须的安装Java运行环境。在Oracle官网<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载页面</a>下载Linux版的JDK压缩包,然后上传到服务器。 </p>
+<p>我在服务器上创建了一个新目录<code>/opt/java</code>，然后将压缩包拷贝到这个目录，然后解压：</p>
+<pre class=" language-shell"><code class="language-shell">tar -zxvf jdk-8u171-linux-x64.tar.gz</code></pre>
+<p>接下来设置环境变量，用vi编辑器打开<code>/etc/profile</code>文件：</p>
+<pre class=" language-shell"><code class="language-shell">vi /etc/profile</code></pre>
+<p>在文件开头添加如下内容：</p>
+<pre class=" language-shell"><code class="language-shell">JAVA_HOME=/opt/java/jdk1.8.0_171 
+JRE_HOME=/opt/java/jdk1.8.0_171/jre 
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin 
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib 
+export JAVA_HOME JRE_HOME PATH CLASSPATH</code></pre>
+<p>然后保存别执行以下命令使其生效：</p>
+<pre class=" language-shell"><code class="language-shell">source /etc/profile</code></pre>
+<p>最后在任意目录执行下面命令来测试Java是否安装成功：</p>
+<pre class=" language-shell"><code class="language-shell">java -version</code></pre>
+<p>如果你看到类似下面的输出，说明已经安装成功了：</p>
+<pre class=" language-shell"><code class="language-shell">java version "1.8.0_171" 
+Java(TM) SE Runtime Environment (build 1.8.0_171-b11) 
+Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)</code></pre>
+<h4 id="3-2-安装MySQL"><a href="#3-2-安装MySQL" class="headerlink" title="3.2 安装MySQL"></a>3.2 安装MySQL</h4><p><code>Solo</code>默认使用的<code>H2</code>内存DB，我建议最好改用<code>MySQL</code>。</p>
+<h5 id="3-2-1-安装MySQL"><a href="#3-2-1-安装MySQL" class="headerlink" title="3.2.1 安装MySQL"></a>3.2.1 安装MySQL</h5><p>首先分别执行下面三条命令：</p>
+<pre class=" language-shell"><code class="language-shell">sudo apt-get install mysql-server 
+sudo apt isntall mysql-client 
+sudo apt install libmysqlclient-dev</code></pre>
+<p>安装过程中，要求设置<code>root</code>用户的密码，请一定记住这个密码。 </p>
+<p>安装成功后可以通过下面的命令测试是否安装成功：</p>
+<pre class=" language-shell"><code class="language-shell">sudo netstat -tap | grep mysql</code></pre>
+<p>输出类似如下：</p>
+<pre class=" language-shell"><code class="language-shell">tcp6 0 0 localhost:mysql *:* LISTEN 19839/mysqld</code></pre>
+<p>你也可以执行以下命令测试是否可以进入<code>MySQL</code>：</p>
+<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
+<h5 id="3-2-2-开启MySQL远程访问"><a href="#3-2-2-开启MySQL远程访问" class="headerlink" title="3.2.2 开启MySQL远程访问"></a>3.2.2 开启MySQL远程访问</h5><p><code>MySQL</code>安装后默认是没有打开远程访问的，从上面的输出可以看出，它只允许<code>localhost</code>也就是本机访问。 </p>
+<p>我们可以编辑<code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>文件：</p>
+<pre class=" language-shell"><code class="language-shell">vi /etc/mysql/mysql.conf.d/mysqld.cnf</code></pre>
+<p>将<code>bind-address = 127.0.0.1</code>注释掉：</p>
+<pre class=" language-shell"><code class="language-shell">#bind-address = 127.0.0.1</code></pre>
+<p>保存退出，然后执行如下命令进入<code>MySQL</code>：</p>
+<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
+<p>然后执行以下命令进行授权：</p>
+<pre class=" language-shell"><code class="language-shell">grant all on *.* to root@'%' identified by '你的密码' with grant option; 
+flush privileges;</code></pre>
+<p>然后执行<code>quit</code>命令退出<code>MySQL</code>，执行以下命令重启<code>MySQL</code>服务：</p>
+<pre class=" language-shell"><code class="language-shell">service mysql restart</code></pre>
+<p>此时，再次运行<code>ps</code>命令：</p>
+<pre class=" language-shell"><code class="language-shell">sudo netstat -tap | grep mysql</code></pre>
+<p>输出如下，你会看到它已经不再只是监听<code>localhost</code>了：</p>
+<pre class=" language-shell"><code class="language-shell">tcp6 0 0 [::]:mysql [::]:* LISTEN 19839/mysqld</code></pre>
+<p>现在你可以使用<code>MySQL</code>客户端测试一下是否可以从你的电脑访问服务器上的<code>MySQL</code>服务了。</p>
+<h4 id="3-3-安装Ngnix"><a href="#3-3-安装Ngnix" class="headerlink" title="3.3 安装Ngnix"></a>3.3 安装Ngnix</h4><p><code>Solo</code>会在自带的<code>Jetty</code>中运行，并默认监听<code>8080</code>端口，然而我们希望通过默认的<code>80</code>访问我们的网站，所以我们需要安装一个web server来做请求转发。 </p>
+<p>Ubuntu系统中安装<code>Nginx</code>超简单，一条命令搞定：</p>
+<pre class=" language-shell"><code class="language-shell">sudo apt-get install nginx</code></pre>
+<p>安装好后<code>nginx</code>会自动启动，运行<code>ps</code>命令可以查看<code>nginx</code>进程:</p>
+<pre class=" language-shell"><code class="language-shell">> ps -ef | grep nginx 
+root     20435     1 0 Jun25 ? 00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on; 
+www-data 20436 20435 0 Jun25 ? 00:00:01 nginx: worker process</code></pre>
+<p>接下来我们需要配置请求转发，打开<code>nginx</code>配置文件：</p>
+<pre class=" language-shell"><code class="language-shell">vi /etc/nginx/nginx.conf</code></pre>
+<p>在<code>http</code>节点内最后加上如下内容：</p>
+<pre class=" language-shell"><code class="language-shell">server {
+        listen                  80;
+        server_name             www.yglong.com;
+        location / {
+                proxy_pass              http://127.0.0.1:8080;
+                proxy_redirect          off;
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Real-IP $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}</code></pre>
+<p>保存退出，重启<code>nginx</code>服务:</p>
+<pre class=" language-shell"><code class="language-shell">service nginx restart</code></pre>
+<h3 id="4-安装博客程序"><a href="#4-安装博客程序" class="headerlink" title="4. 安装博客程序"></a>4. 安装博客程序</h3><p>接下来就是安装博客程序了。有很多的开源博客程序，目前最火的应该是<code>WordPress</code>，用PHP开发的开源博客系统。但是由于我不熟悉PHP，所以选择了一款Java开源博客系统：<a href="https://solo.b3log.org/" target="_blank" rel="noopener">Solo</a>。 </p>
+<p>点击这个<a href="https://pan.baidu.com/s/1dzk7SU" target="_blank" rel="noopener">下载链接</a>，或者通过上面的官网再进入Github找到下载链接，下载到Solo的war包。然后通过FTP工具上传到服务器。 </p>
+<p>上传Solo包后，创建一个新目录<code>/opt/solo</code>，将Solo war包拷贝到这个目录下，然后解压：</p>
+<pre class=" language-shell"><code class="language-shell">jar -xvf solo-2.9.1.war</code></pre>
+<p>解压后，进入<code>latke.properties</code>文件：</p>
+<pre class=" language-shell"><code class="language-shell">vi /opt/solo/WEB-INF/classes/latke.properties</code></pre>
+<p>修改<code>serverHost</code>和<code>serverPort</code>：</p>
+<pre class=" language-shell"><code class="language-shell">#### Server ####
+# Browser visit protocol
+serverScheme=http
+# Browser visit domain name
+serverHost=www.yglong.com
+# Browser visit port, 80 as usual, THIS IS NOT SERVER LISTEN PORT!
+serverPort=80</code></pre>
+<p>保存并退出，进入<code>local.properties</code>文件：</p>
+<pre class=" language-shell"><code class="language-shell">vi /opt/solo/WEB-INF/classes/local.properties</code></pre>
+<p>注释掉H2 DB的配置，并配置MySQL：</p>
+<pre class=" language-shell"><code class="language-shell">#### H2 runtime ####
+#runtimeDatabase=H2
+#jdbc.username=root
+#jdbc.password=
+#jdbc.driver=org.h2.Driver
+#jdbc.URL=jdbc:h2:~/solo_h2/db
+#jdbc.pool=h2
+
+#### MySQL runtime ####
+runtimeDatabase=MYSQL
+jdbc.username=root
+jdbc.password=你的MySQL密码
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.URL=jdbc:mysql://localhost:3306/solo?useUnicode=yes&amp;characterEncoding=utf8
+jdbc.pool=druid</code></pre>
+<p>保存退出。 接下来创建数据库，首先执行下面命令进入<code>MySQL</code>：</p>
+<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
+<p>然后执行下面命令创建数据库，数据库名字与<code>local.properties</code>里配置的名字要一样：</p>
+<pre class=" language-shell"><code class="language-shell">CREATE DATABASE IF NOT EXISTS solo DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</code></pre>
+<p>退出<code>MySQL</code>，最后执行下面命令启动<code>Solo</code>：</p>
+<pre class=" language-shell"><code class="language-shell">nohup java -cp WEB-INF/lib/*:WEB-INF/classes org.b3log.solo.Starter &</code></pre>
+<h3 id="5-登录博客后台设置网站信息"><a href="#5-登录博客后台设置网站信息" class="headerlink" title="5. 登录博客后台设置网站信息"></a>5. 登录博客后台设置网站信息</h3><p>现在可以输入你的域名访问你的网站了。首次访问时，需要初始化网站。你需要设置你的管理员帐号，然后开始初始化，<code>Solo</code>会自动在<code>MySQL</code>中建立数据库表。初始化成功后就自动进入你的网站了。 </p>
+<p>进入<code>Solo</code>后台管理控制台，进入<code>工具</code>-&gt;<code>偏好设定</code>，你可以修改你的网站名称等其他基本网站信息。 </p>
+<p>就这样，你的网站已经基本搭建完成了。 </p>
+<p>最后剩下的，也是经营个人网站最重要的，就是你需要坚持不断的发布有质量的，原创的好文！</p>
 
             </div>
             <hr/>
@@ -640,7 +663,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://longyg.github.io/posts/java/java-basic-summary.html">http://longyg.github.io/posts/java/java-basic-summary.html</a>
+                    <a href="http://longyg.github.io/posts/frontend/build-solo-blog.html">http://longyg.github.io/posts/frontend/build-solo-blog.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -678,12 +701,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
                                 </a>
                             
-                                <a href="/tags/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
-                                    <span class="chip bg-color">知识总结</span>
+                                <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+                                    <span class="chip bg-color">个人博客网站</span>
                                 </a>
                             
                         </div>
@@ -854,7 +877,7 @@
         repo: 'blog-comments',
         owner: 'longyg',
         admin: "longyg",
-        id: '2019-09-14T17-05-29',
+        id: '2018-07-11T21-39-01',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -882,31 +905,31 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/java/java-sorting.html">
+                <a href="/posts/ml/mlp-1-knn.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="常见排序算法Java实现">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解">
                         
-                        <span class="card-title">常见排序算法Java实现</span>
+                        <span class="card-title">《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            用Java语言实现常见排序算法
+                            介绍《机器学习实战》书中讲解的第一个机器学习算法：k-近邻算法，也称kNN（k-NearestNeighbor的缩写）算法
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-10-24
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-07-21
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java%E5%90%8E%E7%AB%AF/" class="post-category">
-                                    Java后端
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
                                 </a>
                             
                             
@@ -916,12 +939,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
                     </a>
                     
-                    <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">排序算法</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
                 </div>
@@ -932,27 +955,27 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/posts/frontend/keycloak-react-integration-02.html">
+                <a href="/posts/frontend/build-solo-blog.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Keycloak与React集成应用（下篇）：基于角色的访问控制">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="从零搭建solo个人博客网站">
                         
-                        <span class="card-title">Keycloak与React集成应用（下篇）：基于角色的访问控制</span>
+                        <span class="card-title">从零搭建solo个人博客网站</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文将在上一篇实现的用户登录的已有功能之上，继续实现用户访问控制的功能，演示如何使用keycloak轻松地对应用的访问进行控制。
+                            本人分享了我使用solo搭建个人博客网站的经验
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-11
                             </span>
                         <span class="publish-author">
                             
@@ -966,23 +989,16 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Keycloak/">
-                        <span class="chip bg-color">Keycloak</span>
-                    </a>
-                    
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
-                    </a>
-                    
                     <a href="/tags/Web/">
                         <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">个人博客网站</span>
                     </a>
                     
                 </div>

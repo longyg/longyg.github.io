@@ -1,0 +1,1520 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="机器学习KNN算法">
+    <meta name="description" content="龙居雅阁是一个技术,经验分享的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解 | 龙居雅阁</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="龙居雅阁" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">龙居雅阁</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">龙居雅阁</div>
+        <div class="logo-desc">
+            
+            龙居雅阁是一个技术,经验分享的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/longyg" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/longyg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-07-21
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-06-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    12 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>本系列文章是学习《机器学习实战》一书的读书笔记，并非按原文照抄，而是在理解原书的基础上融入了本人个人理解。同时，原书代码是基于Python2实现的，而本系列文章所有代码是用Python3实现的，因此代码与原书也会稍有不同。如果你使用本系列文章的代码，请一定在Python3下运行，否则你会遇到意想不到的问题。 </p>
+<p>此文是《机器学习实战》的读书笔记的第一篇，介绍该书中讲解的第一个机器学习算法：<code>k-近邻算法</code>，也称<code>kNN</code>（k-NearestNeighbor的缩写）算法。</p>
+<h3 id="二、算法原理"><a href="#二、算法原理" class="headerlink" title="二、算法原理"></a>二、算法原理</h3><p>将输入数据的每个特征数据与训练样本集对应的特征数据进行比较，从而提取出样本集中特征最相似（即最邻近）的k个数据，将这k个数据中比例最高的分类标签作为输入数据的分类标签。 由于每个训练样本数据都是有标签的，所以<code>kNN</code>算法是监督学习的一种算法。</p>
+<h4 id="1-举例说明"><a href="#1-举例说明" class="headerlink" title="1. 举例说明"></a>1. 举例说明</h4><p>假设有一组电影分类的样本数据集，根据电影中打斗镜头数和接吻镜头数的不同，被区分为动作片和爱情片。 </p>
+<p>有如下7部电影样本数据，其中6部已知类型，1部未知类型。我们希望从这6部电影中找到某种规律，从而预测未知类型的“电影7”属于什么类型。</p>
+<table>
+<thead>
+<tr>
+<th>电影名称</th>
+<th>打斗镜头数</th>
+<th>接吻镜头数</th>
+<th>电影类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电影1</td>
+<td>3</td>
+<td>104</td>
+<td>爱情片</td>
+</tr>
+<tr>
+<td>电影2</td>
+<td>2</td>
+<td>100</td>
+<td>爱情片</td>
+</tr>
+<tr>
+<td>电影3</td>
+<td>1</td>
+<td>81</td>
+<td>爱情片</td>
+</tr>
+<tr>
+<td>电影4</td>
+<td>101</td>
+<td>10</td>
+<td>动作片</td>
+</tr>
+<tr>
+<td>电影5</td>
+<td>99</td>
+<td>5</td>
+<td>动作片</td>
+</tr>
+<tr>
+<td>电影6</td>
+<td>98</td>
+<td>2</td>
+<td>动作片</td>
+</tr>
+<tr>
+<td>电影7</td>
+<td>18</td>
+<td>90</td>
+<td>？</td>
+</tr>
+</tbody></table>
+<p>将上面样本数据在图中表示出来： </p>
+<p>完整代码在<a href="https://github.com/longyg/Machine-Learning-Practice/blob/master/kNN/showDataSet.py" target="_blank" rel="noopener">这里</a>。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+x<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">101</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+y<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">104</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">81</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">90</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+colors <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'black'</span><span class="token punctuation">,</span><span class="token string">'red'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> c<span class="token operator">=</span>colors<span class="token punctuation">)</span>
+
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'打斗镜头数'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">"接吻镜头数"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'font.sans-serif'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'FangSong'</span><span class="token punctuation">]</span>
+plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'axes.unicode_minus'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">False</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><a href="http://wx2.sinaimg.cn/mw690/bd7db87egy1fsvwj6chebj20hs0d50st.jpg" target="_blank" rel="noopener"><img src="http://wx2.sinaimg.cn/mw690/bd7db87egy1fsvwj6chebj20hs0d50st.jpg" alt></a> </p>
+<p>图中6个黑色的点表示上面样本数据集中的6部已知类型的电影，其中3部爱情片，3部动作片。红色的点表示我们将要预测的未知类型的“电影7”。 </p>
+<p>根据<code>kNN</code>算法原理，我们需要首先计算出图中红色点与所有黑色点的距离。大家都还记得计算两个点之间的距离公式吧。 如果点1记为（$x_1$，$y_1$），点2记为（$x_2$，$y_2$），那么点1与点2的距离为： </p>
+<p>$$\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^{2}}$$ </p>
+<p>通过距离公式计算得到所有6个黑色点到红色点的距离如下表：</p>
+<table>
+<thead>
+<tr>
+<th>电影名称</th>
+<th>与电影7的距离计算公式</th>
+<th>与电影7的距离</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电影1</td>
+<td>$\sqrt{(3-18)^{2} + (104-90)^{2}}$</td>
+<td>20.5</td>
+</tr>
+<tr>
+<td>电影2</td>
+<td>$\sqrt{(2-18)^{2} + (100-90)^{2}}$</td>
+<td>18.7</td>
+</tr>
+<tr>
+<td>电影3</td>
+<td>$\sqrt{(1-18)^{2} + (81-90)^{2}}$</td>
+<td>19.2</td>
+</tr>
+<tr>
+<td>电影4</td>
+<td>$\sqrt{(101-18)^{2} + (10-90)^{2}}$</td>
+<td>115.3</td>
+</tr>
+<tr>
+<td>电影5</td>
+<td>$\sqrt{(99-18)^{2} + (5-90)^{2}}$</td>
+<td>117.4</td>
+</tr>
+<tr>
+<td>电影6</td>
+<td>$\sqrt{(98-18)^{2} + (2-90)^{2}}$</td>
+<td>118.9</td>
+</tr>
+</tbody></table>
+<p>按照距离递增排序，可以找到k个距离最近的电影。 假设<code>k=3</code>，那么距离最近的3部电影是<code>电影2</code>，<code>电影3</code>和<code>电影1</code>。从输入数据集中知道，这三部电影都是爱情片，因此我们判定<code>电影7</code>是爱情片。 注意，<code>kNN</code>算法是按照距离最近的<code>k</code>个数据的类型来决定未知数据类型的。如果<code>k</code>个距离最近的数据不是唯一类型，将把<code>k</code>个数据中比例最高的类型作为未知数据的类型。 例如，如果我们把k设为4，得到距离最近的4部电影分别是<code>电影2</code>，<code>电影3</code>，<code>电影1</code>和<code>电影4</code>。这4部电影中，其中有三部爱情片，比例是75%，只有一部是动作片，比例是25%。因此我们判定未知电影还是爱情片。</p>
+<h3 id="三、算法实现"><a href="#三、算法实现" class="headerlink" title="三、算法实现"></a>三、算法实现</h3><p>根据前面的算法原理以及例子，我们将k-近邻算法用Python实现。实现代码中主要进行以下操作：</p>
+<ol>
+<li>计算已知类别数据集中每个点与未知点的距离</li>
+<li>按照距离递增排序</li>
+<li>选取与未知点距离最小的k个点</li>
+<li>确定前k个点中所有类别的比例，</li>
+<li>返回前k个点比例最高的类别，作为未知点的预测分类。</li>
+</ol>
+<h4 id="1-Python3代码实现"><a href="#1-Python3代码实现" class="headerlink" title="1. Python3代码实现"></a>1. Python3代码实现</h4><p>创建<code>knn.py</code>文件并输入如下代码：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> numpy <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> operator
+<span class="token keyword">import</span> sys
+
+<span class="token keyword">def</span> <span class="token function">classifier</span><span class="token punctuation">(</span>inX<span class="token punctuation">,</span> dataSet<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataSetSize <span class="token operator">=</span> dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    diffMat <span class="token operator">=</span> tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span> <span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">-</span> dataSet
+    sqDiffMat <span class="token operator">=</span> diffMat <span class="token operator">**</span> <span class="token number">2</span>
+    sqDistances <span class="token operator">=</span> sqDiffMat<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>axis <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    distances <span class="token operator">=</span> sqDistances <span class="token operator">**</span> <span class="token number">0.5</span>
+    sortedDistIndicies <span class="token operator">=</span> distances<span class="token punctuation">.</span>argsort<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    classCount <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        voteIlabel <span class="token operator">=</span> labels<span class="token punctuation">[</span>sortedDistIndicies<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
+        classCount<span class="token punctuation">[</span>voteIlabel<span class="token punctuation">]</span> <span class="token operator">=</span> classCount<span class="token punctuation">.</span>get<span class="token punctuation">(</span>voteIlabel<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+    sortedClassCount <span class="token operator">=</span> sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key <span class="token operator">=</span> operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token keyword">def</span> <span class="token function">createDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataSet <span class="token operator">=</span> array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">104</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">81</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> dataSet<span class="token punctuation">,</span> labels
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    dataSet<span class="token punctuation">,</span> labels <span class="token operator">=</span> createDataSet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    input <span class="token operator">=</span> <span class="token punctuation">[</span>int<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> int<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    k <span class="token operator">=</span> <span class="token number">4</span>
+    output <span class="token operator">=</span> classifier<span class="token punctuation">(</span>input<span class="token punctuation">,</span> dataSet<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> k<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span></code></pre>
+<h4 id="2-运行代码"><a href="#2-运行代码" class="headerlink" title="2. 运行代码"></a>2. 运行代码</h4><p>在命令行当前目录下执行上面python脚本，并将未知电影的打斗镜头数和接吻镜头数作为参数传递给脚本，结果将输出如下：</p>
+<pre class=" language-bash"><code class="language-bash">C:\tmp<span class="token operator">></span> knn.py 18 90
+爱情片</code></pre>
+<p>可见，上面的代码输出未知电影为“爱情片”，结果与我们之前推导的结果完全一致。 现在我们可以用这个程序来预测任意的输入数据了，例如：</p>
+<pre class=" language-bash"><code class="language-bash">C:\tmp<span class="token operator">></span> knn.py 10 100
+爱情片
+
+C:\tmp<span class="token operator">></span> knn.py 90 10
+动作片</code></pre>
+<p>从<a href="https://github.com/longyg/Machine-Learning-Practice/blob/master/kNN/knn.py" target="_blank" rel="noopener">这里下载</a><code>knn.py</code>的完整代码。</p>
+<h4 id="3-代码解析"><a href="#3-代码解析" class="headerlink" title="3. 代码解析"></a>3. 代码解析</h4><p>程序首先导入依赖模块，本算法将用到最重要的<code>numpy</code>，以及<code>operator</code>和<code>sys</code>模块，因此将他们导入。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> numpy <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> operator
+<span class="token keyword">import</span> sys</code></pre>
+<p>上面的核心代码在分类器函数<code>classifier()</code>中，有4个输入参数，分别为：</p>
+<ul>
+<li><code>inX</code>: 输入数据，将要预测的数据，用数组表示，如[18, 90]</li>
+<li><code>dataSet</code>: 训练数据集，即已知类型的数据，用numpy的矩阵表示</li>
+<li><code>labels</code>: 训练数据集的分类，用数组表示，数组中每一个值表示<code>dataSet</code>中对应的数据的分类。</li>
+<li><code>k</code>：k-近邻算法的k值</li>
+</ul>
+<p><code>classifier()</code>函数第一行获取<code>dataSet</code>数据集的数据个数，使用了numpy数组的<code>shape</code>属性。<code>dataSet</code>是传入的参数，它是由<code>createDataSet()</code>函数创建的numpy数组（二维矩阵）:</p>
+<pre class=" language-python"><code class="language-python">dataSet <span class="token operator">=</span> array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">104</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">81</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">99</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">[</span>  3 104<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>  2 100<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>  1  81<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>101  10<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 99   5<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 98   2<span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+<p>numpy的<code>array()</code>函数可以通过传入一个python标准的list来创建一个numpy数组，numpy数组可以是多维的，对于二维数组也可称为矩阵。而我们的输入数据集<code>dataSet</code>就是一个二维数组，即是一个6x2的矩阵，6表示总共有6个数据样本，2表示每个数据样本有2列，即2个特征（打斗镜头数和接吻镜头数）。所以我们的数据集<code>dataSet</code>是一个6行2列的矩阵。</p>
+<p><code>dataSet.shape</code>是numpy提供的，可以获取numpy数组的维数，因为dataSet是一个6行2列的矩阵，因此dataSet.shape输出如下：</p>
+<pre class=" language-python"><code class="language-python">dataSet<span class="token punctuation">.</span>shape</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">(</span>6, 2<span class="token punctuation">)</span></code></pre>
+<p>而<code>classifier()</code>函数第一行调用<code>dataSet.shape[0]</code>，表示返回第一维的大小：</p>
+<pre class=" language-python"><code class="language-python">dataSetSize <span class="token operator">=</span> dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dataSetSize<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash">6</code></pre>
+<p><code>classifier()</code>函数第二行使用了numpy的<code>tile()</code>函数，该函数原型为<code>numpy.tile(A,reps)</code>，接收两个参数，表示把A根据reps重复输出。请参见<a href="https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.tile.html" target="_blank" rel="noopener">numpy.tile</a>对该函数的详细介绍。 </p>
+<p><code>classifier()</code>函数中先按如下调用<code>tile()</code>函数：</p>
+<pre class=" language-python"><code class="language-python">tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span> <span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>第一个参数是由命令行输入的参数构成的Python标准list:</p>
+<pre class=" language-python"><code class="language-python">input <span class="token operator">=</span> <span class="token punctuation">[</span>int<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> int<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span></code></pre>
+<p>假如输入18, 90，则input为：</p>
+<pre class=" language-python"><code class="language-python">inX <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">91</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>inX<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>18, 91<span class="token punctuation">]</span></code></pre>
+<p>我们先看看<code>tile(inX, (dataSetSize, 1))</code>输出长什么样子：</p>
+<pre class=" language-python"><code class="language-python">tmpMat <span class="token operator">=</span> tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span> <span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tmpMat<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">[</span>18 91<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>18 91<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>18 91<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>18 91<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>18 91<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>18 91<span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+<p>可以看到，<code>tile()</code>函数将输入的list在行方向上重复了6次，列方向上1次，从而变成了一个6行2列的矩阵。 </p>
+<p>接下来，用新构造的矩阵与数据集<code>dataSet</code>做减法。矩阵的减法大家都还记得吧，就是对应位置的数值做减法，因此得到相减之后的矩阵<code>diffMat</code>如下。</p>
+<pre class=" language-python"><code class="language-python">diffMat <span class="token operator">=</span> tmpMat <span class="token operator">-</span> dataSet
+<span class="token keyword">print</span><span class="token punctuation">(</span>diffMat<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">[</span> 15 -13<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 16  -9<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 17  10<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>-83  81<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>-81  86<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>-80  89<span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+<p>由于矩阵减法要求两个矩阵具有相同维数，因此我们也可以理解为什么需要先用<code>tile()</code>函数构造一个与<code>dataSet</code>相同维数的矩阵了吧。 接下来，对<code>diffMat</code>做平方运算，也就是对<code>diffMat</code>矩阵的每一个数做平方运算，得到<code>sqDiffMat</code>如下：</p>
+<pre class=" language-python"><code class="language-python">sqDiffMat <span class="token operator">=</span> diffMat<span class="token operator">**</span><span class="token number">2</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>sqDiffMat<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">[</span> 225  169<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 256   81<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span> 289  100<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>6889 6561<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>6561 7396<span class="token punctuation">]</span>
+ <span class="token punctuation">[</span>6400 7921<span class="token punctuation">]</span><span class="token punctuation">]</span></code></pre>
+<p>接下来，对<code>sqDiffMat</code>矩阵求和。这里使用了numpy的<code>sum()</code>函数，请参见<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sum.html" target="_blank" rel="noopener">numpy.sum</a>对该函数的详细介绍。 </p>
+<p><code>sum()</code>函数的<code>axis</code>参数指定对哪一维数据求和，如果不指定<code>axis</code>，将对整个矩阵所有数据求和。<code>axis=0</code>表示对矩阵的第一维数据求和，对于上面的二维矩阵，就是对每一列求和。<code>axis=1</code>表示将矩阵的第二维数据求和，对于上面的二维矩阵，也就是对每一行求和，比如第一行的两个数相加得到第一个值，225 + 169 = 394，以此类推对所有行求和，最后得到一个数组如下：</p>
+<pre class=" language-python"><code class="language-python">sqDistances <span class="token operator">=</span> sqDiffMat<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>sqDistances<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>  394   337   389 13450 13957 14321<span class="token punctuation">]</span></code></pre>
+<p>接下来对求和后的数组<code>sqDistances</code>求平方根，得到所有点与未知点的距离：</p>
+<pre class=" language-python"><code class="language-python">distances <span class="token operator">=</span> sqDistances<span class="token operator">**</span><span class="token number">0.5</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>distances<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span> 19.84943324  18.35755975  19.72308292 115.97413505 118.13974776 119.67038063<span class="token punctuation">]</span></code></pre>
+<p>至此，我们已经求出了数据集<code>dataSet</code>中所有数据与输入数据之间的距离，<code>distances</code>数组中的每一个数就是<code>dataSet</code>中每一组数据与输入数据的距离。 </p>
+<p>可以看到，我们使用numpy的数组操作，代码非常简单，一次性可以求出所有数据到输入数据的距离，而不用通过遍历来求每个数据到输入数据的距离。 </p>
+<p>接下来，对上面求出来的距离进行排序。首先使用numpy的<code>argsort()</code>函数对distances排序，这个函数返回数组数值从小到大的索引值：</p>
+<pre class=" language-python"><code class="language-python">sortedDistIndicies <span class="token operator">=</span> distances<span class="token punctuation">.</span>argsort<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>sortedDistIndicies<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>1 2 0 3 4 5<span class="token punctuation">]</span></code></pre>
+<p>从上面输出可以看出，索引为1（也就是数组的第2个，因为索引是从0开始的，）的数值最小，排在第一位，我们回头去看看distances数组，确实是数组的第2个数最小，为<code>18.35755975</code>。索引为2（数组的第3个数）的数值倒数第二小，排在第二位，数值为<code>19.72308292</code>。以此类推，可以得到上面相同的输出，从而也证明了<code>argsort()</code>函数的正确性。 </p>
+<p>接下来，程序通过for循环来找出距离最近的前k个数的类别，并统计每种类别的个数。 </p>
+<p>本程序中，k被设置为固定值4，所以程序只需要循环4次对前面已经排好序的数组进行统计。而labels是<code>createDataSet()</code>函数设置的，对应着dataSet中每组数组的类型。</p>
+<pre class=" language-python"><code class="language-python">k <span class="token operator">=</span> <span class="token number">4</span>
+labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'爱情片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">,</span> <span class="token string">'动作片'</span><span class="token punctuation">]</span></code></pre>
+<p>程序定义了一个集合<code>classCount</code>用于存放统计结果。每次循环先获取当前的类型，再对这个类型进行累加，最后将统计结果保存到集合classCount中。</p>
+<pre class=" language-python"><code class="language-python">classCount <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    voteIlabel <span class="token operator">=</span> labels<span class="token punctuation">[</span>sortedDistIndicies<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
+    classCount<span class="token punctuation">[</span>voteIlabel<span class="token punctuation">]</span> <span class="token operator">=</span> classCount<span class="token punctuation">.</span>get<span class="token punctuation">(</span>voteIlabel<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span></code></pre>
+<p>我们打印<code>classCount</code>将得到如下输出：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>classCount<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">{</span><span class="token string">'爱情片'</span><span class="token keyword">:</span> 3, <span class="token string">'动作片'</span><span class="token keyword">:</span> 1<span class="token punctuation">}</span></code></pre>
+<p>从输出可以看出，经过统计后，前k（也就是4）个距离最近的数据中，类型为动作片的个数为1，类型为爱情片的个数为3。 </p>
+<p>最后，程序对<code>classCount</code>集合进行排序，按照集合value值从高到低排序，得到一个排好序的tuple列表。这里用到了Python内置的<code>sorted</code>函数。请参见<a href="https://www.cnblogs.com/brad1994/p/6697196.html" target="_blank" rel="noopener">Python 内置函数sorted()在高级用法</a></p>
+<pre class=" language-python"><code class="language-python">sortedClassCount <span class="token operator">=</span> sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> 
+<span class="token keyword">print</span><span class="token punctuation">(</span>sortedClassCount<span class="token punctuation">)</span> </code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'爱情片'</span>, 3<span class="token punctuation">)</span>, <span class="token punctuation">(</span><span class="token string">'动作片'</span>, 1<span class="token punctuation">)</span><span class="token punctuation">]</span></code></pre>
+<p>最后我们只需要返回排好序的tuple列表的第一个，则得到<code>tuple(&#39;爱情片&#39;,3)</code>，再返回这个tuple的第一个，则得到程序预测的结果类型。</p>
+<pre class=" language-python"><code class="language-python">type <span class="token operator">=</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span></code></pre>
+<pre class=" language-bash"><code class="language-bash">爱情片</code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">yglong</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://longyg.github.io/posts/ml/mlp-1-knn.html">http://longyg.github.io/posts/ml/mlp-1-knn.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">yglong</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '357fc628d86fb45f7082',
+        clientSecret: '7d50d35a5764740c102b798f24a2921cf9e5e111',
+        repo: 'blog-comments',
+        owner: 'longyg',
+        admin: "longyg",
+        id: '2018-07-21T22-11-01',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/data-analysis/data-handle-manual.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="数据处理速记手册">
+                        
+                        <span class="card-title">数据处理速记手册</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文记录机器学习中常见的处理数据的方法，作为一个速查手册。包含了Pandas，Numpy，Matplotlib等各种库的实用方法。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="post-category">
+                                    数据分析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/frontend/build-solo-blog.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="从零搭建solo个人博客网站">
+                        
+                        <span class="card-title">从零搭建solo个人博客网站</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本人分享了我使用solo搭建个人博客网站的经验
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">个人博客网站</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="3754812570"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">yglong</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">19.1k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "5";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/longyg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:longyg1986@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=373020902" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 373020902" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

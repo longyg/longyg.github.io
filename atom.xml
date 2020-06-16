@@ -231,4 +231,62 @@
     
   </entry>
   
+  <entry>
+    <title>《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解</title>
+    <link href="http://longyg.github.io/posts/ml/mlp-1-knn.html"/>
+    <id>http://longyg.github.io/posts/ml/mlp-1-knn.html</id>
+    <published>2018-07-21T14:11:01.000Z</published>
+    <updated>2020-06-16T15:26:11.149Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://longyg.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://longyg.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="算法" scheme="http://longyg.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从零搭建solo个人博客网站</title>
+    <link href="http://longyg.github.io/posts/frontend/build-solo-blog.html"/>
+    <id>http://longyg.github.io/posts/frontend/build-solo-blog.html</id>
+    <published>2018-07-11T13:39:01.000Z</published>
+    <updated>2020-06-16T14:00:56.632Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="http://longyg.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Web" scheme="http://longyg.github.io/tags/Web/"/>
+    
+      <category term="个人博客网站" scheme="http://longyg.github.io/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"/>
+    
+  </entry>
+  
 </feed>
