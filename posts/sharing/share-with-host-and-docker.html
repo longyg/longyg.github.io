@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="搭建个人博客,solo个人博客">
+    <meta name="keywords" content="Docker容器共享">
     <meta name="description" content="龙居雅阁是一个技术,经验分享的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零搭建solo个人博客网站 | 龙居雅阁</title>
+    <title>windows主机与Docker容器文件夹共享 | 龙居雅阁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零搭建solo个人博客网站</h1>
+                    <h1 class="description center-align post-title">windows主机与Docker容器文件夹共享</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Web/">
-                                <span class="chip bg-color">Web</span>
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
                             </a>
                         
-                            <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
-                                <span class="chip bg-color">个人博客网站</span>
+                            <a href="/tags/%E5%AE%B9%E5%99%A8/">
+                                <span class="chip bg-color">容器</span>
                             </a>
                         
                     </div>
@@ -447,8 +447,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                前端
+                            <a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/" class="post-category">
+                                经验分享
                             </a>
                         
                     </div>
@@ -460,28 +460,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-07-11
+                    2018-07-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-06-16
+                    2020-06-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    6 分
                 </div>
                 
 
@@ -496,148 +496,93 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>很久就想搭建一个自己的专属博客网站，用来记录与分享一些技术相关的文章，算做一个备忘录，以便把自己所学进行系统梳理，整理成文，方便以后回顾与巩固。本文记录了我从零搭建该博客网站，从购买服务器，到配置服务器，再到完成个人博客网站的搭建，总共两小时完成。 </p>
-<p>要成功搭建一个网站，需要完成以下几个主要步骤： </p>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在windows下使用<code>Docker ToolBox</code>时，有时候我们需要将主机某个文件夹共享到docker容器中，方便在windows主机与docker容器之间同步文件夹数据。但是我们都知道Docker ToolBox会启动<code>virtualbox</code>虚拟机，docker实际上是运行在虚拟机上的，而不是直接运行在windows主机上，所以没办法直接通过<code>docker run</code>的<code>-v</code> 参数实现主机与docker容器文件夹共享。 </p>
+<p>本文将介绍如何在windows下实现主机与docker容器之间的文件夹共享。 主要有两大步骤： </p>
 <ol>
-<li><p>购买服务器 </p>
+<li><p>配置windows主机与virtualbox虚拟机之间文件夹共享。 </p>
 </li>
-<li><p>购买域名及备案 </p>
-</li>
-<li><p>安装依赖软件 </p>
-</li>
-<li><p>安装博客程序 </p>
-</li>
-<li><p>登录博客后台设置网站信息 </p>
+<li><p>配置virtualbox虚拟机与docker容器之间文件夹共享。 </p>
 </li>
 </ol>
-<p>本文接下来将依次详细介绍每一个步骤。</p>
-<h3 id="1-购买服务器"><a href="#1-购买服务器" class="headerlink" title="1. 购买服务器"></a>1. 购买服务器</h3><p>我购买的阿里云服务器ECS，操作系统镜像选择的Ubuntu系统。以前也没有使用过其他的服务器，没法比较优劣。想来阿里云不会差，毕竟是大厂的。 </p>
-<p>点击<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=g89o8zwv" target="_blank" rel="noopener">这里</a>去阿里云官网上选择一款合适的服务器吧。购买后，登录阿里云管理控制台，进入<code>云服务器ECS</code>就可以看到你的服务器实例。实例会自动启动，几分钟就运行起来了。当你看到状态是运行中，表明已经启动成功了。你也可以看到这个实例的公网IP，你可以用远程SSH工具登录到这个IP进行服务器管理。 </p>
-<p>另外，很重要很重要的是，你需要添加安全组规则，就是添加外部可以访问的端口。默认只开启了<code>22</code>端口。对于搭建网站，你必须要开通<code>80</code>端口，否则网站将无法访问。你可以开通其他端口，比如<code>MySQL</code>的端口，以便以后远程登录数据库查看数据。</p>
-<h3 id="2-购买域名与备案"><a href="#2-购买域名与备案" class="headerlink" title="2. 购买域名与备案"></a>2. 购买域名与备案</h3><p>服务器购买好后，你需要选择一个域名。这个不用多说，去阿里云旗下<a href="https://wanwang.aliyun.com/?spm=5176.8142029.388261.293.5e1f6d3exjjxUP" target="_blank" rel="noopener">万网</a>购买一个。 </p>
-<p>购买后，你需要进行备案。备案对于中国大陆的服务器是必须的，否则就算你域名解析成功了，也是会被和谐掉的，所以去<a href="https://beian.aliyun.com/?spm=5176.100251.0.0.72014f158KiBjf" target="_blank" rel="noopener">这里</a>备案吧！</p>
-<h3 id="3-安装依赖软件"><a href="#3-安装依赖软件" class="headerlink" title="3. 安装依赖软件"></a>3. 安装依赖软件</h3><p>由于<code>Solo</code>是基于Java的开源博客系统，安装<code>Solo</code>之前，我们需要先安装如下依赖软件： </p>
-<ol>
-<li><p>Java </p>
-</li>
-<li><p>MySQL </p>
-</li>
-<li><p>Nginx</p>
-</li>
-</ol>
-<h4 id="3-1-安装Java"><a href="#3-1-安装Java" class="headerlink" title="3.1 安装Java"></a>3.1 安装Java</h4><p>因为<code>Solo</code>是用Java开发的，我们要运行<code>Solo</code>必须的安装Java运行环境。在Oracle官网<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载页面</a>下载Linux版的JDK压缩包,然后上传到服务器。 </p>
-<p>我在服务器上创建了一个新目录<code>/opt/java</code>，然后将压缩包拷贝到这个目录，然后解压：</p>
-<pre class=" language-shell"><code class="language-shell">tar -zxvf jdk-8u171-linux-x64.tar.gz</code></pre>
-<p>接下来设置环境变量，用vi编辑器打开<code>/etc/profile</code>文件：</p>
-<pre class=" language-shell"><code class="language-shell">vi /etc/profile</code></pre>
-<p>在文件开头添加如下内容：</p>
-<pre class=" language-shell"><code class="language-shell">JAVA_HOME=/opt/java/jdk1.8.0_171 
-JRE_HOME=/opt/java/jdk1.8.0_171/jre 
-PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin 
-CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib 
-export JAVA_HOME JRE_HOME PATH CLASSPATH</code></pre>
-<p>然后保存别执行以下命令使其生效：</p>
-<pre class=" language-shell"><code class="language-shell">source /etc/profile</code></pre>
-<p>最后在任意目录执行下面命令来测试Java是否安装成功：</p>
-<pre class=" language-shell"><code class="language-shell">java -version</code></pre>
-<p>如果你看到类似下面的输出，说明已经安装成功了：</p>
-<pre class=" language-shell"><code class="language-shell">java version "1.8.0_171" 
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11) 
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)</code></pre>
-<h4 id="3-2-安装MySQL"><a href="#3-2-安装MySQL" class="headerlink" title="3.2 安装MySQL"></a>3.2 安装MySQL</h4><p><code>Solo</code>默认使用的<code>H2</code>内存DB，我建议最好改用<code>MySQL</code>。</p>
-<h5 id="3-2-1-安装MySQL"><a href="#3-2-1-安装MySQL" class="headerlink" title="3.2.1 安装MySQL"></a>3.2.1 安装MySQL</h5><p>首先分别执行下面三条命令：</p>
-<pre class=" language-shell"><code class="language-shell">sudo apt-get install mysql-server 
-sudo apt isntall mysql-client 
-sudo apt install libmysqlclient-dev</code></pre>
-<p>安装过程中，要求设置<code>root</code>用户的密码，请一定记住这个密码。 </p>
-<p>安装成功后可以通过下面的命令测试是否安装成功：</p>
-<pre class=" language-shell"><code class="language-shell">sudo netstat -tap | grep mysql</code></pre>
-<p>输出类似如下：</p>
-<pre class=" language-shell"><code class="language-shell">tcp6 0 0 localhost:mysql *:* LISTEN 19839/mysqld</code></pre>
-<p>你也可以执行以下命令测试是否可以进入<code>MySQL</code>：</p>
-<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
-<h5 id="3-2-2-开启MySQL远程访问"><a href="#3-2-2-开启MySQL远程访问" class="headerlink" title="3.2.2 开启MySQL远程访问"></a>3.2.2 开启MySQL远程访问</h5><p><code>MySQL</code>安装后默认是没有打开远程访问的，从上面的输出可以看出，它只允许<code>localhost</code>也就是本机访问。 </p>
-<p>我们可以编辑<code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>文件：</p>
-<pre class=" language-shell"><code class="language-shell">vi /etc/mysql/mysql.conf.d/mysqld.cnf</code></pre>
-<p>将<code>bind-address = 127.0.0.1</code>注释掉：</p>
-<pre class=" language-shell"><code class="language-shell">#bind-address = 127.0.0.1</code></pre>
-<p>保存退出，然后执行如下命令进入<code>MySQL</code>：</p>
-<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
-<p>然后执行以下命令进行授权：</p>
-<pre class=" language-shell"><code class="language-shell">grant all on *.* to root@'%' identified by '你的密码' with grant option; 
-flush privileges;</code></pre>
-<p>然后执行<code>quit</code>命令退出<code>MySQL</code>，执行以下命令重启<code>MySQL</code>服务：</p>
-<pre class=" language-shell"><code class="language-shell">service mysql restart</code></pre>
-<p>此时，再次运行<code>ps</code>命令：</p>
-<pre class=" language-shell"><code class="language-shell">sudo netstat -tap | grep mysql</code></pre>
-<p>输出如下，你会看到它已经不再只是监听<code>localhost</code>了：</p>
-<pre class=" language-shell"><code class="language-shell">tcp6 0 0 [::]:mysql [::]:* LISTEN 19839/mysqld</code></pre>
-<p>现在你可以使用<code>MySQL</code>客户端测试一下是否可以从你的电脑访问服务器上的<code>MySQL</code>服务了。</p>
-<h4 id="3-3-安装Ngnix"><a href="#3-3-安装Ngnix" class="headerlink" title="3.3 安装Ngnix"></a>3.3 安装Ngnix</h4><p><code>Solo</code>会在自带的<code>Jetty</code>中运行，并默认监听<code>8080</code>端口，然而我们希望通过默认的<code>80</code>访问我们的网站，所以我们需要安装一个web server来做请求转发。 </p>
-<p>Ubuntu系统中安装<code>Nginx</code>超简单，一条命令搞定：</p>
-<pre class=" language-shell"><code class="language-shell">sudo apt-get install nginx</code></pre>
-<p>安装好后<code>nginx</code>会自动启动，运行<code>ps</code>命令可以查看<code>nginx</code>进程:</p>
-<pre class=" language-shell"><code class="language-shell">> ps -ef | grep nginx 
-root     20435     1 0 Jun25 ? 00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on; 
-www-data 20436 20435 0 Jun25 ? 00:00:01 nginx: worker process</code></pre>
-<p>接下来我们需要配置请求转发，打开<code>nginx</code>配置文件：</p>
-<pre class=" language-shell"><code class="language-shell">vi /etc/nginx/nginx.conf</code></pre>
-<p>在<code>http</code>节点内最后加上如下内容：</p>
-<pre class=" language-shell"><code class="language-shell">server {
-        listen                  80;
-        server_name             www.yglong.com;
-        location / {
-                proxy_pass              http://127.0.0.1:8080;
-                proxy_redirect          off;
-                proxy_set_header        Host $host;
-                proxy_set_header        X-Real-IP $remote_addr;
-                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-}</code></pre>
-<p>保存退出，重启<code>nginx</code>服务:</p>
-<pre class=" language-shell"><code class="language-shell">service nginx restart</code></pre>
-<h3 id="4-安装博客程序"><a href="#4-安装博客程序" class="headerlink" title="4. 安装博客程序"></a>4. 安装博客程序</h3><p>接下来就是安装博客程序了。有很多的开源博客程序，目前最火的应该是<code>WordPress</code>，用PHP开发的开源博客系统。但是由于我不熟悉PHP，所以选择了一款Java开源博客系统：<a href="https://solo.b3log.org/" target="_blank" rel="noopener">Solo</a>。 </p>
-<p>点击这个<a href="https://pan.baidu.com/s/1dzk7SU" target="_blank" rel="noopener">下载链接</a>，或者通过上面的官网再进入Github找到下载链接，下载到Solo的war包。然后通过FTP工具上传到服务器。 </p>
-<p>上传Solo包后，创建一个新目录<code>/opt/solo</code>，将Solo war包拷贝到这个目录下，然后解压：</p>
-<pre class=" language-shell"><code class="language-shell">jar -xvf solo-2.9.1.war</code></pre>
-<p>解压后，进入<code>latke.properties</code>文件：</p>
-<pre class=" language-shell"><code class="language-shell">vi /opt/solo/WEB-INF/classes/latke.properties</code></pre>
-<p>修改<code>serverHost</code>和<code>serverPort</code>：</p>
-<pre class=" language-shell"><code class="language-shell">#### Server ####
-# Browser visit protocol
-serverScheme=http
-# Browser visit domain name
-serverHost=www.yglong.com
-# Browser visit port, 80 as usual, THIS IS NOT SERVER LISTEN PORT!
-serverPort=80</code></pre>
-<p>保存并退出，进入<code>local.properties</code>文件：</p>
-<pre class=" language-shell"><code class="language-shell">vi /opt/solo/WEB-INF/classes/local.properties</code></pre>
-<p>注释掉H2 DB的配置，并配置MySQL：</p>
-<pre class=" language-shell"><code class="language-shell">#### H2 runtime ####
-#runtimeDatabase=H2
-#jdbc.username=root
-#jdbc.password=
-#jdbc.driver=org.h2.Driver
-#jdbc.URL=jdbc:h2:~/solo_h2/db
-#jdbc.pool=h2
-
-#### MySQL runtime ####
-runtimeDatabase=MYSQL
-jdbc.username=root
-jdbc.password=你的MySQL密码
-jdbc.driver=com.mysql.jdbc.Driver
-jdbc.URL=jdbc:mysql://localhost:3306/solo?useUnicode=yes&amp;characterEncoding=utf8
-jdbc.pool=druid</code></pre>
-<p>保存退出。 接下来创建数据库，首先执行下面命令进入<code>MySQL</code>：</p>
-<pre class=" language-shell"><code class="language-shell">mysql -uroot -p你的密码</code></pre>
-<p>然后执行下面命令创建数据库，数据库名字与<code>local.properties</code>里配置的名字要一样：</p>
-<pre class=" language-shell"><code class="language-shell">CREATE DATABASE IF NOT EXISTS solo DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</code></pre>
-<p>退出<code>MySQL</code>，最后执行下面命令启动<code>Solo</code>：</p>
-<pre class=" language-shell"><code class="language-shell">nohup java -cp WEB-INF/lib/*:WEB-INF/classes org.b3log.solo.Starter &</code></pre>
-<h3 id="5-登录博客后台设置网站信息"><a href="#5-登录博客后台设置网站信息" class="headerlink" title="5. 登录博客后台设置网站信息"></a>5. 登录博客后台设置网站信息</h3><p>现在可以输入你的域名访问你的网站了。首次访问时，需要初始化网站。你需要设置你的管理员帐号，然后开始初始化，<code>Solo</code>会自动在<code>MySQL</code>中建立数据库表。初始化成功后就自动进入你的网站了。 </p>
-<p>进入<code>Solo</code>后台管理控制台，进入<code>工具</code>-&gt;<code>偏好设定</code>，你可以修改你的网站名称等其他基本网站信息。 </p>
-<p>就这样，你的网站已经基本搭建完成了。 </p>
-<p>最后剩下的，也是经营个人网站最重要的，就是你需要坚持不断的发布有质量的，原创的好文！</p>
+<p>我们都知道<code>docker run</code>的<code>-v</code> 参数可以实现docker容器与宿主机之间目录共享。对于使用<code>Docker Toolbox</code>的情况，宿主机是并不是windows主机，而是在windows主机上通过virtualbox运行的虚拟机。因此，docker容器只能与虚拟机之间进行文件夹共享，要实现windows主机与docker容器之间文件夹共享，我们还需要配置windows主机与虚拟机之间文件夹共享，从而间接实现windows主机与docker容器之间文件夹共享。</p>
+<h3 id="一、-配置windows主机与virtualbox虚拟机之间文件夹共享"><a href="#一、-配置windows主机与virtualbox虚拟机之间文件夹共享" class="headerlink" title="一、 配置windows主机与virtualbox虚拟机之间文件夹共享"></a>一、 配置windows主机与virtualbox虚拟机之间文件夹共享</h3><h4 id="1-在VirtualBox中添加共享文件夹"><a href="#1-在VirtualBox中添加共享文件夹" class="headerlink" title="1. 在VirtualBox中添加共享文件夹"></a>1. 在<code>VirtualBox</code>中添加共享文件夹</h4><p>首先，打开Oracle VM VirtualBox管理器：</p>
+<p><a href="http://wx1.sinaimg.cn/mw690/bd7db87egy1ftq0x1omh4j202102hmx8.jpg" target="_blank" rel="noopener"><img src="http://wx1.sinaimg.cn/mw690/bd7db87egy1ftq0x1omh4j202102hmx8.jpg" alt></a> </p>
+<p>选择<code>Docker ToolBox</code>默认创建的<code>default</code> 虚拟机，点击工具栏的“设置”按钮，打开设置窗口： </p>
+<p><a href="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftq0x217gkj201k01jmwy.jpg" target="_blank" rel="noopener"><img src="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftq0x217gkj201k01jmwy.jpg" alt></a> </p>
+<p>点击左侧菜单栏的“共享文件夹”打开共享文件夹设置面板。 </p>
+<p><a href="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x33qtfj20uw0k5ju9.jpg" target="_blank" rel="noopener"><img src="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x33qtfj20uw0k5ju9.jpg" alt></a> </p>
+<p>默认情况下，virtualbox已经配置了<code>c/Users</code>目录为共享文件夹，对应虚拟机里的共享目录为<code>/c/Users</code>。 </p>
+<p>如果我们想共享其他文件夹，那么我们需要点击右侧的“添加共享文件夹”按钮： </p>
+<p><a href="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x2iitoj200s00u0jw.jpg" target="_blank" rel="noopener"><img src="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x2iitoj200s00u0jw.jpg" alt></a> </p>
+<p>添加一个共享文件夹配置，如下： </p>
+<p><a href="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x45444j20k70c7ta1.jpg" target="_blank" rel="noopener"><img src="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftq0x45444j20k70c7ta1.jpg" alt></a> </p>
+<p>如上图所示，我添加了一个名称为<code>MyBlog</code> 的共享文件夹，指向windows主机的<code>E:\\workspace\\MyBlog</code> 目录。同时，勾选“自动挂载”和“固定分配”。 </p>
+<blockquote>
+<p>PS：我共享该文件夹的目的是，以后在我本机上对我的blog的修改就可以动态同步到docker容器中，达到实时生效的目的 </p>
+</blockquote>
+<p><a href="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftq0x4p81bj20k20c5gmj.jpg" target="_blank" rel="noopener"><img src="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftq0x4p81bj20k20c5gmj.jpg" alt></a> </p>
+<p>点击<code>OK</code>保存。</p>
+<h4 id="2-挂载共享文件夹"><a href="#2-挂载共享文件夹" class="headerlink" title="2. 挂载共享文件夹"></a>2. 挂载共享文件夹</h4><p>添加共享文件夹后，需要将其挂载到虚拟机上。 </p>
+<h5 id="1-自动挂载到默认目录"><a href="#1-自动挂载到默认目录" class="headerlink" title="1) 自动挂载到默认目录"></a>1) 自动挂载到默认目录</h5><p>由于我们前面添加共享文件夹时勾选了<code>自动挂载</code>，当我们重启虚拟机后，共享文件夹就会被自动挂载到虚拟机上，不用手动挂载。 </p>
+<p>所以接下来我们启动<code>Docker Quickstart Terminal</code>，运行如下命令重启虚拟机：</p>
+<pre class=" language-bash"><code class="language-bash">docker-machine restart</code></pre>
+<p>重启后，运行如下命令进入虚拟机：</p>
+<pre class=" language-bash"><code class="language-bash">docker-machine <span class="token function">ssh</span></code></pre>
+<p>进入虚拟机后，检查一下我们的共享文件夹是否自动挂载上了。共享文件夹会被自动挂载到根目录下，路劲为：<code>/&lt;共享文件夹名称&gt;</code> ，如下是我的例子：</p>
+<pre class=" language-bash"><code class="language-bash">docker@default:~$ ll /MyBlog
+total 8
+-rwxrwxrwx    1 docker   staff         1183 Jun 11 14:07 MyBlog.iml
+-rwxrwxrwx    1 docker   staff         2263 Jun 11 14:05 pom.xml
+drwxrwxrwx    1 docker   staff            0 Jun 11 14:05 src/
+drwxrwxrwx    1 docker   staff            0 Jun 11 14:09 target/</code></pre>
+<p>可以看到，windows主机<code>E:\workspace\MyBlog</code> 里的内容已经共享到虚拟机<code>/MyBlog</code> 下了。 </p>
+<h5 id="2-挂载到指定目录"><a href="#2-挂载到指定目录" class="headerlink" title="2) 挂载到指定目录"></a>2) 挂载到指定目录</h5><p>当然，我们也可以将共享文件夹挂载到虚拟机的指定目录下。 </p>
+<p>通过<code>docker-machine ssh</code>命令进入虚拟机，然后在虚拟机中创建一个目录。我们将要把windows主机的共享文件夹挂载到该目录。例如，创建<code>/home/docker/MyBlog</code> :</p>
+<pre class=" language-shell"><code class="language-shell">mkdir /home/omc/MyBlog</code></pre>
+<p>我们现在查看该目录下是没有任何内容的：</p>
+<pre class=" language-shell"><code class="language-shell">docker@default:~$ ll /home/docker/MyBlog
+total 0</code></pre>
+<p>接下来，将windows主机的共享文件夹挂载到该目录，运行如下命令：</p>
+<pre class=" language-shell"><code class="language-shell">sudo mount -t vboxsf MyBlog /home/docker/MyBlog</code></pre>
+<p>然后查看<code>/home/docker/MyBlog</code>目录：</p>
+<pre class=" language-shell"><code class="language-shell">docker@default:~$ ll /home/docker/MyBlog/
+total 8
+-rwxrwxrwx    1 root     root          1183 Jun 11 14:07 MyBlog.iml
+-rwxrwxrwx    1 root     root          2263 Jun 11 14:05 pom.xml
+drwxrwxrwx    1 root     root             0 Jun 11 14:05 src/
+drwxrwxrwx    1 root     root             0 Jun 11 14:09 target/</code></pre>
+<p>可以看到已经成功挂载了！ </p>
+<p>但是，这种方式有一个弊端：<strong>每当重启虚拟机后，新创建的目录会丢失。</strong> </p>
+<p>我们可以通过如下方式<strong>解决这个问题</strong>： </p>
+<p>编辑<code>/mnt/sda1/var/lib/boot2docker/profile</code> 文件中：</p>
+<pre class=" language-shell"><code class="language-shell">sudo vi /mnt/sda1/var/lib/boot2docker/profile</code></pre>
+<p>在文件最后增加如下配置：</p>
+<pre class=" language-shell"><code class="language-shell">mkdir /home/docker/MyBlog
+sudo mount -t vboxsf MyBlog /home/docker/MyBlog</code></pre>
+<p>保存退出虚拟机，执行如下命令重启虚拟机：</p>
+<pre class=" language-bash"><code class="language-bash">docker-machine restart</code></pre>
+<p>重启后，再次执行<code>docker-machine ssh</code> 进入虚拟机，查看是否自动挂载到我们指定的目录<code>/home/docker/MyBlog</code> ：</p>
+<pre class=" language-shell"><code class="language-shell">docker@default:~$ ll /home/docker/MyBlog/
+total 8
+-rwxrwxrwx    1 root     root          1183 Jun 11 14:07 MyBlog.iml
+-rwxrwxrwx    1 root     root          2263 Jun 11 14:05 pom.xml
+drwxrwxrwx    1 root     root             0 Jun 11 14:05 src/
+drwxrwxrwx    1 root     root             0 Jun 11 14:09 target/</code></pre>
+<p>可以看到，挂载成功！</p>
+<h3 id="二、配置virtualbox虚拟机与docker容器之间文件夹共享"><a href="#二、配置virtualbox虚拟机与docker容器之间文件夹共享" class="headerlink" title="二、配置virtualbox虚拟机与docker容器之间文件夹共享"></a>二、配置virtualbox虚拟机与docker容器之间文件夹共享</h3><p>这个就很简单了，在执行<code>docker run</code>命令时，通过<code>-v</code>参数虚拟机某个目录挂载到docker容器中。 </p>
+<p>如下，将前面在虚拟机中创建的<code>/home/docker/MyBlog</code>目录挂载到docker容器的<code>/usr/tmp/MyBlog</code>中：</p>
+<pre class=" language-shell"><code class="language-shell">docker run -v /home/docker/MyBlog:/usr/tmp/MyBlog -i -t centos /bin/bash</code></pre>
+<p>进入docker容器后，查看<code>/usr/tmp/MyBlog</code>目录：</p>
+<pre class=" language-shell"><code class="language-shell">root@d478e4c6c7f2:/# ll /usr/tmp/MyBlog/
+total 20
+drwxrwxrwx 1 root root 4096 Jun 11 14:09 ./
+drwxr-xr-x 3 root root 4096 Jul 28 15:52 ../
+drwxrwxrwx 1 root root 4096 Jun 27 13:52 .idea/
+-rwxrwxrwx 1 root root 1183 Jun 11 14:07 MyBlog.iml*
+-rwxrwxrwx 1 root root 2263 Jun 11 14:05 pom.xml*
+drwxrwxrwx 1 root root    0 Jun 11 14:05 src/
+drwxrwxrwx 1 root root    0 Jun 11 14:09 target/</code></pre>
+<p>可以看到，windows主机共享文件夹里的内容被成功同步到docker容器中了！</p>
 
             </div>
             <hr/>
@@ -663,7 +608,7 @@ jdbc.pool=druid</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://longyg.github.io/posts/frontend/build-solo-blog.html">http://longyg.github.io/posts/frontend/build-solo-blog.html</a>
+                    <a href="http://longyg.github.io/posts/sharing/share-with-host-and-docker.html">http://longyg.github.io/posts/sharing/share-with-host-and-docker.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -701,12 +646,12 @@ jdbc.pool=druid</code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Web/">
-                                    <span class="chip bg-color">Web</span>
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
                                 </a>
                             
-                                <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
-                                    <span class="chip bg-color">个人博客网站</span>
+                                <a href="/tags/%E5%AE%B9%E5%99%A8/">
+                                    <span class="chip bg-color">容器</span>
                                 </a>
                             
                         </div>
@@ -877,7 +822,7 @@ jdbc.pool=druid</code></pre>
         repo: 'blog-comments',
         owner: 'longyg',
         admin: "longyg",
-        id: '2018-07-11T21-39-01',
+        id: '2018-07-28T23-33-58',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -905,25 +850,78 @@ jdbc.pool=druid</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/ml/mlp-1-knn.html">
+                <a href="/posts/data-analysis/data-handle-manual.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="数据处理速记手册">
                         
-                        <span class="card-title">《机器学习实战》读书笔记之一：k-近邻算法原理与代码实现详解</span>
+                        <span class="card-title">数据处理速记手册</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍《机器学习实战》书中讲解的第一个机器学习算法：k-近邻算法，也称kNN（k-NearestNeighbor的缩写）算法
+                            本文记录机器学习中常见的处理数据的方法，作为一个速查手册。包含了Pandas，Numpy，Matplotlib等各种库的实用方法。
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-07-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-14
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="post-category">
+                                    数据分析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/ml/mlp-2-knn-application.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="《机器学习实战》读书笔记之二：k-近邻算法应用案例">
+                        
+                        <span class="card-title">《机器学习实战》读书笔记之二：k-近邻算法应用案例</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍KNN算法的两个应用案例
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -945,60 +943,6 @@ jdbc.pool=druid</code></pre>
                     
                     <a href="/tags/%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/frontend/build-solo-blog.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="从零搭建solo个人博客网站">
-                        
-                        <span class="card-title">从零搭建solo个人博客网站</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            本人分享了我使用solo搭建个人博客网站的经验
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-11
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                    前端
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Web/">
-                        <span class="chip bg-color">Web</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">个人博客网站</span>
                     </a>
                     
                 </div>
