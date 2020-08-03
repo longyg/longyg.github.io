@@ -1,0 +1,1639 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="TensorFlow 2 教程">
+    <meta name="description" content="龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【TensorFlow 2.0教程】对结构化数据分类 | 龙居雅阁</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="龙居雅阁" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">龙居雅阁</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">龙居雅阁</div>
+        <div class="logo-desc">
+            
+            龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/longyg" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/longyg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【TensorFlow 2.0教程】对结构化数据分类</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/TensorFlow/">
+                                <span class="chip bg-color">TensorFlow</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/TensorFlow/" class="post-category">
+                                TensorFlow
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-06-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-07-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本教程将介绍如何对结构化数据进行分类，例如CSV中的表格数据。我们将使用<code>Keras</code>定义模型，并使用<code>feature columns</code> 作为桥梁，将CSV中的列映射到用于训练模型的特征。本教程将包含如下几方面的完整的代码演示：</p>
+<ul>
+<li>使用<code>Pandas</code>加载CSV数据</li>
+<li>构建一个输入管道（<code>pipeline</code>），使用<code>tf.data API</code>对数据进行<code>批处理</code>和<code>洗牌</code>。</li>
+<li>使用<code>feature columns</code> API将CSV中的列映射到用来训练模型的<code>特征</code>。</li>
+<li>使用<code>Keras</code>构建、训练和评估模型。</li>
+</ul>
+<h3 id="一、数据集介绍"><a href="#一、数据集介绍" class="headerlink" title="一、数据集介绍"></a>一、数据集介绍</h3><p>我们将使用克利夫兰心脏病临床基金会提供的一个较小的<a href="https://archive.ics.uci.edu/ml/datasets/heart+Disease" target="_blank" rel="noopener">数据集</a>。CSV文件中有几百行，每一行描述一个病人，每一列为一个特征。我们将使用这些信息来预测患者是否患有心脏病，这是一个<code>二元分类</code>问题。 </p>
+<p>下面是对该数据集的描述。注意，有些列是数值型的，有些列是分类列。</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+<th>Feature Type</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Age</td>
+<td>Age in years</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Sex</td>
+<td>(1 = male; 0 = female)</td>
+<td>Categorical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>CP</td>
+<td>Chest pain type (0, 1, 2, 3, 4)</td>
+<td>Categorical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Trestbpd</td>
+<td>Resting blood pressure (in mm Hg on admission to the hospital)</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Chol</td>
+<td>Serum cholestoral in mg/dl</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>FBS</td>
+<td>(fasting blood sugar &gt; 120 mg/dl) (1 = true; 0 = false)</td>
+<td>Categorical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>RestECG</td>
+<td>Resting electrocardiographic results (0, 1, 2)</td>
+<td>Categorical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Thalach</td>
+<td>Maximum heart rate achieved</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Exang</td>
+<td>Exercise induced angina (1 = yes; 0 = no)</td>
+<td>Categorical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Oldpeak</td>
+<td>ST depression induced by exercise relative to rest</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Slope</td>
+<td>The slope of the peak exercise ST segment</td>
+<td>Numerical</td>
+<td>float</td>
+</tr>
+<tr>
+<td>CA</td>
+<td>Number of major vessels (0-3) colored by flourosopy</td>
+<td>Numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>Thal</td>
+<td>3 = normal; 6 = fixed defect; 7 = reversable defect</td>
+<td>Categorical</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>Diagnosis of heart disease (1 = true; 0 = false)</td>
+<td>Classification</td>
+<td>integer</td>
+</tr>
+</tbody></table>
+<h4 id="导入TensorFlow和其他库"><a href="#导入TensorFlow和其他库" class="headerlink" title="导入TensorFlow和其他库"></a>导入TensorFlow和其他库</h4><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+
+<span class="token keyword">from</span> tensorflow <span class="token keyword">import</span> feature_column
+<span class="token keyword">from</span> tensorflow<span class="token punctuation">.</span>keras <span class="token keyword">import</span> layers
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split</code></pre>
+<h3 id="二、使用Pandas导入数据集"><a href="#二、使用Pandas导入数据集" class="headerlink" title="二、使用Pandas导入数据集"></a>二、使用Pandas导入数据集</h3><p><code>Pandas</code>是一个Python库，有许多用于加载和处理结构化数据的实用工具。我们将使用<code>Pandas</code>从一个URL下载数据集，并将其加载到<code>dataframe</code>中。</p>
+<pre class=" language-python"><code class="language-python">URL <span class="token operator">=</span> <span class="token string">'https://storage.googleapis.com/applied-dl/heart.csv'</span>
+dataframe <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>URL<span class="token punctuation">)</span>
+dataframe<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>age</th>
+<th>sex</th>
+<th>cp</th>
+<th>trestbps</th>
+<th>chol</th>
+<th>fbs</th>
+<th>restecg</th>
+<th>thalach</th>
+<th>exang</th>
+<th>oldpeak</th>
+<th>slope</th>
+<th>ca</th>
+<th>thal</th>
+<th>target</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>63</td>
+<td>1</td>
+<td>1</td>
+<td>145</td>
+<td>233</td>
+<td>1</td>
+<td>2</td>
+<td>150</td>
+<td>0</td>
+<td>2.3</td>
+<td>3</td>
+<td>0</td>
+<td>fixed</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>67</td>
+<td>1</td>
+<td>4</td>
+<td>160</td>
+<td>286</td>
+<td>0</td>
+<td>2</td>
+<td>108</td>
+<td>1</td>
+<td>1.5</td>
+<td>2</td>
+<td>3</td>
+<td>normal</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>67</td>
+<td>1</td>
+<td>4</td>
+<td>120</td>
+<td>229</td>
+<td>0</td>
+<td>2</td>
+<td>129</td>
+<td>1</td>
+<td>2.6</td>
+<td>2</td>
+<td>2</td>
+<td>reversible</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>37</td>
+<td>1</td>
+<td>3</td>
+<td>130</td>
+<td>250</td>
+<td>0</td>
+<td>0</td>
+<td>187</td>
+<td>0</td>
+<td>3.5</td>
+<td>3</td>
+<td>0</td>
+<td>normal</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>41</td>
+<td>0</td>
+<td>2</td>
+<td>130</td>
+<td>204</td>
+<td>0</td>
+<td>2</td>
+<td>172</td>
+<td>0</td>
+<td>1.4</td>
+<td>1</td>
+<td>0</td>
+<td>normal</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="三、将数据集拆分为训练、验证和测试集"><a href="#三、将数据集拆分为训练、验证和测试集" class="headerlink" title="三、将数据集拆分为训练、验证和测试集"></a>三、将数据集拆分为训练、验证和测试集</h3><p>我们下载的数据集在一个单一的CSV文件中，我们将把它们拆分为<code>训练集</code>，<code>验证集</code>和<code>测试集</code>。</p>
+<pre class=" language-python"><code class="language-python">train<span class="token punctuation">,</span> test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>df<span class="token punctuation">,</span> test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">)</span>
+train<span class="token punctuation">,</span> val <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>train<span class="token punctuation">,</span> test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>train<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'train examples'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'validation examples'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>len<span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'test examples'</span><span class="token punctuation">)</span></code></pre>
+<pre><code>193 train examples
+49 validation examples
+61 test examples</code></pre><h3 id="四、使用tf-data创建输入管道"><a href="#四、使用tf-data创建输入管道" class="headerlink" title="四、使用tf.data创建输入管道"></a>四、使用tf.data创建输入管道</h3><p>接下来，我们将用<code>tf.data</code>包装<code>dataframe</code>。这将使我们能够使用<code>TensorFlow</code>的<code>feature columns</code>作为桥梁，将<code>Pandas</code>的<code>dataframe</code>中的列映射到用于训练模型的特征。如果我们处理的是一个非常大的CSV文件(大到不能通过内存存储)，我们将使用<code>tf.data</code>直接从磁盘读取数据。本教程不讨论这一点。</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 从Pandas的dataframe创建tf.data数据集</span>
+<span class="token keyword">def</span> <span class="token function">df_to_dataset</span><span class="token punctuation">(</span>df<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    df <span class="token operator">=</span> df<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    labels <span class="token operator">=</span> df<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'target'</span><span class="token punctuation">)</span>
+    ds <span class="token operator">=</span> tf<span class="token punctuation">.</span>data<span class="token punctuation">.</span>Dataset<span class="token punctuation">.</span>from_tensor_slices<span class="token punctuation">(</span><span class="token punctuation">(</span>dict<span class="token punctuation">(</span>df<span class="token punctuation">)</span><span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> shuffle<span class="token punctuation">:</span>
+        ds <span class="token operator">=</span> ds<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>buffer_size<span class="token operator">=</span>len<span class="token punctuation">(</span>df<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    ds <span class="token operator">=</span> ds<span class="token punctuation">.</span>batch<span class="token punctuation">(</span>batch_size<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ds</code></pre>
+<p>将数据集拆分成小批次（<code>5</code>）来演示我们创建的<code>tf.data</code>的数据集：</p>
+<pre class=" language-python"><code class="language-python">batch_size <span class="token operator">=</span> <span class="token number">5</span>
+train_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>train<span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span>
+val_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>val<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span>
+test_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>test<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span></code></pre>
+<h3 id="五、进一步了解输入管道"><a href="#五、进一步了解输入管道" class="headerlink" title="五、进一步了解输入管道"></a>五、进一步了解输入管道</h3><p>现在我们已经创建了输入管道，让我们调用它来查看它返回的数据的格式。我们使用了一个小的批次大小（<code>5</code>）来保持输出的可读性。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> feature_batch<span class="token punctuation">,</span> label_batch <span class="token keyword">in</span> train_ds<span class="token punctuation">.</span>take<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Every feature:'</span><span class="token punctuation">,</span> list<span class="token punctuation">(</span>feature_batch<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'A batch of ages:'</span><span class="token punctuation">,</span> feature_batch<span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'A batch of targets:'</span><span class="token punctuation">,</span> label_batch<span class="token punctuation">)</span></code></pre>
+<pre><code>Every feature: [&#39;age&#39;, &#39;sex&#39;, &#39;cp&#39;, &#39;trestbps&#39;, &#39;chol&#39;, &#39;fbs&#39;, &#39;restecg&#39;, &#39;thalach&#39;, &#39;exang&#39;, &#39;oldpeak&#39;, &#39;slope&#39;, &#39;ca&#39;, &#39;thal&#39;]
+A batch of ages: tf.Tensor([52 40 62 64 37], shape=(5,), dtype=int32)
+A batch of targets: tf.Tensor([0 0 0 0 0], shape=(5,), dtype=int32)</code></pre><p>我们可以看到<code>tf.data</code>数据集返回一个字典，<code>key</code>为列名(来自<code>dataframe</code>)，值映射到<code>dataframe</code>中的所有行的列值。</p>
+<h3 id="六、演示几种类型的特征列（feature-column）"><a href="#六、演示几种类型的特征列（feature-column）" class="headerlink" title="六、演示几种类型的特征列（feature column）"></a>六、演示几种类型的特征列（feature column）</h3><p><code>TensorFlow</code>提供了许多类型的特征列。在本节中，我们将创建几种类型的特征列，并演示它们如何从<code>dataframe</code>的列转换为<code>TensorFlow</code>的特征列。 </p>
+<p>我们将使用第一批次的训练数据进行演示：</p>
+<pre class=" language-python"><code class="language-python">example_batch <span class="token operator">=</span> next<span class="token punctuation">(</span>iter<span class="token punctuation">(</span>train_ds<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code></pre>
+<p>下面的工具函数用于创建特征列，并转换一个批次的数据：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">demo</span><span class="token punctuation">(</span>feature_column<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    feature_layer <span class="token operator">=</span> layers<span class="token punctuation">.</span>DenseFeatures<span class="token punctuation">(</span>feature_column<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>feature_layer<span class="token punctuation">(</span>example_batch<span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<h4 id="数值列（Numeric-columns）"><a href="#数值列（Numeric-columns）" class="headerlink" title="数值列（Numeric columns）"></a>数值列（Numeric columns）</h4><p><code>特征列</code>的输出会作为模型的输入(使用上面定义的工具函数，我们将清楚地看到来自<code>dataframe</code>的每一列是如何转换成特征列的)。<code>数值列</code>（numeric column  ）是最简单的特征列类型，它用于表示真实的数值特征。当使用这种特征列时，您的模型将原封不动地从<code>dataframe</code>接收列的值。</p>
+<pre class=" language-python"><code class="language-python">age <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>numeric_column<span class="token punctuation">(</span><span class="token string">'age'</span><span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>age<span class="token punctuation">)</span></code></pre>
+<pre><code>[[52.]
+ [40.]
+ [62.]
+ [64.]
+ [37.]]</code></pre><p>在本教程使用的心脏病数据集中，<code>dataframe</code>中的大多数列都是<code>数值列</code>。</p>
+<h4 id="桶列（Bucketized-columns）"><a href="#桶列（Bucketized-columns）" class="headerlink" title="桶列（Bucketized columns）"></a>桶列（Bucketized columns）</h4><p>通常，您不希望将数值直接输入模型，而是根据数值范围将其值划分为不同的类别。考虑代表一个人年龄的数值数据，我们可以把年龄分成几个阶段，每个阶段称为一个<code>桶</code>，形成所谓的<code>桶列</code>（<code>bucketized column</code>）。</p>
+<pre class=" language-python"><code class="language-python">age_buckets <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>bucketized_column<span class="token punctuation">(</span>age<span class="token punctuation">,</span> boundaries<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">65</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>age_buckets<span class="token punctuation">)</span></code></pre>
+<pre><code>[[0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0.]]</code></pre><p>注意上面输出的是<code>one-hot</code>数组，数组中的每一行表示数据中某一行数据代表的某个人的年龄属于哪个年龄范围。</p>
+<h4 id="分类列（Categorical-columns）"><a href="#分类列（Categorical-columns）" class="headerlink" title="分类列（Categorical columns）"></a>分类列（Categorical columns）</h4><p>在这个数据集中，<code>thal</code>列的值是一个字符串(例如：<code>fixed</code>、<code>normal</code>或<code>reversible</code>)。我们不能将字符串直接提供给模型。相反，我们必须首先将它们转换为数值。分类词汇表列（<code>categorical vocabulary columns</code>）提供了一种将字符串表示为一个<code>one-hot</code>向量的方法（就像您在上面看到的年龄桶一样）。可以使用<code>categorical_column_with_vocabulary_list</code>，将词汇表作为列表传递给该函数。也可以使用<code>categorical_column_with_vocabulary_file</code>从文件中加载词汇表。</p>
+<pre class=" language-python"><code class="language-python">thal <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>categorical_column_with_vocabulary_list<span class="token punctuation">(</span>
+        <span class="token string">'thal'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'fixed'</span><span class="token punctuation">,</span> <span class="token string">'normal'</span><span class="token punctuation">,</span> <span class="token string">'reversible'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+thal_one_hot <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>indicator_column<span class="token punctuation">(</span>thal<span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>thal_one_hot<span class="token punctuation">)</span></code></pre>
+<pre><code>[[0. 1. 0.]
+ [0. 0. 1.]
+ [0. 0. 1.]
+ [0. 0. 1.]
+ [0. 1. 0.]]</code></pre><p>在更复杂的数据集中，许多列都可能是类似的分类列。在处理这种类型的数据时，使用<code>feature columns</code> API是最有效的。</p>
+<h4 id="嵌入列（Embedding-columns）"><a href="#嵌入列（Embedding-columns）" class="headerlink" title="嵌入列（Embedding columns）"></a>嵌入列（Embedding columns）</h4><p>假设不是只有几个可能的字符串，而是每个类别有数千个(或更多)值。由于许多原因，随着类别数量的增加，使用<code>one-hot</code>编码训练神经网络将变得不再可行。我们可以使用<code>嵌入列</code>来克服这个限制。<code>嵌入列</code>（<code>embedding column</code>）不是将数据表示为有很多维度的<code>one-hot</code>向量，而是将该数据表示为一个<code>低维度</code>、<code>密集</code>的向量，其中每个单元格可以包含任意数字，而不仅仅是<code>0</code>或<code>1</code>。嵌入的大小(在下面的例子中是<code>8</code>)是一个必须调优的参数。 </p>
+<blockquote>
+<p><strong>关键点</strong>：当分类列有比较多的可能值时，使用嵌入列是最好的选择。 </p>
+</blockquote>
+<p>我们在这里简单演示一下如何这种方法：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 注意，传递给嵌入列的是一个分类列</span>
+thal_embedding <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>embedding_column<span class="token punctuation">(</span>thal<span class="token punctuation">,</span> dimension<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>thal_embedding<span class="token punctuation">)</span></code></pre>
+<pre><code>[[-0.6782604  -0.511632    0.01026161 -0.4221003   0.118221   -0.6251951
+  -0.16774575 -0.17677607]
+ [ 0.45159644 -0.05390342  0.03806166 -0.6353068  -0.0791701  -0.27596644
+   0.49114797 -0.49382535]
+ [ 0.45159644 -0.05390342  0.03806166 -0.6353068  -0.0791701  -0.27596644
+   0.49114797 -0.49382535]
+ [ 0.45159644 -0.05390342  0.03806166 -0.6353068  -0.0791701  -0.27596644
+   0.49114797 -0.49382535]
+ [-0.6782604  -0.511632    0.01026161 -0.4221003   0.118221   -0.6251951
+  -0.16774575 -0.17677607]]</code></pre><h4 id="散列特征列（Hased-feature-columns）"><a href="#散列特征列（Hased-feature-columns）" class="headerlink" title="散列特征列（Hased feature columns）"></a>散列特征列（Hased feature columns）</h4><p>另一种表示具有大量值的分类列的方法是使用<code>categorical_column_with_hash_bucket</code>，它计算输入的<code>哈希值</code>，然后选择一个合适的桶大小（<code>hash_bucket_size</code>）对字符串进行编码。在使用这种类型的特征列时，您不需要提供<code>词汇表</code>，同时您可以选择让<code>散列桶</code>的数量比实际类别的数量小得多，从而节省空间。 </p>
+<blockquote>
+<p><strong>关键点</strong>：这种技术的一个重要缺点是可能会有冲突，我们可能会遇到不同的字符串被映射到同一个散列桶的冲突。但实际上，即使存在这种冲突，对于某些数据集，这种方法依然表现得很好。</p>
+</blockquote>
+<pre class=" language-python"><code class="language-python">thal_hased <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>categorical_column_with_hash_bucket<span class="token punctuation">(</span>
+    <span class="token string">'thal'</span><span class="token punctuation">,</span> hash_bucket_size<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
+thal_hased_one_hot <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>indicator_column<span class="token punctuation">(</span>thal_hased<span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>thal_hased_one_hot<span class="token punctuation">)</span></code></pre>
+<pre><code>[[0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]]</code></pre><h4 id="交叉特征列（Crossed-feature-columns）"><a href="#交叉特征列（Crossed-feature-columns）" class="headerlink" title="交叉特征列（Crossed feature columns）"></a>交叉特征列（Crossed feature columns）</h4><p>将多个特征组合成一个特征，通常称为<code>特征交叉</code>（<code>feature crosses</code>）。模型能够为每个组合后的特征学习到单独的权重。在这里，我们将使用<code>crossed_column</code>创建一个新的特征，它是<code>年龄</code>和<code>thal</code>的组合特征。 </p>
+<blockquote>
+<p><strong>注意</strong>，<code>crossed_column</code>不会构建所有可能组合的完整表（它可能非常大）。相反，它实际上使用了<code>hashed_column</code>，因此您可以选择表的大小。</p>
+</blockquote>
+<pre class=" language-python"><code class="language-python">crossed_feature <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>crossed_column<span class="token punctuation">(</span><span class="token punctuation">[</span>age_buckets<span class="token punctuation">,</span> thal<span class="token punctuation">]</span><span class="token punctuation">,</span> hash_bucket_size<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
+demo<span class="token punctuation">(</span>feature_column<span class="token punctuation">.</span>indicator_column<span class="token punctuation">(</span>crossed_feature<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre><code>[[0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]
+ [0. 0. 0. ... 0. 0. 0.]]</code></pre><h3 id="七、选择合适的特征列"><a href="#七、选择合适的特征列" class="headerlink" title="七、选择合适的特征列"></a>七、选择合适的特征列</h3><p>我们已经了解了如何使用几种常见类型的<code>特征列</code>。现在我们将用它们来训练一个模型。本教程的目标是向您展示处理特征列所需的完整代码，以及其机制。我们将随意选择一些列来训练我们的模型。 </p>
+<blockquote>
+<p><strong>关键点</strong>：如果您的目标是构建一个精确的模型，那么你需要尝试更大的数据集，并仔细考虑哪些特征是最有意义的，以及它们应该被如何表示。</p>
+</blockquote>
+<pre class=" language-python"><code class="language-python">feature_columns <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># numeric columns</span>
+<span class="token keyword">for</span> header <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token string">'trestbps'</span><span class="token punctuation">,</span> <span class="token string">'chol'</span><span class="token punctuation">,</span> <span class="token string">'thalach'</span><span class="token punctuation">,</span> <span class="token string">'oldpeak'</span><span class="token punctuation">,</span> <span class="token string">'slope'</span><span class="token punctuation">,</span> <span class="token string">'ca'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    feature_columns<span class="token punctuation">.</span>append<span class="token punctuation">(</span>feature_column<span class="token punctuation">.</span>numeric_column<span class="token punctuation">(</span>header<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># bucketized columns</span>
+age_buckets <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>bucketized_column<span class="token punctuation">(</span>age<span class="token punctuation">,</span> boundaries<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">65</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+feature_columns<span class="token punctuation">.</span>append<span class="token punctuation">(</span>age_buckets<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># indicator columns</span>
+thal <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>categorical_column_with_vocabulary_list<span class="token punctuation">(</span>
+        <span class="token string">'thal'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'fixed'</span><span class="token punctuation">,</span> <span class="token string">'normal'</span><span class="token punctuation">,</span> <span class="token string">'reversible'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+thal_one_hot <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>indicator_column<span class="token punctuation">(</span>thal<span class="token punctuation">)</span>
+feature_columns<span class="token punctuation">.</span>append<span class="token punctuation">(</span>thal_one_hot<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># embeddding columns</span>
+thal_embeddding <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>embedding_column<span class="token punctuation">(</span>thal<span class="token punctuation">,</span> dimension<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span>
+feature_columns<span class="token punctuation">.</span>append<span class="token punctuation">(</span>thal_embedding<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># crossed columns</span>
+crossed_feature <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>crossed_column<span class="token punctuation">(</span><span class="token punctuation">[</span>age_buckets<span class="token punctuation">,</span> thal<span class="token punctuation">]</span><span class="token punctuation">,</span> hash_bucket_size<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">)</span>
+crossed_feature <span class="token operator">=</span> feature_column<span class="token punctuation">.</span>indicator_column<span class="token punctuation">(</span>crossed_feature<span class="token punctuation">)</span>
+feature_columns<span class="token punctuation">.</span>append<span class="token punctuation">(</span>crossed_feature<span class="token punctuation">)</span></code></pre>
+<h3 id="八、创建一个特征层"><a href="#八、创建一个特征层" class="headerlink" title="八、创建一个特征层"></a>八、创建一个特征层</h3><p>现在我们已经定义了特征列，接下来，我们将使用<code>DenseFeatures</code>创建一个层，该层将被输入到我们的模型。</p>
+<pre class=" language-python"><code class="language-python">feature_layer <span class="token operator">=</span> layers<span class="token punctuation">.</span>DenseFeatures<span class="token punctuation">(</span>feature_columns<span class="token punctuation">)</span></code></pre>
+<p>在前面，我们使用了一个小的批次大小（<code>5</code>）来演示特征列是如何工作的。这里，我们将创建一个新的输入管道，具有更大批次大小（<code>32</code>）。</p>
+<pre class=" language-python"><code class="language-python">batch_size <span class="token operator">=</span> <span class="token number">32</span>
+train_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>train<span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span>
+val_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>val<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span>
+test_ds <span class="token operator">=</span> df_to_dataset<span class="token punctuation">(</span>test<span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">)</span></code></pre>
+<h3 id="九、创建、编译和训练模型"><a href="#九、创建、编译和训练模型" class="headerlink" title="九、创建、编译和训练模型"></a>九、创建、编译和训练模型</h3><p>接下来，我们创建一个模型，并编译和训练它：</p>
+<pre class=" language-python"><code class="language-python">model <span class="token operator">=</span> tf<span class="token punctuation">.</span>keras<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    feature_layer<span class="token punctuation">,</span>
+    layers<span class="token punctuation">.</span>Dense<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> activation<span class="token operator">=</span><span class="token string">'relu'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    layers<span class="token punctuation">.</span>Dense<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> activation<span class="token operator">=</span><span class="token string">'relu'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    layers<span class="token punctuation">.</span>Dense<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> activation<span class="token operator">=</span><span class="token string">'sigmoid'</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+model<span class="token punctuation">.</span>compile<span class="token punctuation">(</span>optimizer<span class="token operator">=</span><span class="token string">'adam'</span><span class="token punctuation">,</span>
+              loss<span class="token operator">=</span><span class="token string">'binary_crossentropy'</span><span class="token punctuation">,</span>
+              metrics<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'accuracy'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>train_ds<span class="token punctuation">,</span>
+          validation_data<span class="token operator">=</span>val_ds<span class="token punctuation">,</span>
+          epochs<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span></code></pre>
+<pre><code>Epoch 1/5
+7/7 [==============================] - 0s 71ms/step - loss: 1.0957 - accuracy: 0.6601 - val_loss: 0.6680 - val_accuracy: 0.6735
+Epoch 2/5
+7/7 [==============================] - 0s 27ms/step - loss: 0.5393 - accuracy: 0.7600 - val_loss: 0.5512 - val_accuracy: 0.6939
+Epoch 3/5
+7/7 [==============================] - 0s 27ms/step - loss: 0.6062 - accuracy: 0.7403 - val_loss: 0.6553 - val_accuracy: 0.6735
+Epoch 4/5
+7/7 [==============================] - 0s 27ms/step - loss: 0.5936 - accuracy: 0.7410 - val_loss: 0.7399 - val_accuracy: 0.6735
+Epoch 5/5
+7/7 [==============================] - 0s 27ms/step - loss: 0.4790 - accuracy: 0.7734 - val_loss: 0.5646 - val_accuracy: 0.7143
+&lt;tensorflow.python.keras.callbacks.History at 0x152d5a20&gt;</code></pre><pre class=" language-python"><code class="language-python">loss<span class="token punctuation">,</span> accuracy <span class="token operator">=</span> model<span class="token punctuation">.</span>evaluate<span class="token punctuation">(</span>test_ds<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Accuracy:'</span><span class="token punctuation">,</span> accuracy<span class="token punctuation">)</span></code></pre>
+<pre><code>2/2 [==============================] - 0s 20ms/step - loss: 0.6159 - accuracy: 0.7213
+Accuracy: 0.72131145</code></pre><blockquote>
+<p><strong>关键点</strong>：通常情况下，深度学习在更大更复杂的数据集中才会得到的最佳结果。在处理像本教程的小数据集时，我们建议使用<code>决策树</code>或<code>随机森林</code>作为基线。本教程的目标不是训练一个精确的模型，而是演示处理结构化数据的机制，从而在将来处理自己的数据集时，可以使用这里的代码作为一个起点。</p>
+</blockquote>
+<h3 id="十、下一步"><a href="#十、下一步" class="headerlink" title="十、下一步"></a>十、下一步</h3><p>了解<code>结构化数据</code>分类的最佳方法是亲自尝试。我们建议您寻找另一个数据集，并使用类似于上面的代码训练一个模型，然后对其进行分类。为了提高精确度，请仔细考虑模型中应该包含哪些特征，以及它们应该被如何表示。 </p>
+<p>本教程的完整代码请参考<a href="https://github.com/longyg/machine-learning/blob/master/tensorflow-2.0/4-classify-structured-data.ipynb" target="_blank" rel="noopener">这里</a>。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">yglong</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://www.yglong.com/posts/ml/tf2-classify-structured-data.html">http://www.yglong.com/posts/ml/tf2-classify-structured-data.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">yglong</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/TensorFlow/">
+                                    <span class="chip bg-color">TensorFlow</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '357fc628d86fb45f7082',
+        clientSecret: '7d50d35a5764740c102b798f24a2921cf9e5e111',
+        repo: 'blog-comments',
+        owner: 'longyg',
+        admin: "longyg",
+        id: '2019-06-09T20-12-53',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/ml/tf2-regression.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="【TensorFlow 2.0教程】回归：预测燃油效率">
+                        
+                        <span class="card-title">【TensorFlow 2.0教程】回归：预测燃油效率</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文介绍使用 TensorFlow 2.0 处理回归问题
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-11
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/TensorFlow/" class="post-category">
+                                    TensorFlow
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/TensorFlow/">
+                        <span class="chip bg-color">TensorFlow</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/ml/tf2-text-classification.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="【TensorFlow 2.0教程】对影视评论进行文本分类">
+                        
+                        <span class="card-title">【TensorFlow 2.0教程】对影视评论进行文本分类</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本教程将使用 TensorFlow 2.0 训练一个神经网络模型来对影视评论分类
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/TensorFlow/" class="post-category">
+                                    TensorFlow
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/TensorFlow/">
+                        <span class="chip bg-color">TensorFlow</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="3754812570"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">yglong</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">60.9k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "5";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/longyg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:longyg1986@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=373020902" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 373020902" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

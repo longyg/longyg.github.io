@@ -1,0 +1,1581 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="决策树,机器学习决策树算法">
+    <meta name="description" content="龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>《机器学习实战》读书笔记之三：决策树 | 龙居雅阁</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="龙居雅阁" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">龙居雅阁</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">龙居雅阁</div>
+        <div class="logo-desc">
+            
+            龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/longyg" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/longyg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">《机器学习实战》读书笔记之三：决策树</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">
+                                <span class="chip bg-color">决策树</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-08-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-07-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    16 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><p><code>决策树</code>算法用于解决分类问题。它的基本原理是，通过给定原始数据（即训练数据）构造一棵决策树，然后通过构造的决策树构建一个分类器，从而对未知数据进行分类。 该算法的关键是如何构造一棵合适的决策树，所谓合适，就是指找到一棵<code>最优的决策树</code>，从而使数据经过尽量少的分支最终得到数据的所属分类。 本文将详细介绍如何根据训练数据构造决策树，然后通过决策树创建分类器，最后通过实际案例测试分类器的预测效果。</p>
+<h3 id="二、构造决策树"><a href="#二、构造决策树" class="headerlink" title="二、构造决策树"></a>二、构造决策树</h3><h4 id="1-什么是决策树"><a href="#1-什么是决策树" class="headerlink" title="1. 什么是决策树"></a>1. 什么是决策树</h4><p>何为<code>决策树</code>，我们通过实际例子可以很轻松理解。 </p>
+<p>如下就是一棵决策树，用于判断某种海洋生物是否为鱼类： </p>
+<p><a href="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftytsxc52lj20h507k3z0.jpg" target="_blank" rel="noopener"><img src="http://wx3.sinaimg.cn/mw690/bd7db87egy1ftytsxc52lj20h507k3z0.jpg" alt></a> </p>
+<p>从图中可以看到，该决策树通过两个属性来判断海洋生物是否为鱼类，两个属性分别为:</p>
+<ul>
+<li>不浮出水面是否可以生存</li>
+<li>是否有脚蹼</li>
+</ul>
+<p>如果该生物不浮出水面不能生存，那该生物为非鱼类。如果不浮出水面可以生存，而且有脚蹼，那就是鱼类，否则为非鱼类。 </p>
+<p>其中每个属性都只有两种可能的取值，因此每个属性框向下都只有两个分支。 </p>
+<p>所以，不管决策树多么复杂，决策树始终由三个基本模块组成，：</p>
+<ul>
+<li><code>判断模块</code>：代表数据的属性或特征</li>
+<li><code>终止模块</code>：最后的叶子节点，表示数据经过决策树后的最终分类</li>
+<li><code>分支</code>：从一个判断模块到达下一个模块的分叉，可以是另一个判断模块或终止模块。属性有多少种取值就会有多少个分支。</li>
+</ul>
+<p>大家可能想到了，上面的决策树并不是判断海洋生物是否为鱼类的唯一决策树，我们可以调换属性判断顺序，上面的决策树是先判断属性“不浮出水面是否可以生存”，如果我们改为先判断属性“是否有脚蹼”，将得到一个完全不同的决策树，如下： </p>
+<p><a href="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftytswws1wj20h408mjrs.jpg" target="_blank" rel="noopener"><img src="http://wx4.sinaimg.cn/mw690/bd7db87egy1ftytswws1wj20h408mjrs.jpg" alt></a> </p>
+<p>那么究竟在实际使用中，我们应该使用哪一种决策树呢？实际上这就是机器学习决策树算法要解决的核心问题：<code>构造最优决策树</code>。 </p>
+<p>接下来我们将介绍如何构造最优决策树。</p>
+<h4 id="2-构造最优决策树"><a href="#2-构造最优决策树" class="headerlink" title="2. 构造最优决策树"></a>2. 构造最优决策树</h4><p>应用机器学习的决策树算法，我们需要收集一定量的训练数据，通过训练数据构造<code>最优决策树</code>。 </p>
+<p>如何构造最优决策树？ </p>
+<p>核心就是从训练数据找出<code>划分数据集的最好特征</code>，然后划分数据集为多个子数据集。再递归地从子数据集找出划分子数据集的最好特征，划分子数据集，直到所有子数据集中的数据具有相同分类。 </p>
+<p>因此为了构造最优决策树，实际上我们需要解决一个关键的算法问题：</p>
+<ul>
+<li>找出划分数据集的最好特征的算法</li>
+</ul>
+<p>接下来我们将实现这个关键算法，然后实现划分数据集，最后实现构造<code>最优决策树</code>。 </p>
+<p>我们依然以前面的判断海洋生物是否为鱼类作为例子，假设我们有一组训练数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>不浮出水面是否可以生存</th>
+<th>是否有脚蹼</th>
+<th>是否为鱼类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>可以生存</td>
+<td>有</td>
+<td>鱼类</td>
+</tr>
+<tr>
+<td>2</td>
+<td>可以生存</td>
+<td>有</td>
+<td>鱼类</td>
+</tr>
+<tr>
+<td>3</td>
+<td>可以生存</td>
+<td>没有</td>
+<td>非鱼类</td>
+</tr>
+<tr>
+<td>4</td>
+<td>不能生存</td>
+<td>有</td>
+<td>非鱼类</td>
+</tr>
+<tr>
+<td>5</td>
+<td>不能生存</td>
+<td>有</td>
+<td>非鱼类</td>
+</tr>
+</tbody></table>
+<p>通过上面给定的训练数据集，我们需要确定是以第一个特征优先分类，还是以第二个特征优先分类。 </p>
+<p><strong>那么如何确定呢？</strong> </p>
+<p>这里将要采用信息论理论：<code>香农熵</code>。就是可以将信息进行量化的理论，通过计算信息的熵来获知信息量。 </p>
+<p>计算<code>香农熵</code>的公式为： </p>
+<p>$$H = -\sum_{i=1}^{n}p(x_i)log_2p(x_i)$$ </p>
+<p>其中$p(x_i)$表示数据集中第\(x_i\)种分类的概率。 </p>
+<p>至于这个公式是怎么来的，这个大家不用去关心，其实我也没有去深入了解过。他是大牛克劳德-香农发明的，也是世人所公认的。 </p>
+<p>它用于度量数据集的混乱度，<code>香农熵</code>越大，混乱度越高。而<code>混乱度越高</code>，说明数据集包含的<code>信息量越大</code>。反之，如果某个数据集<code>混乱度越低</code>（即数据集的分类更明朗），那它所承载的<code>信息量越小</code>。 </p>
+<p>而我们的决策树的目的是要把混乱的数据集进行分类，最终让数据集变得分类明确。也就说，要尽量让分类后的数据集的香农熵小。 </p>
+<p>以前面的数据集为例，我们来根据香农熵公式计算一下该数据集的香农熵。 </p>
+<p>数据集包含两种分类：<code>鱼类</code>和<code>非鱼类</code>。其中: </p>
+<ul>
+<li><code>鱼类</code>有两条数据，概率为： </li>
+</ul>
+<p>$$p(鱼类) = 2 / 5 = 0.4$$ </p>
+<ul>
+<li><code>非鱼类</code>有3条数据，概率为： </li>
+</ul>
+<p>$$p(非鱼类) = 3 / 5 = 0.6$$ </p>
+<p>代入香农熵公式： </p>
+<p>$$H = - (p(鱼类)log_2p(鱼类) + (p(非鱼类)log_2p(非鱼类))$$ </p>
+<p>$$= - (0.4 * log_20.4 + 0.6 * log_20.6)$$ </p>
+<p>$$= -(-0.5287712379549449-0.44217935649972373)$$ </p>
+<p>$$= 0.9709505944546686$$ </p>
+<p>接下来，用Python3实现计算数据集的香农熵。创建<code>decision_tree.py</code>文件，定义计算香农熵的<code>calcShannonEnt()</code>函数：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> math
+
+<span class="token comment" spellcheck="true"># 计算香农熵</span>
+<span class="token keyword">import</span> math
+
+<span class="token comment" spellcheck="true"># 计算香农熵</span>
+<span class="token keyword">def</span> <span class="token function">calcShannonEnt</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 获取数据集数据总个数</span>
+    numEntries <span class="token operator">=</span> len<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span>
+    labelCounts <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> featVec <span class="token keyword">in</span> dataSet<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 获取数据的分类，数据集的最后一个数据即是该数据的分类</span>
+        currentLabel <span class="token operator">=</span> featVec<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> currentLabel <span class="token operator">not</span> <span class="token keyword">in</span> labelCounts<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            labelCounts<span class="token punctuation">[</span>currentLabel<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        labelCounts<span class="token punctuation">[</span>currentLabel<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+    shannonEnt <span class="token operator">=</span> <span class="token number">0.0</span>
+    <span class="token keyword">for</span> key <span class="token keyword">in</span> labelCounts<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 计算分类的概率</span>
+        prob <span class="token operator">=</span> float<span class="token punctuation">(</span>labelCounts<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> numEntries
+        <span class="token comment" spellcheck="true"># 使用香农熵公式计算香农熵</span>
+        shannonEnt <span class="token operator">-=</span> prob <span class="token operator">*</span> math<span class="token punctuation">.</span>log<span class="token punctuation">(</span>prob<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> shannonEnt</code></pre>
+<p>然后创建前面示例的数据集：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">createDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataSet <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'可以生存'</span><span class="token punctuation">,</span> <span class="token string">'有'</span><span class="token punctuation">,</span> <span class="token string">"鱼类"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token string">'可以生存'</span><span class="token punctuation">,</span> <span class="token string">'有'</span><span class="token punctuation">,</span> <span class="token string">"鱼类"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token string">'可以生存'</span><span class="token punctuation">,</span> <span class="token string">'没有'</span><span class="token punctuation">,</span> <span class="token string">"非鱼类"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token string">'不能生存'</span><span class="token punctuation">,</span> <span class="token string">'有'</span><span class="token punctuation">,</span> <span class="token string">"非鱼类"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">[</span><span class="token string">'不能生存'</span><span class="token punctuation">,</span> <span class="token string">'有'</span><span class="token punctuation">,</span> <span class="token string">"非鱼类"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'不浮出水面是否可以生存'</span><span class="token punctuation">,</span> <span class="token string">'是否有脚蹼'</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> dataSet<span class="token punctuation">,</span> labels</code></pre>
+<pre class=" language-python"><code class="language-python">dataSet<span class="token punctuation">,</span> labels <span class="token operator">=</span> createDataSet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>calcShannonEnt<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre><code>0.9709505944546686</code></pre><p>可见，Python实现的函数的计算结果与前面的计算结果一致。 </p>
+<p>我们也可以看到，<code>香农熵</code>的大小取决于两个因素：</p>
+<ol>
+<li>数据分类种类个数</li>
+<li>每种分类的概率大小。</li>
+</ol>
+<p>数据<code>分类种类越多</code>，表示数据<code>混乱度越高</code>，因此<code>香农熵越大</code>。 </p>
+<p>数据<code>分类越均匀</code>，<code>香农熵越大</code>。比如上面的例子，如果两种分类的其中每种分类的概率一样，都为<code>0.5</code>，香农熵将最大为<code>1.0</code>。 </p>
+<p>为了确定用于划分数据集的最好特征，我们可以计算划分前与划分后的数据集的<code>信息增益</code>。所谓信息增益，就是划分前数据集的香农熵与划分后数据集的香农熵的<code>差值</code>： </p>
+<p>$$I = H_{划分前} - H_{划分后}$$ </p>
+<p>差值越大，信息增益越大。如果某个特征划分数据集后信息增益最大，那么该特征就是我们要寻找的划分数据集的<code>最佳特征</code>。 </p>
+<p>下面我们来计算前面示例的两个特征分别划分数据集后的信息增益，然后比较信息增益大小，<code>信息增益最大的特征</code>，即为划分数据集的<code>最好特征</code>。 </p>
+<p>按第一个特征“不浮出水面是否可以生存”划分数据集，结果如下： </p>
+<p><a href="http://wx3.sinaimg.cn/large/bd7db87egy1fy2m5535vyj212z0is0uo.jpg" target="_blank" rel="noopener"><img src="http://wx3.sinaimg.cn/large/bd7db87egy1fy2m5535vyj212z0is0uo.jpg" alt></a> </p>
+<p>信息增益为： </p>
+<p>$$I_1 = H_{划分前} - H_{划分后}$$</p>
+<p>$$= 0.9709505944546686 - 0.5509775004326937$$ </p>
+<p>$$= 0.4199730940219749$$ </p>
+<p>按第二个特征“是否有脚蹼”划分数据集，结果如下： </p>
+<p><a href="http://wx1.sinaimg.cn/large/bd7db87egy1fy2m560278j212i0is75z.jpg" target="_blank" rel="noopener"><img src="http://wx1.sinaimg.cn/large/bd7db87egy1fy2m560278j212i0is75z.jpg" alt></a> </p>
+<p>信息增益为： </p>
+<p>$$I_2 = H_{划分前} - H_{划分后}$$ </p>
+<p>$$= 0.9709505944546686 - 0.8$$ </p>
+<p>$$= 0.1709505944546686$$ </p>
+<p>比较按两种特征划分后的信息增益，由于$I_1 &gt; I_2$，因此，第一个特征“不浮出水面是否可以生存”为划分该数据集的<code>最好特征</code>。 </p>
+<p>现在，相信你已经了解了通过计算<code>信息增益</code>来寻找划分数据集的<code>最好特征</code>的算法原理。接下来，我们用Python3实现该算法。 </p>
+<p>首先定义<code>splitDataSet()</code>函数用于划分数据集：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 划分数据集</span>
+<span class="token comment" spellcheck="true"># dataSet： 将被进行划分的数据集</span>
+<span class="token comment" spellcheck="true"># axis: 特征索引，表示按第几个特征进行划分，从0开始</span>
+<span class="token comment" spellcheck="true"># value: 特征的值，将把第axis个特征具有相同value的数据划分为同一个子集</span>
+<span class="token keyword">def</span> <span class="token function">splitDataSet</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">,</span> axis<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    retDataSet <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> featVec <span class="token keyword">in</span> dataSet<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> featVec<span class="token punctuation">[</span>axis<span class="token punctuation">]</span> <span class="token operator">==</span> value<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 去掉用于划分的特征，只保留还未用于划分的特征</span>
+            reducedFeatVec <span class="token operator">=</span> featVec<span class="token punctuation">[</span><span class="token punctuation">:</span>axis<span class="token punctuation">]</span>
+            reducedFeatVec<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>featVec<span class="token punctuation">[</span>axis <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            retDataSet<span class="token punctuation">.</span>append<span class="token punctuation">(</span>reducedFeatVec<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> retDataSet</code></pre>
+<p>接下来，定义<code>chooseBestFeatureToSplit()</code>函数，实现寻找划分数据集的最好特征：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 选择划分数据集的最好特征</span>
+<span class="token keyword">def</span> <span class="token function">chooseBestFeatureToSplit</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    numFeatures <span class="token operator">=</span> len<span class="token punctuation">(</span>dataSet<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+    <span class="token comment" spellcheck="true"># 计算划分前的香农熵</span>
+    baseEntropy <span class="token operator">=</span> calcShannonEnt<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span>
+    bestInfoGain <span class="token operator">=</span> <span class="token number">0.0</span>
+    bestFeature <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+    <span class="token comment" spellcheck="true"># 循环用每个特征对数据集进行划分</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>numFeatures<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        featList <span class="token operator">=</span> <span class="token punctuation">[</span>example<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">for</span> example <span class="token keyword">in</span> dataSet<span class="token punctuation">]</span>
+        uniqueVals <span class="token operator">=</span> set<span class="token punctuation">(</span>featList<span class="token punctuation">)</span>
+        newEntropy <span class="token operator">=</span> <span class="token number">0.0</span>
+        <span class="token comment" spellcheck="true"># 循环每个特征的所有取值，进行划分</span>
+        <span class="token keyword">for</span> value <span class="token keyword">in</span> uniqueVals<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 划分数据集，获得划分后的子集</span>
+            subDataSet <span class="token operator">=</span> splitDataSet<span class="token punctuation">(</span>dataSet<span class="token punctuation">,</span> i<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 计算子集的数据比例</span>
+            prob <span class="token operator">=</span> len<span class="token punctuation">(</span>subDataSet<span class="token punctuation">)</span> <span class="token operator">/</span> float<span class="token punctuation">(</span>len<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 计算按特征i进行划分后，所有子集的总香农熵</span>
+            newEntropy <span class="token operator">+=</span> prob <span class="token operator">*</span> calcShannonEnt<span class="token punctuation">(</span>subDataSet<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 计算信息增益</span>
+        infoGain <span class="token operator">=</span> baseEntropy <span class="token operator">-</span> newEntropy
+        <span class="token comment" spellcheck="true"># 比较信息增益，将信息增益大的特征赋予bestFeature变量</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>infoGain <span class="token operator">></span> bestInfoGain<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            bestInfoGain <span class="token operator">=</span> infoGain
+            bestFeature <span class="token operator">=</span> i
+    <span class="token keyword">return</span> bestFeature</code></pre>
+<p>测试一下：</p>
+<pre class=" language-python"><code class="language-python">bestFeature <span class="token operator">=</span> chooseBestFeatureToSplit<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>bestFeature<span class="token punctuation">)</span></code></pre>
+<p>输出：</p>
+<pre><code> 0</code></pre><p>输出为<code>0</code>，表示第一个特征“不浮出水面是否可以生存”，与我们在前面的推导结果是一致的。 </p>
+<p>现在，我们已经实现了决策树的核心算法：<code>找出划分数据集的最好特征</code>。接下来，我们将使用该算法构造决策树。 </p>
+<p><code>构造决策树</code>的基本步骤为：</p>
+<ol>
+<li>寻找划分数据集的<code>最好特征</code></li>
+<li>划分数据集</li>
+<li>创建分支节点</li>
+<li>循环每个子集，递归地重复步骤1-3，如果子集包含的数据都属于同一分类，则返回。</li>
+</ol>
+<p>但有一种情况，如果所有特征都被用于划分后，依然有某个子集的数据不完全属于同一分类，这种情况下，我们将直接返回该子集中出现次数最多的分类。 </p>
+<p>因此，我们首先实现<code>majorityCnt()</code>函数用于获取出现次数最多的分类：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> operator
+
+<span class="token comment" spellcheck="true"># 返回分类列表中出现次数最多的分类</span>
+<span class="token keyword">def</span> <span class="token function">majorityCnt</span><span class="token punctuation">(</span>classList<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    classCount <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> vote <span class="token keyword">in</span> classList<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> vote <span class="token operator">not</span> <span class="token keyword">in</span> classCount<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            classCount<span class="token punctuation">[</span>vote<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        classCount<span class="token punctuation">[</span>vote<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+    sortedClassCount <span class="token operator">=</span> sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code></pre>
+<p>定义<code>createTree()</code>函数创建决策树：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建决策树</span>
+<span class="token keyword">def</span> <span class="token function">createTree</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 获取所有数据的分类，每条数据的最后一列为该数据的分类，因此可以通过索引-1获取。</span>
+    classList <span class="token operator">=</span> <span class="token punctuation">[</span>example<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">for</span> example <span class="token keyword">in</span> dataSet<span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 如果分类列表中所有分类都相同，则直接返回</span>
+    <span class="token keyword">if</span> classList<span class="token punctuation">.</span>count<span class="token punctuation">(</span>classList<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> len<span class="token punctuation">(</span>classList<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> classList<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 如果分类列表中分类不一样，且数据集中每条数据都只有一项数据了，</span>
+    <span class="token comment" spellcheck="true"># 这表示数据集中不包含特征数据了，也就是说所有特征都已经被用于划分数据集了。</span>
+    <span class="token comment" spellcheck="true"># 这种情况下，返回出现次数最多的分类</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>dataSet<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> majorityCnt<span class="token punctuation">(</span>classList<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 找出用于划分数据集的最好特征的索引</span>
+    bestFeature <span class="token operator">=</span> chooseBestFeatureToSplit<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 划分数据集的最好特征的名称</span>
+    bestFeatureLabel <span class="token operator">=</span> labels<span class="token punctuation">[</span>bestFeature<span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 以最好特征名称为key，初始化决策树</span>
+    myTree <span class="token operator">=</span> <span class="token punctuation">{</span>bestFeatureLabel<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true"># 找到最好特征后，将其从特征列表中删除，以免后续重复使用特征进行分类。</span>
+    <span class="token keyword">del</span><span class="token punctuation">(</span>labels<span class="token punctuation">[</span>bestFeature<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 获取最好特征所有的值</span>
+    featureValues <span class="token operator">=</span> <span class="token punctuation">[</span>example<span class="token punctuation">[</span>bestFeature<span class="token punctuation">]</span> <span class="token keyword">for</span> example <span class="token keyword">in</span> dataSet<span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 去重</span>
+    uniqueVals <span class="token operator">=</span> set<span class="token punctuation">(</span>featureValues<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 循环特征的值</span>
+    <span class="token keyword">for</span> value <span class="token keyword">in</span> uniqueVals<span class="token punctuation">:</span>
+        subLabels <span class="token operator">=</span> labels<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 用前面找出的最好特征与特征值划分数据集，再递归地对子集构建决策树</span>
+        myTree<span class="token punctuation">[</span>bestFeatureLabel<span class="token punctuation">]</span><span class="token punctuation">[</span>value<span class="token punctuation">]</span> <span class="token operator">=</span> createTree<span class="token punctuation">(</span>splitDataSet<span class="token punctuation">(</span>dataSet<span class="token punctuation">,</span> bestFeature<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">,</span> subLabels<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> myTree</code></pre>
+<p>测试 一下：</p>
+<pre class=" language-python"><code class="language-python">tree <span class="token operator">=</span> createTree<span class="token punctuation">(</span>dataSet<span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tree<span class="token punctuation">)</span></code></pre>
+<p>输出为：</p>
+<pre><code>{&#39;不浮出水面是否可以生存&#39;: {&#39;可以生存&#39;: {&#39;是否有脚蹼&#39;: {&#39;有&#39;: &#39;鱼类&#39;, &#39;没有&#39;: &#39;非鱼类&#39;}}, &#39;不能生存&#39;: &#39;非鱼类&#39;}}</code></pre><p>输出为一个嵌套的字典，第一层字典的<code>key</code>为数据集的<code>最好特征</code>，值为<code>分支子树</code>。子树为多个字典，对应最好特征的多个值。</p>
+<h3 id="三、创建决策树分类器"><a href="#三、创建决策树分类器" class="headerlink" title="三、创建决策树分类器"></a>三、创建决策树分类器</h3><p>到目前为止，我们已经构造出<code>最优决策树</code>。下一步，我们将使用决策树构建<code>分类器</code>，从而可以使用分类器对未知数据进行分类。 </p>
+<p>定义<code>classify()</code>函数：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 决策树分类器</span>
+<span class="token comment" spellcheck="true"># inputTree: 决策树</span>
+<span class="token comment" spellcheck="true"># featLabels: 特征标签列表</span>
+<span class="token comment" spellcheck="true"># testVec: 测试向量</span>
+<span class="token keyword">def</span> <span class="token function">classify</span><span class="token punctuation">(</span>inputTree<span class="token punctuation">,</span> featLabels<span class="token punctuation">,</span> testVec<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 获取决策树的第一个key，就是第一个分类特征</span>
+    firstStr <span class="token operator">=</span> list<span class="token punctuation">(</span>inputTree<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 获取第一个分类特征的值，也就是其分支</span>
+    secondDict <span class="token operator">=</span> inputTree<span class="token punctuation">[</span>firstStr<span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 获取第一个特征的在特征标签列表中的索引</span>
+    featIndex <span class="token operator">=</span> featLabels<span class="token punctuation">.</span>index<span class="token punctuation">(</span>firstStr<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 循环第一个特征的分支树</span>
+    <span class="token keyword">for</span> key <span class="token keyword">in</span> secondDict<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> testVec<span class="token punctuation">[</span>featIndex<span class="token punctuation">]</span> <span class="token operator">==</span> key<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 如果分支是一个字典，说明还有包含子判断模块的子树</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>secondDict<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__name__ <span class="token operator">==</span> <span class="token string">'dict'</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 递归调用分类器，进入子树判断分类</span>
+                classLabel <span class="token operator">=</span> classify<span class="token punctuation">(</span>secondDict<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> featLabels<span class="token punctuation">,</span> testVec<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 否则说明已经找到最终分类，直接返回。</span>
+                classLabel <span class="token operator">=</span> secondDict<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+    <span class="token keyword">return</span> classLabel</code></pre>
+<p>那么我们来测试一下分类器：</p>
+<pre class=" language-python"><code class="language-python">result <span class="token operator">=</span> classify<span class="token punctuation">(</span>tree<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"不能生存"</span><span class="token punctuation">,</span> <span class="token string">"有"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span></code></pre>
+<p>输出为：</p>
+<pre><code>非鱼类</code></pre><p>给定特征数据，不浮出水面不能生存，有脚蹼，决策树分类器预测结果为非鱼类。 </p>
+<p>有了这个分类器，我们可以对任意输入的数据进行预测。当然，对于这个预测海洋生物是否为鱼类的例子，实在是太简单了，因为只有两个特征，每个特征都只有两种取值，因此总的组合数据也就只有几条。完全没必要这么费力的创建决策树然后创建分类器。但是，因为简单，我们用这个例子来解释决策树算法的细节就更容易被理解。 </p>
+<p>现实中，我们面对的数据集会比这个例子复杂得多，比如可能有成千上万个特征，每个特征都有很多取值。但是无论如何复杂，构造决策树的原理都是完全不变的。并且，我们实现的Python3代码是适用于任何复杂数据集的。</p>
+<h3 id="四、决策树应用案例-预测隐形眼镜类型"><a href="#四、决策树应用案例-预测隐形眼镜类型" class="headerlink" title="四、决策树应用案例 - 预测隐形眼镜类型"></a>四、决策树应用案例 - 预测隐形眼镜类型</h3><p>本案例是通过决策树预测患者需要佩戴什么类型的隐形眼镜。 </p>
+<p>我们有一份眼镜类型的数据集文件：<code>lenses.txt</code>，请<a href="https://github.com/longyg/Machine-Learning-Practice/blob/master/DecisionTree/lenses.txt" target="_blank" rel="noopener">点击链接</a>下载数据文件。 </p>
+<p>包含4个特征，分别为<code>age</code>, <code>prescript</code>, <code>astigmatic</code>, <code>tearRate</code>。有些特征有两个取值，有些有三个取值。 </p>
+<p>我们首先将数据文件解析为<code>dataSet</code>格式，然后使用第二节中实现的函数创建决策树和分类器。创建<code>lenses.py</code>文件：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> decision_tree
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    fr <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'lenses.txt'</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 读取数据文件的每一行，然后以\t分割成列表</span>
+    lenses <span class="token operator">=</span> <span class="token punctuation">[</span>inst<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">)</span> <span class="token keyword">for</span> inst <span class="token keyword">in</span> fr<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    lensesLabels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token string">"prescript"</span><span class="token punctuation">,</span> <span class="token string">"astigmatic"</span><span class="token punctuation">,</span> <span class="token string">"tearRate"</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 使用decision_tree实现的createTree()函数创建决策树</span>
+    lensesTree <span class="token operator">=</span> decision_tree<span class="token punctuation">.</span>createTree<span class="token punctuation">(</span>lenses<span class="token punctuation">,</span> lensesLabels<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>lensesTree<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 注意，我们在使用分类器时，要重新传入分类标签列表，不能重用前面的分类标签列表。因为在创建决策树函数中，会删除标签列表里的数据。</span>
+    labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token string">"prescript"</span><span class="token punctuation">,</span> <span class="token string">"astigmatic"</span><span class="token punctuation">,</span> <span class="token string">"tearRate"</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 使用分类器函数预测未知数据</span>
+    result <span class="token operator">=</span> decision_tree<span class="token punctuation">.</span>classify<span class="token punctuation">(</span>lensesTree<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">"young"</span><span class="token punctuation">,</span> <span class="token string">"hyper"</span><span class="token punctuation">,</span> <span class="token string">"yes"</span><span class="token punctuation">,</span> <span class="token string">"reduced"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span></code></pre>
+<p>执行代码输出如下：</p>
+<pre><code>{&#39;tearRate&#39;: {&#39;normal&#39;: {&#39;astigmatic&#39;: {&#39;yes&#39;: {&#39;prescript&#39;: {&#39;hyper&#39;: {&#39;age&#39;: {&#39;young&#39;: &#39;hard&#39;, &#39;pre&#39;: &#39;no lenses&#39;, &#39;presbyopic&#39;: &#39;no lenses&#39;}}, &#39;myope&#39;: &#39;hard&#39;}}, &#39;no&#39;: {&#39;age&#39;: {&#39;young&#39;: &#39;soft&#39;, &#39;pre&#39;: &#39;soft&#39;, &#39;presbyopic&#39;: {&#39;prescript&#39;: {&#39;hyper&#39;: &#39;soft&#39;, &#39;myope&#39;: &#39;no lenses&#39;}}}}}}, &#39;reduced&#39;: &#39;no lenses&#39;}}
+no lenses</code></pre><p>我们使用前面实现的<code>createTree()</code>函数构建了决策树，然后将其传入<code>classify()</code>函数用于预测未知隐形眼镜的类型。 </p>
+<p>也可以看到，这里创建的<code>决策树</code>相对前面的决策树要更复杂一些，我们可以将其用决策树图展示出来看看： </p>
+<p><a href="http://wx4.sinaimg.cn/large/bd7db87egy1fy2m56n1jhj20jj0d8gms.jpg" target="_blank" rel="noopener"><img src="http://wx4.sinaimg.cn/large/bd7db87egy1fy2m56n1jhj20jj0d8gms.jpg" alt></a></p>
+<h3 id="五、小结"><a href="#五、小结" class="headerlink" title="五、小结"></a>五、小结</h3><p>本文所有代码放在github，<a href="https://github.com/longyg/Machine-Learning-Practice/tree/master/DecisionTree" target="_blank" rel="noopener">点击此处</a>查看完整代码。 </p>
+<p><code>决策树算法</code>是一个非常简单，而且非常容易理解的算法。本文详细讲解了构建决策树的算法原理，对如何找出划分数据集的最好特征进行了推导，使用的是<code>ID3算法</code>（即通过计算数据集的<code>香农熵</code>从而计算出<code>信息增益</code>，通过比较信息增益来确定<code>最佳特征</code>），非常容易理解。当然实现决策树还有其他算法，后续继续讲解。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">yglong</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://www.yglong.com/posts/ml/mlp-3-decision-tree.html">http://www.yglong.com/posts/ml/mlp-3-decision-tree.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">yglong</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%86%B3%E7%AD%96%E6%A0%91/">
+                                    <span class="chip bg-color">决策树</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '357fc628d86fb45f7082',
+        clientSecret: '7d50d35a5764740c102b798f24a2921cf9e5e111',
+        repo: 'blog-comments',
+        owner: 'longyg',
+        admin: "longyg",
+        id: '2018-08-05T15-49-17',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/ml/mlp-4-bayes.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="《机器学习实战》读书笔记之四：朴素贝叶斯">
+                        
+                        <span class="card-title">《机器学习实战》读书笔记之四：朴素贝叶斯</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文详细介绍了朴素贝叶斯的原理和推导过程，并实现了一个案例
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-09-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">
+                        <span class="chip bg-color">朴素贝叶斯</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/data-analysis/numpy-quickstart-tutorial.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Numpy快速入门简明教程">
+                        
+                        <span class="card-title">Numpy快速入门简明教程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本教程是Numpy的入门教程
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-08-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" class="post-category">
+                                    数据分析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="3754812570"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">yglong</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">60.9k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "5";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/longyg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:longyg1986@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=373020902" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 373020902" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

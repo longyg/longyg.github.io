@@ -1,0 +1,1365 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="大数据概述,大数据技术体系">
+    <meta name="description" content="龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>大数据基础篇：大数据与大数据技术体系 | 龙居雅阁</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="龙居雅阁" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">龙居雅阁</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">龙居雅阁</div>
+        <div class="logo-desc">
+            
+            龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/longyg" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/longyg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大数据基础篇：大数据与大数据技术体系</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/BigData/">
+                                <span class="chip bg-color">BigData</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                <span class="chip bg-color">大数据</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                大数据
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-06-27
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-08-03
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    11 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、大数据概述"><a href="#一、大数据概述" class="headerlink" title="一、大数据概述"></a>一、大数据概述</h2><h3 id="1-什么是大数据"><a href="#1-什么是大数据" class="headerlink" title="1. 什么是大数据"></a>1. 什么是大数据</h3><p>现如今，相信人人都听说过<code>大数据</code>这个词，它实在太火热了，因为我们目前正处于<code>大数据时代</code>。</p>
+<p>大数据其实已经兴起很多年了，只是随着无处不在的传感器、无处不在的数据埋点，获取数据变得越来越容易、量越来越大、内容越来越多样化，使得现目前的大数据的“大”越来越大了。</p>
+<p>那么什么是大数据？</p>
+<p>大数据本身其实是一个抽象的概念，从一般意义上讲，<code>大数据</code>是指一种规模大到无法在<code>有限时间内</code>用常规软件工具对其进行获取、存储、管理和处理的<code>数据集合</code>。</p>
+<h3 id="2-大数据的特性"><a href="#2-大数据的特性" class="headerlink" title="2. 大数据的特性"></a>2. 大数据的特性</h3><p>大数据，虽然从字面上只体现了一个<code>大</code>，但实际上大数据除了数据体量大的特性外，还有其他特性。现目前，业界公认为大数据具有<code>4V</code>特性，分别是<code>Volume</code>（数据体量大）、<code>Velocity</code>（数据速度快）、<code>Variety</code>（数据类型多）和<code>Value</code>（数据价值密度低），如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/4v.png" alt></p>
+<p>然而，随着大数据的不断发展，人们对大数据的了解和探索越来越深入，大数据技术也不断趋于成熟，人们提出了更多更具体的大数据特性，现目前已经从<code>4V</code>发展为<code>8V</code>特性，额外提出了<code>Veracity</code>（数据准确性），<code>Vitality</code>（数据动态性），<code>Visualization</code>（数据可视化），<code>Validity</code>（数据合法性），如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/8v.jpg" alt></p>
+<h3 id="3-大数据的发展历程分析"><a href="#3-大数据的发展历程分析" class="headerlink" title="3. 大数据的发展历程分析"></a>3. 大数据的发展历程分析</h3><p>我们可以从几个维度来了解大数据的发展。</p>
+<h4 id="3-1-从信息化浪潮的发展来看"><a href="#3-1-从信息化浪潮的发展来看" class="headerlink" title="3.1 从信息化浪潮的发展来看"></a>3.1 从<code>信息化浪潮</code>的发展来看</h4><p>过去几十年，人类经历了三次信息化浪潮，大数据正是从第三次信息化浪潮开始全面开启。</p>
+<p><img src="/posts/bigdata/bigdata-summary/info-evolution.png" alt></p>
+<h4 id="3-2-从信息科技的发展来看"><a href="#3-2-从信息科技的发展来看" class="headerlink" title="3.2 从信息科技的发展来看"></a>3.2 从<code>信息科技</code>的发展来看</h4><p>信息科技需要解决<code>信息存储</code>、<code>信息传输</code>和<code>信息处理</code>3个核心问题，人类社会在信息科技领域的不断进步，为大数据时代的到来提供了<code>技术支撑</code>。</p>
+<p>主要包括如下图所示几个方面的发展：</p>
+<p><img src="/posts/bigdata/bigdata-summary/it.png" alt></p>
+<h5 id="存储设备容量不断增加"><a href="#存储设备容量不断增加" class="headerlink" title="存储设备容量不断增加"></a>存储设备容量不断增加</h5><p>随着科学技术的不断进步，存储设备的制造工艺不断升级，容量大幅增加，速度不断提升，价格却在不断下降。</p>
+<p>总体而言，数据量和存储设备容量二者之间是相辅相成、互相促进的。</p>
+<ul>
+<li><p>一方面，随着数据的不断产生，需要存储的数据量不断增加，对存储设备的容量提出了更高的要求，促使存储设备生产商制造更大容量的产品满足市场需求；</p>
+</li>
+<li><p>另一方面，更大容量的存储设备进一步加快了数据量增长的速度，在存储设备价格高企的年代，由于考虑到成本问题，一些不必要或当前不能明显体现价值的数据往往会被丢弃。但是，随着单位存储空间价格的不断降低，人们开始倾向于把更多的数据保存起来，以期在未来某个时刻可以用更先进的数据分析工具从中挖掘价值。</p>
+</li>
+</ul>
+<h5 id="CPU处理能力大幅提升"><a href="#CPU处理能力大幅提升" class="headerlink" title="CPU处理能力大幅提升"></a>CPU处理能力大幅提升</h5><p>性能不断提升的CPU，大大提高了处理数据的能力，使得我们可以更快地处理不断累积的海量数据。</p>
+<h5 id="网络带宽不断增加"><a href="#网络带宽不断增加" class="headerlink" title="网络带宽不断增加"></a>网络带宽不断增加</h5><p>进入21世纪，世界各国更是纷纷加大宽带网络建设力度，不断扩大网络覆盖范围和传输速度。大数据时代，信息传输不再遭遇网络发展初期的瓶颈和制约。</p>
+<h4 id="3-3-从数据产生方式的发展来看"><a href="#3-3-从数据产生方式的发展来看" class="headerlink" title="3.3 从数据产生方式的发展来看"></a>3.3 从<code>数据产生方式</code>的发展来看</h4><p><code>数据产生方式</code>的变革，是促成大数据时代来临的重要因素。总体而言，人类社会的数据产生方式大致经历了3个阶段：<code>运营式系统阶段</code>、<code>用户原创内容阶段</code>和<code>感知式系统阶段</code>，如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/data-generate.png" alt></p>
+<p>现如今，因为发展到感知式系统阶段，大量数据自动产生，数据量呈爆发式增长，使得人类社会真正步入<code>大数据时代</code>。</p>
+<h3 id="4-大数据的发展历程回顾"><a href="#4-大数据的发展历程回顾" class="headerlink" title="4. 大数据的发展历程回顾"></a>4. 大数据的发展历程回顾</h3><p>前面从多维度分析了大数据的发展，而从时间维度上看，大数据的发展历程可以划分为4个重要阶段：<code>萌芽阶段</code>，<code>突破阶段</code>，<code>成熟阶段</code>，<code>应用阶段</code>。</p>
+<p>如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/big-data-develop.png" alt></p>
+<p>更详细的大数据发展历程如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/big-data-dev.jpg" alt></p>
+<h3 id="5-大数据的作用"><a href="#5-大数据的作用" class="headerlink" title="5. 大数据的作用"></a>5. 大数据的作用</h3><p>大数据虽然孕育于信息通信技术，但它对社会、经济、生活产生的影响绝不限于技术层面。更本质上，它是为我们看待世界提供了一种全新的方法，即决策行为将日益基于数据分析，而不是像过去更多凭借经验和直觉。</p>
+<p>具体来讲，大数据将有以下几个方面的作用：</p>
+<p><img src="/posts/bigdata/bigdata-summary/big-data-zuoyong.png" alt></p>
+<h3 id="6-大数据的影响"><a href="#6-大数据的影响" class="headerlink" title="6. 大数据的影响"></a>6. 大数据的影响</h3><p>大数据对<code>科学研究</code>、<code>思维方式</code>和<code>社会发展</code>等方面都具有重要而深远的影响，如：</p>
+<ul>
+<li><p>在科学研究方面<br>大数据使得人类科学研究在经历了实验、理论、计算3种范式之后，迎来了<code>第四种范式</code>——数据密集型科学。</p>
+</li>
+<li><p>在思维方式方面<br>大数据具有<code>全样而非抽样</code>、<code>效率而非精确</code>、<code>相关而非因果</code>三大显著特征，完全颠覆了传统的思维方式。</p>
+</li>
+<li><p>在社会发展方面<br><code>大数据决策</code>逐渐成为一种新的决策方式，大数据应用有力促进了信息技术与各行业的深度融合，大数据开发大大推动了新技术和新应用的不断涌现。</p>
+</li>
+<li><p>在就业市场方面<br>大数据的兴起使得<code>数据科学家</code>成为热门人才。</p>
+</li>
+<li><p>在人才培养方面<br>大数据的兴起将在很大程度上改变我国高校信息技术相关专业的现有教学和科研体制。</p>
+</li>
+</ul>
+<p>总体来讲，大数据时代的到来改变了人们的生活方式、思维模式和研究范式，我们可以总结出10个重大变化，如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/big-data-change.png" alt></p>
+<h3 id="7-大数据的发展现状与趋势"><a href="#7-大数据的发展现状与趋势" class="headerlink" title="7. 大数据的发展现状与趋势"></a>7. 大数据的发展现状与趋势</h3><h4 id="7-1-大数据的现状"><a href="#7-1-大数据的现状" class="headerlink" title="7.1 大数据的现状"></a>7.1 大数据的现状</h4><p>目前，大数据应用已经比较广泛，在各个领域均有应用，且在各个领域的应用均初见成效，如下图所举示例：</p>
+<p><img src="/posts/bigdata/bigdata-summary/application.png" alt></p>
+<h4 id="7-2-大数据的未来与趋势"><a href="#7-2-大数据的未来与趋势" class="headerlink" title="7.2 大数据的未来与趋势"></a>7.2 大数据的未来与趋势</h4><p>虽然大数据已经得到广泛应用，但大部分尚处于初级阶段。现目前，各大IT巨头正在纷纷布局大数据。在全球范围内，研究发展大数据技术、运用大数据推动经济发展、完善社会治理、提升政府服务和监管能力正成为趋势。包括以下三个方面：</p>
+<ol>
+<li><p>已有众多成功的大数据应用，但就其效果和深度而言，当前大数据应用尚处于初级阶段，根据大数据<code>分析预测未来</code>、<code>指导实践</code>的深层次应用将成为发展重点。</p>
+</li>
+<li><p>大数据<code>治理体系</code>远未形成，特别是隐私保护、数据安全与数据共享利用效率之间尚存在明显矛盾，成为制约大数据发展的重要短板，各界已经意识到构建大数据治理体系的重要意义，相关的研究与实践将持续加强。</p>
+</li>
+<li><p>数据规模高速增长，现有技术体系难以满足大数据应用的需求，大数据理论与技术远未成熟，未来信息技术体系将需要颠覆式创新和变革。</p>
+</li>
+</ol>
+<h2 id="二、大数据技术概述"><a href="#二、大数据技术概述" class="headerlink" title="二、大数据技术概述"></a>二、大数据技术概述</h2><h3 id="1-什么是大数据技术"><a href="#1-什么是大数据技术" class="headerlink" title="1. 什么是大数据技术"></a>1. 什么是大数据技术</h3><p><code>大数据技术</code>，一般意义来说，是指从各种各样的巨量数据中，快速获取有价值信息的技术。</p>
+<p>具体而言，是指伴随着大数据的<code>采集</code>、<code>存储</code>、<code>分析</code>和<code>应用</code>的相关技术，是一系列使用非传统的工具来对大量的结构化、半结构化和非结构化数据进行处理，从而获得分析和预测结果的一系列数据处理和分析技术。</p>
+<p>一般来说，对于大数据的处理，包含<code>数据抽取与集成</code>、<code>数据分析</code>和<code>数据解释</code>三个基本流程，而大数据技术就是解决这些流程中的问题的相关技术。</p>
+<h3 id="2-大数据关键技术"><a href="#2-大数据关键技术" class="headerlink" title="2. 大数据关键技术"></a>2. 大数据关键技术</h3><p>大数据本身是一种现象而不是一种技术。<code>大数据技术</code>是一系列使用非传统的工具来对大量的结构化、半结构化和非结构化数据进行处理，从而获得分析和预测结果的数据处理技术。大数据价值的完整体现需要多种技术的协同。大数据关键技术涵盖数据存储、处理、应用等多方面的技术。</p>
+<p>根据大数据的处理过程，可将大数据关键技术分为<code>大数据采集技术</code>，<code>大数据预处理技术</code>，<code>大数据存储与管理技术</code>，<code>大数据处理技术</code>，<code>大数据分析与挖掘技术</code>，<code>大数据展示技术</code>等。</p>
+<p>概括总结如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/bigdata-key-tech.jpg" alt></p>
+<h3 id="3-大数据技术体系"><a href="#3-大数据技术体系" class="headerlink" title="3. 大数据技术体系"></a>3. 大数据技术体系</h3><p>前面介绍了大数据的基本处理流程和相关的关键技术，当我们在设计一个大数据系统时，都会涉及到这些数据处理的各个环节以及相应的技术。</p>
+<p>对于一个完整的大数据系统，在设计其技术体系架构时，一般需要考虑6个主要层次：<code>数据收集曾</code>，<code>数据存储层</code>，<code>资源管理与服务协调层</code>，<code>计算引擎层</code>，<code>数据分析层</code>，<code>数据可视化层</code>。</p>
+<p>如下图所示：</p>
+<p><img src="/posts/bigdata/bigdata-summary/bigdata-arch.png" alt></p>
+<h4 id="数据收集层"><a href="#数据收集层" class="headerlink" title="数据收集层"></a>数据收集层</h4><p>数据源一般特点:</p>
+<ul>
+<li><code>分布式</code>：分布在不同机器或设备上，通过网络连接在一起。</li>
+<li><code>异构性</code>：任何能产生数据的系统均可以称为数据源，如手环，传感器，视频摄像头等。</li>
+<li><code>多样化</code>：关系型（用户基本信息）和非关系型（图片，音频，视频等）。</li>
+<li><code>流式产生</code>：数据源如同“水龙头”，源源不断。收集系统应实时或近实时将数据发送到后端，以便对数据进行及时分析。</li>
+</ul>
+<p>适用大数据领域的收集系统一般具备特性:</p>
+<ul>
+<li><code>扩展性</code>：适配不同数据源，并能接入大量数据源而不会产生系统瓶颈。</li>
+<li><code>可靠性</code>：数据不丢失</li>
+<li><code>安全性</code>：敏感数据处理机制</li>
+<li><code>低延性</code>：保证较低延迟前提将数据传输到后端系统</li>
+</ul>
+<h4 id="数据存储层"><a href="#数据存储层" class="headerlink" title="数据存储层"></a>数据存储层</h4><p>大数据存储系统一般要求具备特性：</p>
+<ul>
+<li><code>扩展性</code>：存储能力扩展</li>
+<li><code>容错性</code>：考虑成本等因素，大数据系统从最初假设构建在廉价机器上，要求系统本身就有良好的容错机制确保在机器出现故障时不会导致丢失数据。</li>
+<li><code>存储模型</code>：支持多种数据模型</li>
+</ul>
+<h4 id="资源管理与服务协调层"><a href="#资源管理与服务协调层" class="headerlink" title="资源管理与服务协调层"></a>资源管理与服务协调层</h4><p>传统的”一个应用一个集群”缺点：资源利用率低，运维成本高，从而引入数据共享轻量级弹性资源管理平台，资源统一管理层好处：</p>
+<ul>
+<li><code>资源利用率高</code>：共享集群模式通过多种应用共享资源，使得集群中资源得到充分利用。</li>
+<li><code>运维成本低</code>：需要少数管理员即可完成多个框架的统一管理。</li>
+<li><code>数据共享</code>：共享集群模式解决跨集群间的数据移动不仅需要花费更长的时间，且硬件成本也大大增加问题。</li>
+</ul>
+<h4 id="计算引擎层"><a href="#计算引擎层" class="headerlink" title="计算引擎层"></a>计算引擎层</h4><p>针对不同应用场景，单独构建一个计算机引擎，每种计算引擎只专注于解决某一类问题。</p>
+<ul>
+<li><code>批处理</code>：对实时要求低，追求高吞吐量，比如搜索引擎建索引，数据挖掘，机器学习等。</li>
+<li><code>交互式处理</code>：对时间要求较高，秒级别。需要跟人进行交互，如应用数据查询，参数化报表，OLAP等。</li>
+<li><code>实时处理</code>：对时间要求最高，延迟在秒级内，如广告系统，舆情监测等。</li>
+</ul>
+<h4 id="数据分析层"><a href="#数据分析层" class="headerlink" title="数据分析层"></a>数据分析层</h4><p>该层直接跟用户应用程序对接，提供易用的数据处理工具。一般结合工具使用，使用处理框架对原始海量数据进行分析，产生较小规模的数据集，在此基础上，再使用交互式处理工具对数据集进行快速查询，获取查询结果。</p>
+<h4 id="数据可视层"><a href="#数据可视层" class="headerlink" title="数据可视层"></a>数据可视层</h4><p>运用计算机图形学和图像处理技术，将数据转换为图形或图像在屏幕上显示出来，并进行交互式的理论，方法和技术。</p>
+<h3 id="4-大数据技术体系对应的技术框架"><a href="#4-大数据技术体系对应的技术框架" class="headerlink" title="4. 大数据技术体系对应的技术框架"></a>4. 大数据技术体系对应的技术框架</h3><p><img src="/posts/bigdata/bigdata-summary/bigdata-tech-suite.png" alt></p>
+<blockquote>
+<p>本文内容整理至网络。</p>
+<p>参考资料如下：</p>
+<ul>
+<li>《大数据导论：思维、技术与应用》</li>
+<li>《大数据技术原理与应用》（第2版）</li>
+<li>《大数据技术体系详解：原理、架构与实践》</li>
+<li><a href="https://wenku.baidu.com/view/52602eb65122aaea998fcc22bcd126fff6055d6b.html" target="_blank" rel="noopener">大数据发展现状和趋势</a></li>
+<li><a href="http://www.npc.gov.cn/npc/c30834/201910/653fc6300310412f841c90972528be67.shtml" target="_blank" rel="noopener">大数据：发展现状与未来趋势</a></li>
+<li><a href="https://blog.csdn.net/cincoutcin/article/details/80586050" target="_blank" rel="noopener">大数据发展历史</a></li>
+<li><a href="https://blog.csdn.net/implok/article/details/79932798" target="_blank" rel="noopener">大数据的特性究竟有多少个V</a></li>
+</ul>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">yglong</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://www.yglong.com/posts/bigdata/bigdata-summary.html">http://www.yglong.com/posts/bigdata/bigdata-summary.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">yglong</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/BigData/">
+                                    <span class="chip bg-color">BigData</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                    <span class="chip bg-color">大数据</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '357fc628d86fb45f7082',
+        clientSecret: '7d50d35a5764740c102b798f24a2921cf9e5e111',
+        repo: 'blog-comments',
+        owner: 'longyg',
+        admin: "longyg",
+        id: '2020-06-27T18-27-48',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/bigdata/install-zookeeper-cluster.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="安装Zookeeper集群">
+                        
+                        <span class="card-title">安装Zookeeper集群</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文详细介绍了如何搭建Zookeeper集群
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/BigData/">
+                        <span class="chip bg-color">BigData</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/architecture/big-website-architecture.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="干货！史上最详细脑图《大型网站技术架构》">
+                        
+                        <span class="card-title">干货！史上最详细脑图《大型网站技术架构》</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            推荐书籍《大型网站技术架构》，本文整理了该书的核心知识点，以及分享超详细思维导图。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    软件架构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">架构</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/">
+                        <span class="chip bg-color">书籍推荐</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="3754812570"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">yglong</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">60.9k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "5";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/longyg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:longyg1986@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=373020902" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 373020902" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
