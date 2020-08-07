@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yglong.com/"/>
-  <updated>2020-08-03T13:26:52.673Z</updated>
+  <updated>2020-08-07T07:36:13.459Z</updated>
   <id>http://yglong.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yglong.com/posts/bigdata/mapreduce-execution-mode.html"/>
     <id>http://yglong.com/posts/bigdata/mapreduce-execution-mode.html</id>
     <published>2020-08-03T06:09:07.000Z</published>
-    <updated>2020-08-03T13:26:52.673Z</updated>
+    <updated>2020-08-07T07:36:13.459Z</updated>
     
     <summary type="html">
     
@@ -29,11 +29,7 @@
       
         
         
-          &lt;p&gt;MR程序运行方式&lt;/p&gt;
-&lt;p&gt;1、在集群上运行&lt;/p&gt;
-&lt;p&gt;使用maven打包jar，拷贝jar包到集群上，运行&lt;code&gt;hadoop jar&lt;/code&gt;或&lt;code&gt;yarn jar&lt;/code&gt;命令执行。&lt;/p&gt;
-&lt;p&gt;如：&lt;/p&gt;
-&lt;pre class=&quot;
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;h3 id=&quot;一、前言&quot;&gt;&lt;a href=&quot;#一、前言&quot; class=&quot;headerlink&quot;
         
       
     
