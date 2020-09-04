@@ -1,0 +1,1697 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="HBase知识点总结">
+    <meta name="description" content="龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>HBase知识点总结 | 龙居雅阁</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="龙居雅阁" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">龙居雅阁</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">龙居雅阁</div>
+        <div class="logo-desc">
+            
+            龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/longyg" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/longyg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">HBase知识点总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                <span class="chip bg-color">大数据</span>
+                            </a>
+                        
+                            <a href="/tags/HBase/">
+                                <span class="chip bg-color">HBase</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                大数据
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-04
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    27 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="HBase简介"><a href="#HBase简介" class="headerlink" title="HBase简介"></a>HBase简介</h3><p>HBase是一个开源的非关系型分布式数据库，它参考了谷歌的BigTable建模，实现的编程语言为Java。它是Apache软件基金会的Hadoop项目的一部分，运行于HDFS文件系统之上，为 Hadoop 提供类似于BigTable 规模的服务。因此，它可以容错地存储海量稀疏的数据。</p>
+<p>HBase是一个高可靠、高性能、<strong>面向列</strong>、可伸缩的分布式数据库，是谷歌BigTable的开源实现，主要用来存储非结构化和半结构化的松散数据。HBase的目标是处理非常庞大的表，可以通过水平扩展的方式，利用廉价计算机集群处理由超过10亿行数据和数百万列元素组成的数据表。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>HBase的优点与其他数据库相比，HBase在系统设计以及实际实践中有很多独特的优点。</p>
+<ul>
+<li>容量巨大：HBase的单表可以支持千亿行、百万列的数据规模，数据容量可以达到TB甚至PB级别。传统的关系型数据库，如Oracle和MySQL等，如果单表记录条数超过亿行，读写性能都会急剧下降，在HBase中并不会出现这样的问题。</li>
+<li>良好的可扩展性：HBase集群可以非常方便地实现集群容量扩展，主要包括数据存储节点扩展以及读写服务节点扩展。HBase底层数据存储依赖于HDFS系统，HDFS可以通过简单地增加DataNode实现扩展，HBase读写服务节点也一样，可以通过简单的增加RegionServer节点实现计算层的扩展。</li>
+<li>稀疏性：HBase支持大量稀疏存储，即允许大量列值为空，并不占用任何存储空间。这与传统数据库不同，传统数据库对于空值的处理要占用一定的存储空间，这会造成一定程度的存储空间浪费。因此可以使用HBase存储多至上百万列的数据，即使表中存在大量的空值，也不需要任何额外空间。</li>
+<li>高性能：HBase目前主要擅长于OLTP场景，数据写操作性能强劲，对于随机单点读以及小范围的扫描读，其性能也能够得到保证。对于大范围的扫描读可以使用MapReduce提供的API，以便实现更高效的并行扫描。</li>
+<li>多版本：HBase支持多版本特性，即一个KV可以同时保留多个版本，用户可以根据需要选择最新版本或者某个历史版本。</li>
+<li>支持过期：HBase支持TTL过期特性，用户只需要设置过期时间，超过TTL的数据就会被自动清理，不需要用户写程序手动删除。</li>
+<li>Hadoop原生支持：HBase是Hadoop生态中的核心成员之一，很多生态组件都可以与其直接对接。HBase数据存储依赖于HDFS，这样的架构可以带来很多好处，比如用户可以直接绕过HBase系统操作HDFS文件，高效地完成数据扫描或者数据导入工作；再比如可以利用HDFS提供的多级存储特性（Archival Storage Feature），根据业务的重要程度将HBase进行分级存储，重要的业务放到SSD，不重要的业务放到HDD。或者用户可以设置归档时间，进而将最近的数据放在SSD，将归档数据文件放在HDD。另外，HBase对MapReduce的支持也已经有了很多案例，后续还会针对Spark做更多的工作。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>任何一个系统都不会完美，HBase也一样。HBase不能适用于所有应用场景，例如：</p>
+<ul>
+<li>HBase本身不支持很复杂的聚合运算（如Join、GroupBy等）。如果业务中需要使用聚合运算，可以在HBase之上架设Phoenix组件或者Spark组件，前者主要应用于小规模聚合的OLTP场景，后者应用于大规模聚合的OLAP场景。</li>
+<li>HBase本身并没有实现二级索引功能，所以不支持二级索引查找。好在针对HBase实现的第三方二级索引方案非常丰富，比如目前比较普遍的使用Phoenix提供的二级索引功能。</li>
+<li>HBase原生不支持全局跨行事务，只支持单行事务模型。同样，可以使用Phoenix提供的全局事务模型组件来弥补HBase的这个缺陷。</li>
+</ul>
+<p>可以看到，HBase系统本身虽然不擅长某些工作领域，但是借助于Hadoop强大的生态圈，用户只需要在其上架设Phoenix组件、Spark组件或者其他第三方组件，就可以有效地协同工作。</p>
+<h3 id="HBase中用的数据结构与算法"><a href="#HBase中用的数据结构与算法" class="headerlink" title="HBase中用的数据结构与算法"></a>HBase中用的数据结构与算法</h3><h4 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h4><p>HBase把跳跃表作为一种维护有序数据集合的基础数据结构。</p>
+<p><img src="/posts/bigdata/hbase-summary/%E8%B7%B3%E8%B7%83%E8%A1%A81.png" alt></p>
+<h4 id="LSM树"><a href="#LSM树" class="headerlink" title="LSM树"></a>LSM树</h4><p><img src="/posts/bigdata/hbase-summary/lsm.jpg" alt></p>
+<p>HBase中的应用：</p>
+<p><img src="/posts/bigdata/hbase-summary/lsm.png" alt></p>
+<h4 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h4><p><img src="/posts/bigdata/hbase-summary/bloom.png" alt></p>
+<p>布隆过滤器串对任意给定元素w，给出的存在性结果为两种：</p>
+<ul>
+<li>w可能存在于集合A中。</li>
+<li>w肯定不在集合A中。</li>
+</ul>
+<p>HBase的Get操作就是通过运用低成本高效率的布隆过滤器来过滤大量无效数据块的，从而节省大量磁盘IO。</p>
+<h3 id="HBase数据模型"><a href="#HBase数据模型" class="headerlink" title="HBase数据模型"></a>HBase数据模型</h3><p><strong>列族（列簇）式的存储</strong></p>
+<p><strong>列族的存储概念：</strong>多个数据列的组合，hbase表中的每个列都归属于某个列族。列族是表的schema的一部分，而列不是，我们在创建一张hbase表的时候，必须要给出列族的名称，但不需要给出列的名称。列名一般都以列族名称作为前缀，访问控制、磁盘、内存的使用统计都是在列族层面进行的，hbase准确的说是列族数据库，而不是列数据库。</p>
+<p><strong>逻辑视图</strong></p>
+<p>从逻辑视图来看，HBase中的数据是以表形式进行组织的，而且和关系型数据库中的表一样，HBase中的表也由行和列构成。</p>
+<p><img src="/posts/bigdata/hbase-summary/logic2.png" alt="logic2"></p>
+<p>另外，每个cell都可以保存多个版本的数据，如下：</p>
+<p><img src="/posts/bigdata/hbase-summary/1.jpg" alt></p>
+<p>需要注意的是，与关系型数据库不同的是：</p>
+<ul>
+<li>HBase引入了列簇的概念，列簇下的列可以动态扩展；</li>
+<li>另外，HBase使用时间戳实现了数据的多版本支持。</li>
+</ul>
+<p><strong>物理视图</strong></p>
+<p>从物理视图来看，HBase是一个Map，由键值（KeyValue，KV）构成，不过与普通的Map不同，HBase是一个稀疏的、分布式的、多维排序的Map。要真正理解HBase的工作原理，需要从KV数据库这个视角重新对其审视。</p>
+<p>BigTable论文中称BigTable为”sparse, distributed, persistent multidimensional sortedmap”，可见BigTable本质上是一个Map结构数据库，HBase亦然，也是由一系列KV构成的。然而HBase这个Map系统却并不简单，有很多限定词——稀疏的、分布式的、持久性的、多维的以及排序的。</p>
+<p>HBase中Map的key是一个复合键，由rowkey、column family、qualif ier、type以及timestamp组成，value即为cell的值：</p>
+<pre><code>[Row Key, Column Family, Column Qualifier, Timestamp, Key Type] =&gt; value</code></pre><p>KV在内存中是一个字节数组，格式如下：</p>
+<p>KeyValue的整体结构为：<br>[<code>key length</code>, <code>value length</code>, <code>key</code>, <code>value</code>]<br>而Key的结构为：<br>[<code>row length</code>, <code>row key</code>, <code>column family length</code>, <code>column family</code>, <code>column qualifier</code>, <code>timestamp</code>, <code>key type</code>]</p>
+<p><img src="/posts/bigdata/hbase-summary/kv.png" alt></p>
+<p>HBase中的数据是按照列簇存储的，即将数据按照列簇分别存储在不同的目录中。</p>
+<p>逻辑视图与物理视图映射：</p>
+<p><img src="/posts/bigdata/hbase-summary/physic2.png" alt="physic2"></p>
+<ul>
+<li><p>多维：这个特性比较容易理解。HBase中的Map与普通Map最大的不同在于，key是一个复合数据结构，由多维元素构成，包括rowkey、column family、qualif ier、type以及timestamp。</p>
+</li>
+<li><p>稀疏：稀疏性是HBase一个突出特点。从表中行”com.example.www”可以看出，整整一行仅有一列（people:author）有值，其他列都为空值。在其他数据库中，对于空值的处理一般都会填充null，而对于HBase，空值不需要任何填充。这个特性为什么重要？因为HBase的列在理论上是允许无限扩展的，对于成百万列的表来说，通常都会存在大量的空值，如果使用填充null的策略，势必会造成大量空间的浪费。因此稀疏性是HBase的列可以无限扩展的一个重要条件。</p>
+</li>
+<li><p>排序：构成HBase的KV在同一个文件中都是有序的，但规则并不是仅仅按照rowkey排序，而是按照KV中的key进行排序——先比较rowkey，rowkey小的排在前面；如果rowkey相同，再比较column，即column family:qualif ier，column小的排在前面；如果column还相同，再比较时间戳timestamp，即版本信息，timestamp大的排在前面。这样的多维元素排序规则对于提升HBase的读取性能至关重要，在后面读取章节会详细分析。</p>
+</li>
+<li><p>分布式：很容易理解，构成HBase的所有Map并不集中在某台机器上，而是分布在整个集群中。</p>
+</li>
+</ul>
+<p><strong>HBase数据存储目录</strong></p>
+<p>我们在搭建HBase时，需要指定其数据存储目录，HBase会在指定的目录中构造需要的目录结构，之后我们创建数据表以及存放数据时，也会存放在对应的目录中，我们下面就介绍下，hbase数据存储目录结构。</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.rootdir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://hdcluster/hbase<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
+<p><img src="/posts/bigdata/hbase-summary/2.png" alt></p>
+<p><strong>.tmp:</strong>当对表做创建或删除操作时，会将表移动到.tmp目录下面，然后再去做处理操作他是一个临时交换的表目录，临时存放一些当前需要修改的数据结构。</p>
+<p><strong>WALs:</strong>它其实是一个预写日志，它是被HLog实例管理的WAL文件，这里可以简单的理解为hbase数据库系统的操作日志文件。</p>
+<p><strong>archive:</strong>它存储表的归档和快照，hbase在做分隔或者是合并操作完成之后，会将hfile文件移动到archive目录中，然后将之前的hfile删除掉。这个目录是有master中的定时任务定期去处理。</p>
+<p><strong>corrupt:</strong>这个目录用于存放损坏的日志文件，他一般是空的，如果他不为空代表我们的系统出现了些问题，有些日志文件可能被损坏了。</p>
+<p><strong>data:</strong>它是hbase存储数据的核心目录，系统表和用户表数据都存储在这里，他是非常重要的目录</p>
+<p><strong>hbase.id:</strong>hbase在运行起来之后，就会产生集群中的唯一id，是用来标识hbase进程用的。</p>
+<p><strong>hbase.version:</strong>它表明了hbase的文件格式、版本信息，其实就是表明了hfile的文件版本信息。</p>
+<p><strong>oldWALs:</strong>当WALs中的log文件被持久化后，日志就不被需要了，就会被移动到oldWALs目录中等待删除。</p>
+<p><strong>HBase的元信息表</strong></p>
+<p>hbase:meta</p>
+<p><img src="/posts/bigdata/hbase-summary/meta.jpg" alt></p>
+<p><strong>Row Key：</strong>其实Meta Table也是一个普通的hbase数据表，他的结构跟普通的表结构是差不多的。不过他的Row Key和Value有特殊意义：Row Key它包含三个部分，对三个部分进行组合得到一个Row Key，其中table为region table、region Start key、以及region Time，这里的time为存储数据的最早时间。由于Mata Table中包含Start key，所以它很容易找到对应的region，最后找到对应的数据。</p>
+<p><strong>Value：</strong>value最终指向的是Region Server，它其实保存的是Region Server的地址。表中最主要的列族是info，列族中包含三个主要的列，都是属于value的，三个属性列中第一个属性列是regioninfo，第二个属性列是server，包含了Region Server的服务器地址和端口，第三个属性列是Start code，它包含了Region Server的start time。</p>
+<h3 id="HBase架构"><a href="#HBase架构" class="headerlink" title="HBase架构"></a>HBase架构</h3><p><img src="/posts/bigdata/hbase-summary/arch2.png" alt></p>
+<h4 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h4><p><strong>Client</strong></p>
+<ol>
+<li>使用HBase的RPC机制与HMaster和HRegionServer进行通信。</li>
+<li>对于管理类操作，Client与HMaster进行RPC通信。</li>
+<li>对于数据读写类操作，Client与HRegionServer进行RPC。</li>
+</ol>
+<p><strong>主节点HMaster</strong></p>
+<ol>
+<li>管理HRegionServer，实现其负载均衡。</li>
+<li>管理和分配HRegion，比如在HRegion拆分时分配新的HRegion；在HRegionServer退出时迁移其内的HRegion到其他HRegionServer上。</li>
+<li>监控集群中所有HRegionServer的状态(通过Heartbeat和监听ZooKeeper中的状态)。</li>
+<li>处理Schema更新请求 (创建、删除、修改Table的定义等）。</li>
+<li>HMaster没有单点问题，在Hbase中可以启动多个HMaster，通过Zookeeper的Master Election机制保证总有一个Master胜出。</li>
+</ol>
+<p><strong>HRegionServer</strong></p>
+<ol>
+<li>HRegionServer维护HMaster分配给它的region，处理这些Region的IO请求。</li>
+<li>HRegionServer负责切分在运行过程中变得过大的Region。</li>
+</ol>
+<p><strong>ZooKeeper</strong></p>
+<ol>
+<li>通过选举，保证任何时候，集群中只有一个HMaster，HMaster与HRegionServer启动时会向ZooKeeper注册。</li>
+<li>实时监控HRegionServer的上线和下线信息，并实时通知给HMaster。</li>
+<li>存贮所有Region的寻址入口和HBase的Schema和Table元数据。</li>
+<li>Zookeeper的引入实现HMaster主从节点的failover。</li>
+</ol>
+<h4 id="RegionServer"><a href="#RegionServer" class="headerlink" title="RegionServer"></a>RegionServer</h4><p>RegionServer是HBase中最重要的角色，它包含很多组件，因此有必要单独对其加以说明。</p>
+<p><img src="/posts/bigdata/hbase-summary/rs.png" alt></p>
+<h5 id="Region"><a href="#Region" class="headerlink" title="Region"></a>Region</h5><p>Region是HBase中数据表的一个数据分片，一个RegionServer上通常会负责多个Region的数据读写。一个Region由多个Store组成，每个Store存放对应列簇的数据，比如一个表中有两个列簇，这个表的所有Region就都会包含两个Store。</p>
+<h5 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h5><p>每个Store包含一个MemStore和多个HFile，用户数据写入时会将对应列簇数据写入相应的MemStore，一旦写入数据的内存大小超过设定阈值，系统就会将MemStore中的数据落盘形成HFile文件</p>
+<h5 id="HLog"><a href="#HLog" class="headerlink" title="HLog"></a>HLog</h5><p>HLog预写日志文件，每次写入请求到来时，会先写入HLog，然后写入MemStore。</p>
+<h5 id="MemStore"><a href="#MemStore" class="headerlink" title="MemStore"></a>MemStore</h5><p>MemStore是HBase的写缓存，所有写入请求都会先写入MemStore。</p>
+<h5 id="HFile"><a href="#HFile" class="headerlink" title="HFile"></a>HFile</h5><p>HFile是当MemStore中的数据达到阈值时刷写到HDFS中的文件。</p>
+<p>HBase中KeyValue数据的存储格式，是Hadoop的二进制格式文件。 首先HFile文件是不定长的，长度固定的只有其中的两块：Trailer和FileInfo。</p>
+<p>Trailer中有指针指向其他数据块的起始点，FileInfo记录了文件的一些meta信息。Data Block是HBase IO的基本单元，为了提高效率，</p>
+<p>HRegionServer中有基于LRU的Block Cache机制。每个Data块的大小可以在创建一个Table的时候通过参数指定（默认块大小64KB），</p>
+<p>大号的Block有利于顺序Scan，小号的Block利于随机查询。每个Data块除了开头的Magic以外就是一个个KeyValue对拼接而成，</p>
+<p>Magic内容就是一些随机数字，目的是防止数据损坏，结构如下。</p>
+<p><img src="/posts/bigdata/hbase-summary/201810185.png" alt></p>
+<p>HFile结构图如下：</p>
+<p><img src="/posts/bigdata/hbase-summary/201810186.png" alt></p>
+<p>Data Block段用来保存表中的数据，这部分可以被压缩。 Meta Block段（可选的）用来保存用户自定义的kv段，可以被压缩。 FileInfo段用来保存HFile的元信息，不能被压缩，用户也可以在这一部分添加自己的元信息。 Data Block Index段（可选的）用来保存Meta Blcok的索引。 Trailer这一段是定长的。保存了每一段的偏移量，读取一个HFile时，会首先读取Trailer，Trailer保存了每个段的起始位置(段的Magic Number用来做安全check)，然后，DataBlock Index会被读取到内存中，这样，当检索某个key时，不需要扫描整个HFile，而只需从内存中找到key所在的block，通过一次磁盘io将整个 block读取到内存中，再找到需要的key。DataBlock Index采用LRU机制淘汰。 HFile的Data Block，Meta Block通常采用压缩方式存储，压缩之后可以大大减少网络IO和磁盘IO，随之而来的开销当然是需要花费cpu进行压缩和解压缩。（备注： DataBlock Index的缺陷。 a) 占用过多内存　b) 启动加载时间缓慢）</p>
+<p>查看HFile：</p>
+<pre class=" language-shell"><code class="language-shell">hbase hfile</code></pre>
+<h5 id="BlockCache"><a href="#BlockCache" class="headerlink" title="BlockCache"></a>BlockCache</h5><p>BlockCache是HBase的读缓存，HBase会将读取过的数据缓存到BlockCache中，后续再次读取同样的数据时，会直接从该缓存中读取并返回。</p>
+<h3 id="数据读写流程"><a href="#数据读写流程" class="headerlink" title="数据读写流程"></a>数据读写流程</h3><p><img src="/posts/bigdata/hbase-summary/hbasereadandwrite.png" alt></p>
+<h4 id="第一次读写"><a href="#第一次读写" class="headerlink" title="第一次读写"></a>第一次读写</h4><p>当客户端第一次读或写时，需要做如下两个步骤</p>
+<ol>
+<li>从Zookeepr中获取meta表的region所在的RegionServer</li>
+<li>从meta表的region所在的RegionServer上获取meta表内容，解析出要读或写的表的region所在的RegionServer。</li>
+</ol>
+<p>当获取到要读写的表的region所在的RegionServer后，就会实际的往这个RegionServer发起读或写的请求。</p>
+<p>上面两个过程一般只有第一次读或写时才会进行，因为客户端会缓存这两个步骤获取到的信息，不需要每次都执行这两个步骤。只有缓存中没有时才会执行。</p>
+<p><img src="/posts/bigdata/hbase-summary/first.png" alt></p>
+<h4 id="写流程"><a href="#写流程" class="headerlink" title="写流程"></a>写流程</h4><p>下图展示了一个完整的写流程，包括了从Zookeeper获取meta表信息的步骤。</p>
+<p><img src="/posts/bigdata/hbase-summary/write1.png" alt></p>
+<p><strong>MemStore Flush</strong></p>
+<p>从上面的写入流程可以看到，写入MemStore成功后，就会立刻返回客户端。因此HBase的写入是非常快的，因为只需要写入内存成功后就返回了。</p>
+<p>但是当写入到MemStore的数据达到阈值后，HBase就会在后台自动启动刷写线程，将内存中的数据flush到HDFS中。</p>
+<p><img src="/posts/bigdata/hbase-summary/flush.png" alt></p>
+<h4 id="读流程"><a href="#读流程" class="headerlink" title="读流程"></a>读流程</h4><p>下图展示了一个完整的读流程，包括了从Zookeeper获取meta表信息的步骤。</p>
+<p><img src="/posts/bigdata/hbase-summary/read.png" alt></p>
+<h4 id="HFile-Compaction"><a href="#HFile-Compaction" class="headerlink" title="HFile Compaction"></a>HFile Compaction</h4><p>由于memstore 每次刷写都会生成一个新的HFile，且同一个字段的不同版本（timestamp）和不同类型（Put/Delete）有可能会分布在不同的HFile 中，因此查询时需要遍历所有的HFile。</p>
+<p>为了减少HFile 的个数，以及清理掉过期和删除的数据，会进行StoreFile Compaction。</p>
+<p>Compaction 分为两种，分别是Minor Compaction 和Major Compaction。</p>
+<ul>
+<li>Minor Compaction会将临近的若干个较小的HFile 合并成一个较大的HFile，但不会清理过期和删除的数据。</li>
+<li>Major Compaction 会将一个Store 下的所有的HFile 合并成一个大HFile，并且会清理掉过期和删除的数据。</li>
+</ul>
+<p><img src="/posts/bigdata/hbase-summary/compaction1.png" alt></p>
+<h4 id="Region分裂"><a href="#Region分裂" class="headerlink" title="Region分裂"></a>Region分裂</h4><p><img src="/posts/bigdata/hbase-summary/split.png" alt></p>
+<h3 id="HBase集群安装"><a href="#HBase集群安装" class="headerlink" title="HBase集群安装"></a>HBase集群安装</h3><p>省略，参见官方文档。</p>
+<h3 id="HBase使用"><a href="#HBase使用" class="headerlink" title="HBase使用"></a>HBase使用</h3><h4 id="HBase-shell命令"><a href="#HBase-shell命令" class="headerlink" title="HBase shell命令"></a>HBase shell命令</h4><p>创建表</p>
+<pre class=" language-shell"><code class="language-shell">create 'student', 'info', 'basic', 'note'</code></pre>
+<p>创建表时指定最大版本数</p>
+<pre class=" language-shell"><code class="language-shell">create 'student', {NAME=>'info', VERSIONS=>3}, {NAME=>'basic',VERSIONS=>4}, 'note'</code></pre>
+<p>查看表</p>
+<pre class=" language-shell"><code class="language-shell">describe 'student'</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">Table student is ENABLED
+student
+COLUMN FAMILIES DESCRIPTION
+{NAME => 'basic', VERSIONS => '4', EVICT_BLOCKS_ON_CLOSE => 'false', NEW_VERSION_BEHAVIOR => 'false', KEEP_DELETED_CELLS => 'FALSE', CACHE_DATA_ON_WRITE => 'false', DATA_BLOCK_ENCODING => 'NONE', TTL =>
+'FOREVER', MIN_VERSIONS => '0', REPLICATION_SCOPE => '0', BLOOMFILTER => 'ROW', CACHE_INDEX_ON_WRITE => 'false', IN_MEMORY => 'false', CACHE_BLOOMS_ON_WRITE => 'false', PREFETCH_BLOCKS_ON_OPEN => 'false'
+, COMPRESSION => 'NONE', BLOCKCACHE => 'true', BLOCKSIZE => '65536'}
+
+{NAME => 'info', VERSIONS => '3', EVICT_BLOCKS_ON_CLOSE => 'false', NEW_VERSION_BEHAVIOR => 'false', KEEP_DELETED_CELLS => 'FALSE', CACHE_DATA_ON_WRITE => 'false', DATA_BLOCK_ENCODING => 'NONE', TTL => '
+FOREVER', MIN_VERSIONS => '0', REPLICATION_SCOPE => '0', BLOOMFILTER => 'ROW', CACHE_INDEX_ON_WRITE => 'false', IN_MEMORY => 'false', CACHE_BLOOMS_ON_WRITE => 'false', PREFETCH_BLOCKS_ON_OPEN => 'false',
+ COMPRESSION => 'NONE', BLOCKCACHE => 'true', BLOCKSIZE => '65536'}
+
+{NAME => 'note', VERSIONS => '1', EVICT_BLOCKS_ON_CLOSE => 'false', NEW_VERSION_BEHAVIOR => 'false', KEEP_DELETED_CELLS => 'FALSE', CACHE_DATA_ON_WRITE => 'false', DATA_BLOCK_ENCODING => 'NONE', TTL => '
+FOREVER', MIN_VERSIONS => '0', REPLICATION_SCOPE => '0', BLOOMFILTER => 'ROW', CACHE_INDEX_ON_WRITE => 'false', IN_MEMORY => 'false', CACHE_BLOOMS_ON_WRITE => 'false', PREFETCH_BLOCKS_ON_OPEN => 'false',
+ COMPRESSION => 'NONE', BLOCKCACHE => 'true', BLOCKSIZE => '65536'}</code></pre>
+<p>修改表</p>
+<pre class=" language-shell"><code class="language-shell">alter 'student', {NAME=>'note',VERSIONS=>3}</code></pre>
+<p>插入数据</p>
+<pre class=" language-shell"><code class="language-shell">put 'student', '10001', 'info:name', 'Nick'
+put 'student', '10001', 'info:age', '18'
+put 'student', '10002', 'info:name', 'Janna'
+put 'student', '10002', 'info:sex', 'Female'</code></pre>
+<p>扫描表</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student'</code></pre>
+<p>输出:</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598411187429, value=18
+ 10001                                              column=info:name, timestamp=1598411166648, value=Nick
+ 10002                                              column=info:age, timestamp=1598411210147, value=20
+ 10002                                              column=info:name, timestamp=1598411221767, value=Janna
+ 10002                                              column=info:sex, timestamp=1598411232969, value=Female
+2 row(s)
+Took 0.0323 seconds</code></pre>
+<p>根据RowKey范围扫描表</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {STARTROW=>'10001', STOPROW=>'10003'}</code></pre>
+<p>根据RowKey获取数据</p>
+<pre class=" language-shell"><code class="language-shell">get 'student', '10001'</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">COLUMN                                              CELL
+ info:age                                           timestamp=1598411187429, value=18
+ info:name                                          timestamp=1598411166648, value=Nick
+1 row(s)
+Took 0.0159 seconds</code></pre>
+<p>获取指定列</p>
+<pre class=" language-shell"><code class="language-shell">get 'student', '10002', 'info:name', 'info:sex', 'info:age'</code></pre>
+<p>获取指定列，指定版本数</p>
+<pre class=" language-shell"><code class="language-shell">get 'student', '10002', {COLUMN=>'info:name', VERSIONS=>3}, {COLUMN=>'info:sex', VERSIONS=>4}</code></pre>
+<p>修改数据</p>
+<pre class=" language-shell"><code class="language-shell">put 'student', '10001', 'info:age', '20'
+put 'student', '10001', 'info:age', '21'
+put 'student', '10001', 'info:age', '22'</code></pre>
+<p>扫描表多个版本</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {VERSIONS=>4}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411613453, value=21
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+ 10001                                              column=info:name, timestamp=1598411166648, value=Nick
+ 10002                                              column=info:name, timestamp=1598411221767, value=Janna
+ 10002                                              column=info:sex, timestamp=1598411232969, value=Female
+2 row(s)
+Took 0.0092 seconds</code></pre>
+<p>扫描表指定字段</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {COLUMN=>'info:age'}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+1 row(s)
+Took 0.0051 seconds</code></pre>
+<p>扫描指定字段多个版本</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {COLUMN=>'info:age',VERSIONS=>4}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411613453, value=21
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+1 row(s)
+Took 0.0122 seconds</code></pre>
+<p>扫描所有历史记录</p>
+<p>（不能指定列）</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {VERSIONS=>10, RAW=>true}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598412175177, value=25
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411613453, value=21
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+ 10001                                              column=info:age, timestamp=1598411187429, value=18
+ 10001                                              column=info:name, timestamp=1598411166648, value=Nick
+ 10002                                              column=info:age, timestamp=1598411210147, type=Delete
+ 10002                                              column=info:age, timestamp=1598411210147, value=20
+ 10002                                              column=info:name, timestamp=1598411221767, value=Janna
+ 10002                                              column=info:sex, timestamp=1598411232969, value=Female
+2 row(s)
+Took 0.0097 seconds</code></pre>
+<p>删除数据</p>
+<pre class=" language-shell"><code class="language-shell">delete 'student', '10001', 'info:age'</code></pre>
+<p>默认是删除最新时间戳的数据</p>
+<p>也可以指定删除某时间戳的数据，如下，删除了21</p>
+<pre class=" language-shell"><code class="language-shell">delete 'student', '10001', 'info:age', 1598411613453</code></pre>
+<p>再次查看</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {COLUMN=>'info:age',VERSIONS=>10}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+ 10001                                              column=info:age, timestamp=1598411187429, value=18
+1 row(s)
+Took 0.0104 seconds</code></pre>
+<p>还可以查看指定历史版本的操作记录（注意：不能指定列）</p>
+<pre class=" language-shell"><code class="language-shell">scan 'student', {VERSIONS=>10, RAW=>true}</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">ROW                                                 COLUMN+CELL
+ 10001                                              column=info:age, timestamp=1598412175177, type=Delete
+ 10001                                              column=info:age, timestamp=1598412175177, value=25
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411613453, type=Delete
+ 10001                                              column=info:age, timestamp=1598411613453, value=21
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+ 10001                                              column=info:age, timestamp=1598411187429, value=18
+ 10001                                              column=info:name, timestamp=1598411166648, value=Nick
+ 10002                                              column=info:age, timestamp=1598411210147, type=Delete
+ 10002                                              column=info:age, timestamp=1598411210147, value=20
+ 10002                                              column=info:name, timestamp=1598411221767, value=Janna
+ 10002                                              column=info:sex, timestamp=1598411232969, value=Female
+2 row(s)
+Took 0.0226 seconds</code></pre>
+<p>删除指定行的指定列</p>
+<pre class=" language-shell"><code class="language-shell">deleteall 'student', '10001', 'info:age'</code></pre>
+<pre class=" language-shell"><code class="language-shell">hbase(main):060:0> scan 'student', {VERSIONS=>10, RAW=>true}
+ROW                                                COLUMN+CELL
+ 10001                                             column=info:age,timestamp=1598413482749,type=DeleteColumn
+ 10001                                             column=info:age, timestamp=1598413371725, value=22
+ 10001                                             column=info:age, timestamp=1598413336206, value=21
+ 10001                                             column=info:age, timestamp=1598413334192, value=20
+ 10001                                             column=info:age, timestamp=1598413298769, value=18
+ 10001                                             column=info:name, timestamp=1598413289143, value=Nick
+ 10002                                             column=info:name, timestamp=1598413310710, value=Janna
+ 10002                                             column=info:sex, timestamp=1598413319908, value=Female</code></pre>
+<p>删除指定行的所有列族</p>
+<pre class=" language-shell"><code class="language-shell">deleteall 'student', '10001'</code></pre>
+<pre class=" language-shell"><code class="language-shell">hbase(main):016:0> scan 'student', {VERSIONS=>10, RAW=>true}
+ROW                                                 COLUMN+CELL
+ 10001                                              column=basic:, timestamp=1598412927029, type=DeleteFamily
+ 10001                                              column=info:, timestamp=1598412927029, type=DeleteFamily
+ 10001                                              column=info:age, timestamp=1598412714946, value=30
+ 10001                                              column=info:age, timestamp=1598412175177, type=Delete
+ 10001                                              column=info:age, timestamp=1598412175177, value=25
+ 10001                                              column=info:age, timestamp=1598411633187, value=22
+ 10001                                              column=info:age, timestamp=1598411613453, type=Delete
+ 10001                                              column=info:age, timestamp=1598411613453, value=21
+ 10001                                              column=info:age, timestamp=1598411607396, value=20
+ 10001                                              column=info:age, timestamp=1598411187429, value=18
+ 10001                                              column=info:name, timestamp=1598411166648, value=Nick
+ 10001                                              column=note:, timestamp=1598412927029, type=DeleteFamily
+ 10002                                              column=info:age, timestamp=1598411210147, type=Delete
+ 10002                                              column=info:age, timestamp=1598411210147, value=20
+ 10002                                              column=info:name, timestamp=1598411221767, value=Janna
+ 10002                                              column=info:sex, timestamp=1598411232969, value=Female
+2 row(s)
+Took 0.0259 seconds</code></pre>
+<p>删除表</p>
+<pre class=" language-shell"><code class="language-shell">disable 'student'
+drop 'student'</code></pre>
+<h3 id="HBase协处理器"><a href="#HBase协处理器" class="headerlink" title="HBase协处理器"></a>HBase协处理器</h3><p>协处理器实现</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 定义一个协处理器：在添加数据时同时插入test1表
+ * 需要被打成jar包并部署到hbase中（放到hbase/lib下）
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCoprocessor</span> <span class="token keyword">implements</span> <span class="token class-name">RegionObserver</span><span class="token punctuation">,</span> RegionCoprocessor <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postPut</span><span class="token punctuation">(</span>ObserverContext<span class="token operator">&lt;</span>RegionCoprocessorEnvironment<span class="token operator">></span> e<span class="token punctuation">,</span> Put put<span class="token punctuation">,</span>
+                        WALEdit edit<span class="token punctuation">,</span> Durability durability<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 将数据同步put到test1表中</span>
+        Table table <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getEnvironment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTable</span><span class="token punctuation">(</span>TableName<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token string">"test1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"coprocessor: "</span> <span class="token operator">+</span> put<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        table<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>put<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 关闭表</span>
+        table<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>协处理器的实现需要打成jar包，然后部署到HBase中，也就是拷贝到<code>$HBASE_HOME/lib</code>目录下，然后重启HBase，接下来就可以使用自定义的协处理器了。</p>
+<p>在创建表时，可以通过指定协处理器的全限定类名来为表设置协处理器，如下：</p>
+<pre class=" language-java"><code class="language-java">Configuration conf <span class="token operator">=</span> HBaseConfiguration<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Connection connection <span class="token operator">=</span> ConnectionFactory<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span>conf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Admin admin <span class="token operator">=</span> connection<span class="token punctuation">.</span><span class="token function">getAdmin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+TableName tableName <span class="token operator">=</span> TableName<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+TableDescriptorBuilder tableDescriptorBuilder <span class="token operator">=</span> TableDescriptorBuilder<span class="token punctuation">.</span><span class="token function">newBuilder</span><span class="token punctuation">(</span>tableName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ColumnFamilyDescriptor info <span class="token operator">=</span> ColumnFamilyDescriptorBuilder<span class="token punctuation">.</span><span class="token function">newBuilder</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"info"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ColumnFamilyDescriptor basic <span class="token operator">=</span> ColumnFamilyDescriptorBuilder<span class="token punctuation">.</span><span class="token function">newBuilder</span><span class="token punctuation">(</span>Bytes<span class="token punctuation">.</span><span class="token function">toBytes</span><span class="token punctuation">(</span><span class="token string">"basic"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tableDescriptorBuilder<span class="token punctuation">.</span><span class="token function">setColumnFamilies</span><span class="token punctuation">(</span>Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span>info<span class="token punctuation">,</span> basic<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 设置自定义的协处理器</span>
+tableDescriptorBuilder<span class="token punctuation">.</span><span class="token function">setCoprocessor</span><span class="token punctuation">(</span><span class="token string">"com.yglong.hbase.coprocessor.TestCoprocessor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+TableDescriptor tableDescriptor <span class="token operator">=</span> tableDescriptorBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+admin<span class="token punctuation">.</span><span class="token function">createTable</span><span class="token punctuation">(</span>tableDescriptor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Table is created"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>然后可以查看表：</p>
+<pre class=" language-shell"><code class="language-shell">hbase(main):003:0> describe 'test'
+Table test is ENABLED
+test, {TABLE_ATTRIBUTES => {coprocessor$1 => '|com.yglong.hbase.coprocessor.TestCoprocessor|1073741823|'}}
+COLUMN FAMILIES DESCRIPTION
+{NAME => 'basic', VERSIONS => '1', EVICT_BLOCKS_ON_CLOSE => 'false', NEW_VERSION_BEHAVIOR => 'false', KEEP_DELETED_CELLS => 'FALSE', CACHE_DATA_ON_WRITE => 'false', DATA_BLOCK_ENCODING => 'NONE', TTL =>
+'FOREVER', MIN_VERSIONS => '0', REPLICATION_SCOPE => '0', BLOOMFILTER => 'ROW', CACHE_INDEX_ON_WRITE => 'false', IN_MEMORY => 'false', CACHE_BLOOMS_ON_WRITE => 'false', PREFETCH_BLOCKS_ON_OPEN => 'false'
+, COMPRESSION => 'NONE', BLOCKCACHE => 'true', BLOCKSIZE => '65536'}
+
+{NAME => 'info', VERSIONS => '1', EVICT_BLOCKS_ON_CLOSE => 'false', NEW_VERSION_BEHAVIOR => 'false', KEEP_DELETED_CELLS => 'FALSE', CACHE_DATA_ON_WRITE => 'false', DATA_BLOCK_ENCODING => 'NONE', TTL => '
+FOREVER', MIN_VERSIONS => '0', REPLICATION_SCOPE => '0', BLOOMFILTER => 'ROW', CACHE_INDEX_ON_WRITE => 'false', IN_MEMORY => 'false', CACHE_BLOOMS_ON_WRITE => 'false', PREFETCH_BLOCKS_ON_OPEN => 'false',
+ COMPRESSION => 'NONE', BLOCKCACHE => 'true', BLOCKSIZE => '65536'}</code></pre>
+<p>可以看到，表test有一个coprocessor的属性，并且指向了我们自定义的协处理器类。</p>
+<p>注意：如果要修改协处理器类，如修改类名或包名，这种情况下，一定要先把设置了协处理器的表删除，或者去掉协处理器，然后再重新部署新的协处理器jar包。否则如果直接重新部署新的jar包，当重启HBase时，HBase将无法启动，因为还有表引用了老的协处理器类，但是已经无法找到了。如果只是修改了协处理器类的内部方法实现，因为类的全限定名没有变化，则重新部署jar包时不需要删除或修改表。</p>
+<p>去掉协处理器步骤：</p>
+<pre class=" language-shell"><code class="language-shell">disable 'test'
+alter 'test', METHOD => 'table_att_unset', NAME => 'coprocessor$1'
+enable 'test'</code></pre>
+<p>重新部署新的协处理器jar包，并重启HBase后，再为表设置新的协处理器类：</p>
+<pre class=" language-shell"><code class="language-shell">disable 'test'
+alter 'test', 'coprocessor' => '|com.yglong.hbase.coprocessor.TestCoprocessor|12345|'
+enable 'test'</code></pre>
+<h3 id="HBase与Hive集成"><a href="#HBase与Hive集成" class="headerlink" title="HBase与Hive集成"></a>HBase与Hive集成</h3><h3 id="HBase分区，预分区"><a href="#HBase分区，预分区" class="headerlink" title="HBase分区，预分区"></a>HBase分区，预分区</h3><p>创建表时，默认只会创建一个分区（region）。如果我们能够知道我们的表将来会存储多大量的数据，那么可以在创建表时预先创建多个分区，如下：</p>
+<pre class=" language-shell"><code class="language-shell">create 'test', 'cf1', SPLITS => ['10', '20', '30', '40']</code></pre>
+<h3 id="Phoenix"><a href="#Phoenix" class="headerlink" title="Phoenix"></a>Phoenix</h3><p>官方介绍：</p>
+<blockquote>
+<p>Phoenix is an open source SQL skin for HBase. You use the standard JDBC APIs instead of the regular HBase client APIs to create tables, insert data, and query your HBase data.</p>
+</blockquote>
+<p>有了Phoenix，我们就可以不需要再直接用HBase的Java API开发了，可以使用Phoenix提供的JDBC驱动，像使用MySQL关系型数据库一样使用HBase了。</p>
+<p><img src="/posts/bigdata/hbase-summary/phoenix.png" alt></p>
+<h5 id="Phoenix安装与使用"><a href="#Phoenix安装与使用" class="headerlink" title="Phoenix安装与使用"></a>Phoenix安装与使用</h5><ol>
+<li><p>下载适合HBase版本的Phoenix版本zip包，解压。</p>
+<blockquote>
+<p>注意：对于HBase2.2.5，目前最新版本的Phoenix5.0是不支持的。需要手动从github将Phoenix源码下载下来，按照源码中BUILDING.md的指导，手动编译一个支持HBase2.2.5版本的Phoenix。</p>
+</blockquote>
+<p>也可以直接下载笔者编译好的zip包：<a href="https://github.com/longyg/study/releases/tag/Phoenix-5.1_HBase-2.2.5" target="_blank" rel="noopener">Phoenix-5.1_HBase-2.2.5</a></p>
+</li>
+<li><p>将phoenix-server-5.1.x-xxx.jar包和phoenix-hbase-compat-2.2.x.jar包拷贝到HBase的lib目录下，然后重启HBase。</p>
+</li>
+<li><p>进入phoenix的bin目录下，执行命令启动phoenix，并进入phoenix的命令行shell：</p>
+<pre class=" language-shell"><code class="language-shell">./sqlline.py bigdata01,bigdata02,bigdata03:2181</code></pre>
+<p>bigdata01 ~ bigdata03是Zookeeper节点的hostname，有几个就填几个，以逗号隔开，我这里有三个。2181是访问Zookeeper的端口。</p>
+</li>
+<li><p>现在就可以创建表，插入数据等操作了，基本跟MySQL类似。如下</p>
+<p>创建表：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> <span class="token keyword">if</span> <span class="token operator">not</span> <span class="token keyword">exists</span> us_population <span class="token punctuation">(</span>
+    state CHAR<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>  <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    city <span class="token keyword">VARCHAR</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    population <span class="token keyword">BIGINT</span>
+    <span class="token keyword">CONSTRAINT</span> my_pk <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> city<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>插入数据：</p>
+<pre class=" language-sql"><code class="language-sql">upsert <span class="token keyword">into</span> us_population <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'NY'</span><span class="token punctuation">,</span> <span class="token string">'New York'</span><span class="token punctuation">,</span> <span class="token number">8143197</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+upsert <span class="token keyword">into</span> us_population <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'CA'</span><span class="token punctuation">,</span> <span class="token string">'Los Angeles'</span><span class="token punctuation">,</span> <span class="token number">3844829</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+upsert <span class="token keyword">into</span> us_population <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'IL'</span><span class="token punctuation">,</span> <span class="token string">'Chicago'</span><span class="token punctuation">,</span> <span class="token number">2842518</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+upsert <span class="token keyword">into</span> us_population <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'TX'</span><span class="token punctuation">,</span> <span class="token string">'Houston'</span><span class="token punctuation">,</span> <span class="token number">2016582</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+upsert <span class="token keyword">into</span> us_population <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'PA'</span><span class="token punctuation">,</span> <span class="token string">'Philadelphia'</span><span class="token punctuation">,</span> <span class="token number">1463281</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>查询：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> us_population<span class="token punctuation">;</span></code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">+-------+--------------+------------+
+| STATE |     CITY     | POPULATION |
++-------+--------------+------------+
+| CA    | Los Angeles  | 3844829    |
+| IL    | Chicago      | 2842518    |
+| NY    | New York     | 8143197    |
+| PA    | Philadelphia | 1463281    |
+| TX    | Houston      | 2016582    |
++-------+--------------+------------+
+5 rows selected (0.029 seconds)</code></pre>
+<p>查看表：</p>
+<pre class=" language-shell"><code class="language-shell">!table</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">+-----------+-------------+---------------+--------------+---------+-
+| TABLE_CAT | TABLE_SCHEM |  TABLE_NAME   |  TABLE_TYPE  | REMARKS | ...
++-----------+-------------+---------------+--------------+---------+-
+|           | SYSTEM      | CATALOG       | SYSTEM TABLE |         | 
+|           | SYSTEM      | CHILD_LINK    | SYSTEM TABLE |         | 
+|           | SYSTEM      | FUNCTION      | SYSTEM TABLE |         | 
+|           | SYSTEM      | LOG           | SYSTEM TABLE |         | 
+|           | SYSTEM      | MUTEX         | SYSTEM TABLE |         | 
+|           | SYSTEM      | SEQUENCE      | SYSTEM TABLE |         | 
+|           | SYSTEM      | STATS         | SYSTEM TABLE |         | 
+|           | SYSTEM      | TASK          | SYSTEM TABLE |         | 
+|           |             | US_POPULATION | TABLE   </code></pre>
+<p>退出命令行：</p>
+<pre class=" language-shell"><code class="language-shell">!quit</code></pre>
+</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">yglong</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://yglong.com/posts/bigdata/hbase-summary.html">http://yglong.com/posts/bigdata/hbase-summary.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">yglong</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                    <span class="chip bg-color">大数据</span>
+                                </a>
+                            
+                                <a href="/tags/HBase/">
+                                    <span class="chip bg-color">HBase</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '357fc628d86fb45f7082',
+        clientSecret: '7d50d35a5764740c102b798f24a2921cf9e5e111',
+        repo: 'blog-comments',
+        owner: 'longyg',
+        admin: "longyg",
+        id: '2020-08-28T14-09-07',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/posts/bigdata/hbase-summary.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="HBase知识点总结">
+                        
+                        <span class="card-title">HBase知识点总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文详细介绍了HBase的知识点
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-28
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                    <a href="/tags/HBase/">
+                        <span class="chip bg-color">HBase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/java/jvm-classloading.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="JVM之：类加载">
+                        
+                        <span class="card-title">JVM之：类加载</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文详细介绍JVM中关于类加载的知识
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    Java后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
+                    </a>
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="3754812570"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">yglong</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">72.8k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "5";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/longyg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:longyg1986@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=373020902" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 373020902" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

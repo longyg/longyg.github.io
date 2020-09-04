@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yglong.com/"/>
-  <updated>2020-08-07T07:55:28.865Z</updated>
+  <updated>2020-09-04T13:06:24.025Z</updated>
   <id>http://yglong.com/</id>
   
   <author>
@@ -15,6 +15,65 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HBase知识点总结</title>
+    <link href="http://yglong.com/posts/bigdata/hbase-summary.html"/>
+    <id>http://yglong.com/posts/bigdata/hbase-summary.html</id>
+    <published>2020-08-28T06:09:07.000Z</published>
+    <updated>2020-09-04T13:06:24.025Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;HBase简介&quot;&gt;&lt;a href=&quot;#HBase简介&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="大数据" scheme="http://yglong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="大数据" scheme="http://yglong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="HBase" scheme="http://yglong.com/tags/HBase/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JVM之：类加载</title>
+    <link href="http://yglong.com/posts/java/jvm-classloading.html"/>
+    <id>http://yglong.com/posts/java/jvm-classloading.html</id>
+    <published>2020-08-24T06:42:49.000Z</published>
+    <updated>2020-09-04T13:06:23.983Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;一、类加载&quot;&gt;&lt;a href=&quot;#一、类加载&quot; class=&quot;headerlink&quot; title=&quot;一、类加载&quot;&gt;&lt;/a&gt;一、类加载&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;在Java代码中，类型（Java
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java后端" scheme="http://yglong.com/categories/Java%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="JVM" scheme="http://yglong.com/tags/JVM/"/>
+    
+      <category term="Java" scheme="http://yglong.com/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>MapReduce程序运行模式</title>
@@ -50,7 +109,7 @@
     <link href="http://yglong.com/posts/bigdata/hdfs-summary.html"/>
     <id>http://yglong.com/posts/bigdata/hdfs-summary.html</id>
     <published>2020-07-22T06:09:07.000Z</published>
-    <updated>2020-08-03T13:26:52.639Z</updated>
+    <updated>2020-09-04T13:06:24.060Z</updated>
     
     <summary type="html">
     
@@ -68,9 +127,9 @@
       <category term="大数据" scheme="http://yglong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
     
-      <category term="大数据" scheme="http://yglong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
       <category term="HDFS" scheme="http://yglong.com/tags/HDFS/"/>
+    
+      <category term="大数据" scheme="http://yglong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
   </entry>
   
@@ -126,9 +185,9 @@
       <category term="大数据" scheme="http://yglong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
     
-      <category term="BigData" scheme="http://yglong.com/tags/BigData/"/>
-    
       <category term="大数据" scheme="http://yglong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="BigData" scheme="http://yglong.com/tags/BigData/"/>
     
   </entry>
   
@@ -155,9 +214,9 @@
       <category term="大数据" scheme="http://yglong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
     
-      <category term="BigData" scheme="http://yglong.com/tags/BigData/"/>
-    
       <category term="大数据" scheme="http://yglong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="BigData" scheme="http://yglong.com/tags/BigData/"/>
     
   </entry>
   
@@ -301,13 +360,13 @@
       <category term="前端" scheme="http://yglong.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
+      <category term="Web" scheme="http://yglong.com/tags/Web/"/>
+    
       <category term="Keycloak" scheme="http://yglong.com/tags/Keycloak/"/>
     
       <category term="React" scheme="http://yglong.com/tags/React/"/>
     
       <category term="前端" scheme="http://yglong.com/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-      <category term="Web" scheme="http://yglong.com/tags/Web/"/>
     
   </entry>
   
@@ -334,13 +393,13 @@
       <category term="前端" scheme="http://yglong.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
+      <category term="Web" scheme="http://yglong.com/tags/Web/"/>
+    
       <category term="Keycloak" scheme="http://yglong.com/tags/Keycloak/"/>
     
       <category term="React" scheme="http://yglong.com/tags/React/"/>
     
       <category term="前端" scheme="http://yglong.com/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-      <category term="Web" scheme="http://yglong.com/tags/Web/"/>
     
   </entry>
   
@@ -548,62 +607,6 @@
       <category term="文本处理" scheme="http://yglong.com/tags/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"/>
     
       <category term="自然语言处理" scheme="http://yglong.com/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设置jupyter默认工作路径</title>
-    <link href="http://yglong.com/posts/sharing/set-jupyter-workspace.html"/>
-    <id>http://yglong.com/posts/sharing/set-jupyter-workspace.html</id>
-    <published>2019-02-12T10:25:48.000Z</published>
-    <updated>2020-07-17T14:30:52.941Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;安装好&lt;code&gt;Anaconda&lt;/code&gt;后，启动&lt;code&gt;Jupyter
-        
-      
-    
-    </summary>
-    
-    
-      <category term="经验分享" scheme="http://yglong.com/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="Jupyter" scheme="http://yglong.com/tags/Jupyter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>理解各种CSS单位（px, em, rem, vw, vh, vmin, vmax）</title>
-    <link href="http://yglong.com/posts/frontend/learn-css-unit.html"/>
-    <id>http://yglong.com/posts/frontend/learn-css-unit.html</id>
-    <published>2019-01-01T10:09:52.000Z</published>
-    <updated>2020-07-17T14:30:52.914Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;px&quot;&gt;&lt;a href=&quot;#px&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="前端" scheme="http://yglong.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="CSS" scheme="http://yglong.com/tags/CSS/"/>
-    
-      <category term="CSS单位" scheme="http://yglong.com/tags/CSS%E5%8D%95%E4%BD%8D/"/>
     
   </entry>
   

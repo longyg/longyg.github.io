@@ -431,12 +431,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
-                                <span class="chip bg-color">大数据</span>
-                            </a>
-                        
                             <a href="/tags/HDFS/">
                                 <span class="chip bg-color">HDFS</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                <span class="chip bg-color">大数据</span>
                             </a>
                         
                     </div>
@@ -467,21 +467,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-03
+                    2020-09-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    478
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    11 分
                 </div>
                 
 
@@ -508,7 +508,154 @@
 </ol>
 <h3 id="HDFS-简介"><a href="#HDFS-简介" class="headerlink" title="HDFS 简介"></a>HDFS 简介</h3><p><code>HDFS</code>（Hadoop Distributed File System）是一个开源的分布式文件系统，它基于谷歌的<code>GFS</code>理论。HDFS 是Hadoop框架中的一个核心组件，是分布式计算中数据存储管理的基础。</p>
 <p>它具有高容错、高可靠性、高可扩展性、高吞吐率等特性。</p>
-<h3 id="HDFS-优缺点"><a href="#HDFS-优缺点" class="headerlink" title="HDFS 优缺点"></a>HDFS 优缺点</h3><h3 id="HDFS-整体架构"><a href="#HDFS-整体架构" class="headerlink" title="HDFS 整体架构"></a>HDFS 整体架构</h3><h3 id="HDFS-数据块"><a href="#HDFS-数据块" class="headerlink" title="HDFS 数据块"></a>HDFS 数据块</h3><h3 id="HDFS-数据复制"><a href="#HDFS-数据复制" class="headerlink" title="HDFS 数据复制"></a>HDFS 数据复制</h3><h3 id="HDFS-读写数据流程"><a href="#HDFS-读写数据流程" class="headerlink" title="HDFS 读写数据流程"></a>HDFS 读写数据流程</h3><h3 id="HDFS-元数据管理"><a href="#HDFS-元数据管理" class="headerlink" title="HDFS 元数据管理"></a>HDFS 元数据管理</h3><h3 id="HDFS-HA-机制"><a href="#HDFS-HA-机制" class="headerlink" title="HDFS HA 机制"></a>HDFS HA 机制</h3><h3 id="HDFS-联邦机制"><a href="#HDFS-联邦机制" class="headerlink" title="HDFS 联邦机制"></a>HDFS 联邦机制</h3>
+<h3 id="HDFS-优缺点"><a href="#HDFS-优缺点" class="headerlink" title="HDFS 优缺点"></a>HDFS 优缺点</h3><h4 id="HDFS-优点"><a href="#HDFS-优点" class="headerlink" title="HDFS 优点"></a>HDFS 优点</h4><ul>
+<li><p>高容错性</p>
+<p>1) 数据自动保存多个副本。它通过增加副本的形式，提高容错性。</p>
+<p>2) 某一个副本丢失以后，它可以自动恢复，这是由 HDFS 内部机制实现的，我们不必关心。</p>
+</li>
+<li><p>适合批处理</p>
+<p>1) 它是通过移动计算而不是移动数据。</p>
+<p>2) 它会把数据位置暴露给计算框架。</p>
+</li>
+<li><p>适合大数据处理</p>
+<p>1) 数据规模：能够处理数据规模达到 GB、TB、甚至PB级别的数据。</p>
+<p>2) 文件规模：能够处理百万规模以上的文件数量，数量相当之大。</p>
+<p>3) 节点规模：能够处理10K节点的规模。</p>
+</li>
+<li><p>流式数据访问</p>
+<p>1) 一次写入，多次读取，不能修改，只能追加。</p>
+<p>2) 它能保证数据的一致性。</p>
+</li>
+<li><p>可构建在廉价机器上</p>
+<p>1) 它通过多副本机制，提高可靠性。</p>
+<p>2) 它提供了容错和恢复机制。比如某一个副本丢失，可以通过其它副本来恢复。</p>
+</li>
+</ul>
+<h4 id="HDFS-缺点"><a href="#HDFS-缺点" class="headerlink" title="HDFS 缺点"></a>HDFS 缺点</h4><ul>
+<li><p>不适合低延时数据访问</p>
+<p>1) 比如毫秒级的来存储数据，这是不行的，它做不到。</p>
+<p>2) 它适合高吞吐率的场景，就是在某一时间内写入大量的数据。但是它在低延时的情况  下是不行的，比如毫秒级以内读取数据，这样它是很难做到的。</p>
+</li>
+<li><p>无法高效的对大量小文件进行存储</p>
+<p>1) 存储大量小文件的话，它会占用  NameNode大量的内存来存储文件、目录和块信息。这样是不可取的，因为NameNode的内存总是有限的。</p>
+<p>2) 小文件存储的寻道时间会超过读取时间，它违反了HDFS的设计目标。</p>
+</li>
+<li><p>并发写入、文件随机修改</p>
+<p>1) 一个文件只能有一个写，不允许多个线程同时写。</p>
+<p>2) 仅支持数据 append（追加），不支持文件的随机修改。</p>
+</li>
+</ul>
+<h3 id="HDFS-整体架构"><a href="#HDFS-整体架构" class="headerlink" title="HDFS 整体架构"></a>HDFS 整体架构</h3><h4 id="单Namenode架构"><a href="#单Namenode架构" class="headerlink" title="单Namenode架构"></a>单Namenode架构</h4><p><img src="/posts/bigdata/hdfs-summary/hdfsarchitecture.png" alt></p>
+<h4 id="NameNode-Secondary-NameNode架构"><a href="#NameNode-Secondary-NameNode架构" class="headerlink" title="NameNode + Secondary NameNode架构"></a>NameNode + Secondary NameNode架构</h4><p><img src="/posts/bigdata/hdfs-summary/hadoop1.0.png" alt></p>
+<p>还有支持HA机制的架构，后面会单独说明。</p>
+<h4 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h4><p>从架构图可以看出，HDFS主要包括以下几个角色：</p>
+<ul>
+<li><p>HDFS 客户端</p>
+<p>要访问HDFS，都需要通过客户端，HDFS提供了两种客户端：1）shell命令行客户端。 2）客户端Java API</p>
+</li>
+<li><p>NameNode</p>
+<p>管理HDFS元数据，管理DataNode和整个集群。</p>
+</li>
+<li><p>Secondary NameNode</p>
+<p>用于分担NameNode合并元数据的工作，减轻NameNode的负担。不是必须的。</p>
+<p>对于HA的集群，由Standby NameNode代替。</p>
+</li>
+<li><p>DataNode</p>
+<p>真正存储文件的节点，大文件会被拆分成多个block，每个block默认128M。每个block会复制多个副本，默认三个。所有block以及副本会分散存储到各个DataNode节点上。</p>
+</li>
+</ul>
+<h3 id="HDFS-存储模型"><a href="#HDFS-存储模型" class="headerlink" title="HDFS 存储模型"></a>HDFS 存储模型</h3><p>在HDFS中，一个大的文件会被拆分成多个数据块（即block），默认情况下，每个block最大128M，最后一个block有可能小于128M。然后这些block分散存储到不同的DataNode上。</p>
+<p>如下图所示，example.txt有700M，会被拆分成6个block，前5个每个128M，最后一个60M。</p>
+<p><img src="/posts/bigdata/hdfs-summary/HDFS-Blocks.jpg" alt></p>
+<h3 id="HDFS-读写数据流程"><a href="#HDFS-读写数据流程" class="headerlink" title="HDFS 读写数据流程"></a>HDFS 读写数据流程</h3><h4 id="读文件流程"><a href="#读文件流程" class="headerlink" title="读文件流程"></a>读文件流程</h4><p><img src="/posts/bigdata/hdfs-summary/read.png" alt></p>
+<p>步骤解析：</p>
+<ol>
+<li>客户端传递一个文件Path给FileSystem的open方法</li>
+<li>HDFS采用RPC远程获取文件最开始的几个block的datanode地址。Namenode会根据网络拓扑结构决定返回哪些节点（前提是节点有block副本），如果客户端本身是Datanode并且节点上刚好有block副本，直接从本地读取。</li>
+<li>客户端使用open方法返回的FSDataInputStream对象读取数据（调用read方法）</li>
+<li>DFSInputStream（FSDataInputStream实现了该类）连接持有第一个block的、最近的节点，反复调用read方法读取数据</li>
+<li>第一个block读取完毕之后，寻找下一个block的最佳datanode，读取数据。如果有必要，DFSInputStream会联系Namenode获取下一批Block 的节点信息(存放于内存，不持久化），这些寻址过程对客户端都是不可见的。</li>
+<li>数据读取完毕，客户端调用close方法关闭流对象</li>
+</ol>
+<p>在读数据过程中，如果与Datanode的通信发生错误，DFSInputStream对象会尝试从下一个最佳节点读取数据，并且记住该失败节点， 后续Block的读取不会再连接该节点</p>
+<p>读取一个Block之后，DFSInputStram会进行检验和验证，如果Block损坏，尝试从其他节点读取数据，并且将损坏的block汇报给Namenode。</p>
+<p>客户端连接哪个datanode获取数据，是由namenode来指导的，这样可以支持大量并发的客户端请求，namenode尽可能将流量均匀分布到整个集群。</p>
+<p>Block的位置信息是存储在namenode的内存中，因此相应位置请求非常高效，不会成为瓶颈。</p>
+<h4 id="写文件流程"><a href="#写文件流程" class="headerlink" title="写文件流程"></a>写文件流程</h4><p><img src="/posts/bigdata/hdfs-summary/write.png" alt></p>
+<p>步骤解析：</p>
+<ol>
+<li>客户端调用DistributedFileSystem的create方法</li>
+<li>DistributedFileSystem远程RPC调用Namenode在文件系统的命名空间中创建一个新文件，此时该文件没有关联到任何block。 这个过程中，Namenode会做很多校验工作，例如是否已经存在同名文件，是否有权限，如果验证通过，返回一个FSDataOutputStream对象。 如果验证不通过，抛出异常到客户端。</li>
+<li>客户端写入数据的时候，DFSOutputStream分解为packets，并写入到一个数据队列中，该队列由DataStreamer消费。</li>
+<li>DateStreamer负责请求Namenode分配新的block存放的数据节点。这些节点存放同一个Block的副本，构成一个管道。 DataStreamer将packer写入到管道的第一个节点，第一个节点存放好packer之后，转发给下一个节点，下一个节点存放 之后继续往下传递。</li>
+<li>DFSOutputStream同时维护一个ack queue队列，等待来自datanode确认消息。当管道上的所有datanode都确认之后，packer从ack队列中移除。</li>
+<li>数据写入完毕，客户端close输出流。将所有的packet刷新到管道中，然后安心等待来自datanode的确认消息。全部得到确认之后告知Namenode文件是完整的。 Namenode此时已经知道文件的所有Block信息（因为DataStreamer是请求Namenode分配block的），只需等待达到最小副本数要求，然后返回成功信息给客户端。</li>
+</ol>
+<h5 id="Block副本放置策略"><a href="#Block副本放置策略" class="headerlink" title="Block副本放置策略"></a>Block副本放置策略</h5><p>HDFS在写入文件时，对于文件block的各个副本放置到哪个节点，会采取一定的策略。</p>
+<p>如下图所示，第一个副本放置在client访问的第一个节点上，另外两个副本放置到与第一个副本不同的机架上，且第二个和第三个副本放置到同一个机架上的不同节点上。</p>
+<p><img src="/posts/bigdata/hdfs-summary/2.png" alt></p>
+<p>以上是目前新版本的放置策略，老版本的HDFS的副本放置策略略有不同，如下：</p>
+<p><img src="/posts/bigdata/hdfs-summary/1.png" alt></p>
+<h4 id="节点距离"><a href="#节点距离" class="headerlink" title="节点距离"></a>节点距离</h4><p><img src="/posts/bigdata/hdfs-summary/dist.png" alt></p>
+<p>在读取和写入的过程中，namenode在分配Datanode的时候，会考虑节点之间的距离。HDFS中，距离没有采用带宽来衡量，因为实际中很难准确度量两台机器之间的带宽。</p>
+<p>HDFS把机器之间的拓扑结构组织成树结构，并且用到达公共父节点所需跳转数之和作为距离。</p>
+<p>计算出节点之间的距离后，HDFS在读取或写入时会根据距离优先选择距离较近节点。</p>
+<h3 id="HDFS-元数据管理"><a href="#HDFS-元数据管理" class="headerlink" title="HDFS 元数据管理"></a>HDFS 元数据管理</h3><h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><p>HDFS中的元数据包括fsimage和edit log。</p>
+<p>Edit Log：当写入数据时，HDFS会记录一条日志到Edit Log中，如下图所示：</p>
+<p><img src="/posts/bigdata/hdfs-summary/meta.jpg" alt></p>
+<p>fsimage: </p>
+<p>在安装HDFS并首次启动前，需要运行格式化指令，它就是用于产生一个空的fsimage文件。</p>
+<p><img src="/posts/bigdata/hdfs-summary/fsimage.jpg" alt></p>
+<h4 id="元数据合并"><a href="#元数据合并" class="headerlink" title="元数据合并"></a>元数据合并</h4><p><img src="/posts/bigdata/hdfs-summary/checkpointing2.png" alt></p>
+<p>引入Secondary NameNode实现元数据合并</p>
+<p><img src="/posts/bigdata/hdfs-summary/sh.jpg" alt></p>
+<p>引入SecondaryNamenode，它的作用就是提高Namenode的恢复速度，大致对操作步骤进行一个阐述：</p>
+<ol>
+<li>SecondaryNameNode 会通过http get方式把edits     log和fsimage的信息拉取过来</li>
+<li>在SecondaryNameNode中把edits log和fsimage做一个合并，产生一个新的文件叫做 fsimage.ckpt</li>
+<li>在SecondaryNameNode中合并完成之后，再回传给NameNode里面</li>
+<li>这时大概率会有客户端还在对NameNode进行读写操作，也会产生新的日志，此时按照先前未引入SNN的套路继续即可。 在HA方案中这个行为可以交给standby去完成。</li>
+</ol>
+<h3 id="HDFS-HA-机制"><a href="#HDFS-HA-机制" class="headerlink" title="HDFS HA 机制"></a>HDFS HA 机制</h3><h4 id="两种HA机制"><a href="#两种HA机制" class="headerlink" title="两种HA机制"></a>两种HA机制</h4><ul>
+<li><p>基于NFS</p>
+<p><img src="/posts/bigdata/hdfs-summary/facebookavatar.png" alt></p>
+</li>
+<li><p>基于QJM（Quorum Journal Manager)共享存储</p>
+<p><img src="/posts/bigdata/hdfs-summary/img001.png" alt></p>
+</li>
+</ul>
+<h4 id="基于QJM的HA机制"><a href="#基于QJM的HA机制" class="headerlink" title="基于QJM的HA机制"></a>基于QJM的HA机制</h4><p>基于QJM的HA机制是推荐的HA机制，因此这里单独加以说明。</p>
+<p><strong>引入JournalNode实现共享存储</strong></p>
+<p><img src="/posts/bigdata/hdfs-summary/jn.jpg" alt></p>
+<p><strong>引入Zookeeper和ZKFC实现故障自动切换</strong></p>
+<p><img src="/posts/bigdata/hdfs-summary/zk.jpg" alt></p>
+<p><strong>自动切换详细流程</strong></p>
+<p><img src="/posts/bigdata/hdfs-summary/img002.png" alt></p>
+<p><strong>防止脑裂</strong></p>
+<p><img src="/posts/bigdata/hdfs-summary/nl.jpg" alt></p>
+<h3 id="HDFS-联邦机制"><a href="#HDFS-联邦机制" class="headerlink" title="HDFS 联邦机制"></a>HDFS 联邦机制</h3><p>联邦（Federation）机制主要用于突破单个NameNode集群的限制。</p>
+<h4 id="Federation架构"><a href="#Federation架构" class="headerlink" title="Federation架构"></a>Federation架构</h4><p><img src="/posts/bigdata/hdfs-summary/federation.gif" alt></p>
+<p><strong>Block Pool（块池）</strong></p>
+<ul>
+<li>Block Pool允许一个命名空间在不通知其他命名空间的情况下为一个新的block创建Block ID。同时一个Namenode失效不会影响其下Datanode为其他Namenode服务。</li>
+<li>每个Block Pool内部自治，也就是说各自管理各自的block，不会与其他Block Pool交流。一个Namenode挂掉了，不会影响其他NameNode。</li>
+<li>当DN与NN建立联系并开始会话后自动建立Block Pool。每个block都有一个唯一的标识，这个标识我们称之为扩展块ID,在HDFS集群之间都是惟一的，为以后集群归并创造了条件。</li>
+<li>DN中的数据结构都通过块池ID索引，即DN中的BlockMap，storage等都通过BPID索引。</li>
+<li>某个NN上的NameSpace和它对应的Block Pool一起被称为NameSpace Volume。它是管理的基本单位。当一个NN/NS被删除后，其所有DN上对应的Block Pool也会被删除。当集群升级时，每个NameSpace Volume作为一个基本单元进行升级。</li>
+</ul>
+<p><strong>ClusterID</strong></p>
+<ul>
+<li>增加一个新的ClusterID来标识在集群中所有的节点。当一个Namenode</li>
+<li>被格式化的时候，这个标识被指定或自动生成，这个ID会用于格式化集群中的其它Namenode。</li>
+</ul>
+<h4 id="ViewFS"><a href="#ViewFS" class="headerlink" title="ViewFS"></a>ViewFS</h4><p><img src="/posts/bigdata/hdfs-summary/viewfs.png" alt></p>
+<p>如上图所示，下面四个深色三角形代表一个独立的命名空间，上方浅色的三角形代表从客户角度去访问的子命名空间。各个深色的命名空间Mount到浅色的表中，客户可以访问不同的挂载点来访问不同的命名空间，这就如同在Linux系统中访问不同挂载点一样。这就是HDFS Federation中命名空间管理的基本原理：将各个命名空间挂载到全局mount-table中，就可以做将数据到全局共享；同样的命名空间挂载到个人的mount-table中，这就成为应用程序可见的命名空间视图。</p>
+<p>当使用Federation机制搭建HDFS集群时，我们需要修改<code>fs.defaultFS</code>为<code>viewfs</code>，并指定<code>ClusterID</code>，如下：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>viewfs://clusterX<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -571,12 +718,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
-                                    <span class="chip bg-color">大数据</span>
-                                </a>
-                            
                                 <a href="/tags/HDFS/">
                                     <span class="chip bg-color">HDFS</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                    <span class="chip bg-color">大数据</span>
                                 </a>
                             
                         </div>
@@ -1074,7 +1221,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">61.5k</span>&nbsp;字
+                class="white-color">72.8k</span>&nbsp;字
             
             
             
