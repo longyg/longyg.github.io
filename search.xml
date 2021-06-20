@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>大数据/kafka</title>
+      <link href="/posts/undefined/da-shu-ju/kafka.html"/>
+      <url>/posts/undefined/da-shu-ju/kafka.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="集群性能测试"><a href="#集群性能测试" class="headerlink" title="集群性能测试"></a>集群性能测试</h3><h4 id="Producer测试"><a href="#Producer测试" class="headerlink" title="Producer测试"></a>Producer测试</h4><pre class=" language-shell"><code class="language-shell">kafka-producer-perf-test.sh --topic test --record-size 100 --num-records 100000 --throughput -1 --producer-props bootstrap.servers=bigdata01:9092,bigdata02:9092,bigdata03:9092</code></pre><p>输出：</p><pre class=" language-shell"><code class="language-shell">100000 records sent, 51572.975761 records/sec (4.92 MB/sec), 633.28 ms avg latency, 811.00 ms max latency, 678 ms 50th, 789 ms 95th, 806 ms 99th, 811 ms 99.9th.</code></pre><h4 id="Consumer测试"><a href="#Consumer测试" class="headerlink" title="Consumer测试"></a>Consumer测试</h4><pre class=" language-shell"><code class="language-shell">kafka-consumer-perf-test.sh --broker-list bigdata01:9092,bigdata02:9092,bigdata03:9092 --topic test --fetch-size 10000 --messages 10000000 --threads 1</code></pre><p>输出：</p><pre class=" language-shell"><code class="language-shell">start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec2020-09-05 02:44:07:468, 2020-09-05 02:44:19:496, 9.5367, 0.7929, 100000, 8313.9342, 1599273847882, -1599273835854, -0.0000, -0.0001</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HBase知识点总结</title>
       <link href="/posts/bigdata/hbase-summary.html"/>
       <url>/posts/bigdata/hbase-summary.html</url>

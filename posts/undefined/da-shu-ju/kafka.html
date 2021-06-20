@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="二分查找算法">
+    <meta name="keywords" content="大数据/kafka, 技术博客,程序人生,java,python,javascript,编程,机器学习,深度学习,前端开发,大数据">
     <meta name="description" content="龙居雅阁是一个分享技术与经验的个人博客,分享程序人生,关注Java后端,Python,Go,JavaScript,机器学习,大数据等各种技术">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>数据结构与算法之：二分查找 | 龙居雅阁</title>
+    <title>大数据/kafka | 龙居雅阁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -309,12 +309,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数据结构与算法之：二分查找</h1>
+                    <h1 class="description center-align post-title">大数据/kafka</h1>
                 </div>
             </div>
         </div>
@@ -429,29 +429,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                <span class="chip bg-color">数据结构</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                算法
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -460,21 +443,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-17
+                    2020-09-05
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-17
+                    2020-09-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    492
+                    150
                 </div>
                 
 
@@ -496,67 +479,13 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="一、算法介绍"><a href="#一、算法介绍" class="headerlink" title="一、算法介绍"></a>一、算法介绍</h3><p><code>二分查找</code>算法是一种效率比较高的查找算法，也称为<code>折半查找</code>。所谓<code>查找算法</code>，就是从一系列数中（即数组）查找某个数字。然而二分查找只适用于排序好的数组，对于乱序数组，要求先排好序才能使用二分查找。</p>
-<p><code>二分查找</code>就是每次取数组中间位置的数与要查找的数比较，如果比要查找的数小，就排除左边一半数组，只在右边剩下一半数组中继续查找。相反，如果数组中间的数比要查找的数大，就排除右边一半数组，接下来继续从左边剩下一半数组中查找。如此，每比较一次就缩小一半查找范围。</p>
-<p>如下图所示，假如要查找数字8，查找过程为：</p>
-<p><img src="/posts/algorithm/binary-search/mechanism.jpeg" alt></p>
-<h3 id="二、-Java实现"><a href="#二、-Java实现" class="headerlink" title="二、 Java实现"></a>二、 Java实现</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> searching<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/**
- * 二分查找
- *
- * 从有序的数组中找到某个数
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BinarySearch</span> <span class="token punctuation">{</span>
-
-    <span class="token comment" spellcheck="true">/**
-     *
-     * @param array 已排序的数组
-     * @param v 要查找的数字
-     * @return 要查找的数字在数组中的位置， -1表示不存在
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">binarySearch</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">,</span> <span class="token keyword">int</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> low <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> high <span class="token operator">=</span> array<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>low <span class="token operator">&lt;=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> low <span class="token operator">+</span> <span class="token punctuation">(</span>high <span class="token operator">-</span> low<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 计算数组中间位置</span>
-            <span class="token keyword">int</span> current <span class="token operator">=</span> array<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 取出中间位置的数</span>
-            <span class="token comment" spellcheck="true">// 与数组中间的数比较</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">==</span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 如果相等，就直接返回中间位置</span>
-                <span class="token keyword">return</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">></span> v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 如果中间位置的数比要查找的数大， 就将数组最高位移动到当前数组的中间位置</span>
-                high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 相反，就将数组最低位移动到当前数组的中间位置</span>
-                low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token comment" spellcheck="true">// 如果无法找到，返回-1</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<h3 id="三、-Python实现"><a href="#三、-Python实现" class="headerlink" title="三、 Python实现"></a>三、 Python实现</h3><pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">binary_search</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> v<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    low <span class="token operator">=</span> <span class="token number">0</span>
-    high <span class="token operator">=</span> len<span class="token punctuation">(</span>array<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-    <span class="token keyword">while</span> low <span class="token operator">&lt;=</span> high<span class="token punctuation">:</span>
-        mid <span class="token operator">=</span> low <span class="token operator">+</span> <span class="token punctuation">(</span>high <span class="token operator">-</span> low<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-        current <span class="token operator">=</span> array<span class="token punctuation">[</span>mid<span class="token punctuation">]</span>
-        <span class="token keyword">if</span> current <span class="token operator">==</span> v<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> mid
-        <span class="token keyword">if</span> current <span class="token operator">></span> v<span class="token punctuation">:</span>
-            high <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    my_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>binary_search<span class="token punctuation">(</span>my_list<span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+                <h3 id="集群性能测试"><a href="#集群性能测试" class="headerlink" title="集群性能测试"></a>集群性能测试</h3><h4 id="Producer测试"><a href="#Producer测试" class="headerlink" title="Producer测试"></a>Producer测试</h4><pre class=" language-shell"><code class="language-shell">kafka-producer-perf-test.sh --topic test --record-size 100 --num-records 100000 --throughput -1 --producer-props bootstrap.servers=bigdata01:9092,bigdata02:9092,bigdata03:9092</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">100000 records sent, 51572.975761 records/sec (4.92 MB/sec), 633.28 ms avg latency, 811.00 ms max latency, 678 ms 50th, 789 ms 95th, 806 ms 99th, 811 ms 99.9th.</code></pre>
+<h4 id="Consumer测试"><a href="#Consumer测试" class="headerlink" title="Consumer测试"></a>Consumer测试</h4><pre class=" language-shell"><code class="language-shell">kafka-consumer-perf-test.sh --broker-list bigdata01:9092,bigdata02:9092,bigdata03:9092 --topic test --fetch-size 10000 --messages 10000000 --threads 1</code></pre>
+<p>输出：</p>
+<pre class=" language-shell"><code class="language-shell">start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2020-09-05 02:44:07:468, 2020-09-05 02:44:19:496, 9.5367, 0.7929, 100000, 8313.9342, 1599273847882, -1599273835854, -0.0000, -0.0001</code></pre>
 
             </div>
             <hr/>
@@ -582,7 +511,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yglong.com/posts/algorithm/binary-search.html">http://yglong.com/posts/algorithm/binary-search.html</a>
+                    <a href="http://yglong.com/posts/undefined/da-shu-ju/kafka.html">http://yglong.com/posts/undefined/da-shu-ju/kafka.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,15 +548,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                                    <span class="chip bg-color">数据结构</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -796,7 +717,7 @@
         repo: 'blog-comments',
         owner: 'longyg',
         admin: "longyg",
-        id: '2020-07-17T22-42-49',
+        id: '2020-09-05T10-45-25',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -820,53 +741,39 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/bigdata/hdfs-summary.html">
+                <a href="/posts/undefined/da-shu-ju/kafka.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="HDFS知识点总结">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="大数据/kafka">
                         
-                        <span class="card-title">HDFS知识点总结</span>
+                        <span class="card-title">大数据/kafka</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文详细介绍了HDFS
+                            集群性能测试Producer测试kafka-producer-perf-test.sh --topic test --record-size 100 --num-records 100000 --throughput -1 --produc
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-05
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                    大数据
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            yglong
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/HDFS/">
-                        <span class="chip bg-color">HDFS</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
-                        <span class="chip bg-color">大数据</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -877,24 +784,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/bigdata/install-zookeeper-cluster.html">
+                <a href="/posts/bigdata/hbase-summary.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="安装Zookeeper集群">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="HBase知识点总结">
                         
-                        <span class="card-title">安装Zookeeper集群</span>
+                        <span class="card-title">HBase知识点总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本文详细介绍了如何搭建Zookeeper集群
+                            本文详细介绍了HBase的知识点
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-28
                             </span>
                         <span class="publish-author">
                             
@@ -915,8 +822,8 @@
                         <span class="chip bg-color">大数据</span>
                     </a>
                     
-                    <a href="/tags/BigData/">
-                        <span class="chip bg-color">BigData</span>
+                    <a href="/tags/HBase/">
+                        <span class="chip bg-color">HBase</span>
                     </a>
                     
                 </div>
